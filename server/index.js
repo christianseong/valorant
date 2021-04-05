@@ -29,14 +29,14 @@ mongoose
 
   app.get("/", async (req,res) =>{
     try{
-        res.send("connect")
+        res.send("connect to root")
     }catch(err){
         console.log("error");
     }
 
 });
 
-
+//**************************** 게시판 작성및 가져오기 */
 app.post("/postboard", async (req, res) => {
 
     console.log(req.body);
@@ -62,6 +62,32 @@ app.post("/postboard", async (req, res) => {
         res.json(boards);
     })
   });
+
+
+
+  //############
+
+  app.get("/search/board", async (req,res,next) =>{
+    try{
+        
+        console.log(req.query.title);
+
+        const peers = await Board.find({
+          $or:[
+            {author: {$regex: req.query.title, $options: 'i'}},
+            {title: {$regex: req.query.title, $options: 'i'}},
+          ]
+        }).catch(next);
+          console.log(peers);
+          res.json(peers);
+          res.send(peers);
+    }catch(err){
+        console.log("error");
+    }
+
+});
+
+
 
   
   app.listen(port, () => {

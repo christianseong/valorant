@@ -1,6 +1,10 @@
 <template>
     <div class = "board container"> 
         <p class="board_title">자유게시판</p>
+
+
+        <input type="text" v-model="keyword" @keypress.enter = "search" /><a href="#" @click="search" class ="btnSearch btn">검색</a>
+
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -49,9 +53,11 @@ export default {
         return {
             result : null,
             pageNum : 0,
-            pageSize : 10,
+            pageSize : 3,
             listArray : [],
-            addIndex : 0
+            addIndex : 0,
+
+            keyword : ""
         }
     },
 
@@ -73,6 +79,23 @@ export default {
         addIndex = this.addIndex+ start;
 
         return addIndex+idx;
+    },
+
+    search(){
+        console.log(this.keyword);
+
+        this.$axios.get('http://localhost:4500/search/board',{
+            params:{
+                title : this.keyword
+            }
+        })
+        .then((res) => {
+           console.log(res.data)
+
+        })
+        .catch((err)=>{
+            console.error(err);
+        });
     }
     },
 
