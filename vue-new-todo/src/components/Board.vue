@@ -18,7 +18,7 @@
 
             <tbody>
                          <!-- <HomePopularA  v-for  = "(i,idx) in 10" :key = "idx" v-bind:result="this.result"></HomePopularA> !-->
-                <tr v-for = "(i,idx) in paginatedData" :key="idx">
+                <tr v-for = "(i,idx) in paginatedData" :key="idx" @click="clickParams(i.author,i.title,i.contents)">
                     <td>{{IndexCount(idx+1)}}</td>
                     <td>{{i.title}}</td>
                     <td>{{i.author}}</td>
@@ -102,6 +102,11 @@ export default {
         .catch((err)=>{
             console.error(err);
         });
+    },
+
+    clickParams(author,title,contents){
+        console.log(this.$router.push({name: "Params", params :{author : author, title: title, contents :contents}}));
+        console.log(this.$router)
     }
     },
 
@@ -139,19 +144,18 @@ export default {
     },
 
      created(){
-            this.$axios.get('http://localhost:4500/getboard',{
-            headers :{
-                    'Access-Control-Allow-Origin': '*',
-                    'Content-Type': 'application/json; charset = utf-8'
+            this.$axios.get('http://localhost:4500/search/board',{
+            params:{
+                title : this.keyword
             }
         })
         .then((res) => {
+           console.log(res.data)
+           //this.paginatedData = res.data;
+
             this.result = res.data;
 
             this.listArray = Object.values(this.result);
-            console.log(this.listArray);
-           
-
 
 
         })
@@ -186,9 +190,36 @@ export default {
         },100000)
       }
     },
-    */
     
-}
+   watch:{
+       keyword(){
+            setTimeout(()=>{
+        this.$axios.get('http://localhost:4500/search/board',{
+            params:{
+                title : this.keyword
+            }
+        })
+        .then((res) => {
+           console.log(res.data)
+           //this.paginatedData = res.data;
+
+            this.result = res.data;
+
+            this.listArray = Object.values(this.result);
+
+
+        })
+        .catch((err)=>{
+            console.error(err);
+        });
+        },100)
+      }
+       }
+       */
+       
+   }
+    
+
 </script>
 
 <style scoped> 

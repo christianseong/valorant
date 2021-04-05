@@ -87,6 +87,23 @@ app.post("/postboard", async (req, res) => {
 
 });
 
+///// detail object id 로 불러옴
+app.get("/board/detail", async (req,res,next) =>{
+  try{
+      
+     const peers = await Board.find({_id: req.query.id},
+    
+    
+      ).catch(next);
+        console.log(peers);
+        res.json(peers);
+        res.send(peers);
+  }catch(err){
+      console.log("error");
+  }
+
+});
+
 
 
   

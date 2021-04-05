@@ -45,7 +45,16 @@ const routes = [
         name : 'post',
         component: () => import('../components/Board-write.vue')  
     
-  }
+  },
+
+  {
+   
+    path : '/board/detail',
+    name : 'Params',
+    component: () => import('../components/BoardDetail.vue')  
+
+}
+
 ]
 
 const router = new VueRouter({
