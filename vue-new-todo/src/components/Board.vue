@@ -53,7 +53,7 @@ export default {
         return {
             result : null,
             pageNum : 0,
-            pageSize : 3,
+            pageSize : 10,
             listArray : [],
             addIndex : 0,
 
@@ -91,6 +91,12 @@ export default {
         })
         .then((res) => {
            console.log(res.data)
+           //this.paginatedData = res.data;
+
+            this.result = res.data;
+
+            this.listArray = Object.values(this.result);
+
 
         })
         .catch((err)=>{
@@ -116,8 +122,18 @@ export default {
          
             const start = this.pageNum * this.pageSize,
             end = start + this.pageSize;
-           
-        return this.listArray.slice(start, end);
+
+
+            const reverse = (list)=>{
+                console.log(start);
+                console.log(end);
+                return list.reverse();
+            }
+            
+            
+
+
+            return reverse(this.listArray).slice(start, end);
     },
 
     },
