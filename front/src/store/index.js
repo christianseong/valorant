@@ -1,6 +1,6 @@
-import axios from 'axios';
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
@@ -16,14 +16,14 @@ export default new Vuex.Store({
   actions: {
     GetBoard({commit})
     {
-      axios.get('http://localhost:3000/getboard',{
+        axios.get('http://localhost:3000/getboard',{
             headers :{
                     'Access-Control-Allow-Origin': '*',
                     'Content-Type': 'application/json; charset = utf-8'
             }
         })
         .then((res) => {
-           commit(this.getboard,res);
+           commit('getboard',res.data);
         })
         .catch((err)=>{
             console.error(err);

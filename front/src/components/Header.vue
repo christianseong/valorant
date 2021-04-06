@@ -21,24 +21,13 @@ data(){
 },
 methods:{
     clicked(){
-        this.$axios.get('http://localhost:3000/getboard',{
-            headers :{
-                    'Access-Control-Allow-Origin': '*',
-                    'Content-Type': 'application/json; charset = utf-8'
-            }
-        })
-        .then((res) => {
-           this.$store.commit('getboard',res.data);
-             console.log('commited');
-             console.log(this.$store.state.boards[0].title);
-        })
-        .catch((err)=>{
-            console.error(err);
-        });
-        
+        console.log(this.boards);
     }
 },
 computed:{
+    boards(){
+        return this.$store.state.boards;
+    }
 },
 }
 

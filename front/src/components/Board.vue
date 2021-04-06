@@ -8,6 +8,17 @@
 
 <script>
 export default {
+  date(){
+    return{
+
+    }
+  },
+  beforeCreate(){
+    console.log('게시판활성화');
+    this.$store.dispatch('GetBoard');
+  },
+  methods:{
+  }
 
 }
 </script>
