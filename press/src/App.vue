@@ -51,7 +51,7 @@ export default {
         }
     },
     isAdmin(){
-      if(window.location.href.includes('admin')) return true;
+      if(window.location.href.includes('admin')||window.location.href.includes('introduce')) return true;
       return false;
     }
   },
@@ -63,7 +63,7 @@ export default {
   },
   watch:{
     scrollTop(oldVal,newVal){
-      if(this.$vuetify.breakpoint.mdAndDown||window.location.href.includes('admin')) return;
+      if(this.$vuetify.breakpoint.mdAndDown||window.location.href.includes('admin')||window.location.href.includes('introduce')) return;
       var footer = document.getElementsByClassName('Footer')[0].getBoundingClientRect().top+window.pageYOffset-850;
       if(newVal<20){
           setTimeout(() => {

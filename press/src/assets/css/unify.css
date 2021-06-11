@@ -12,8 +12,9 @@ br::selection{
     background-color:transparent;
 }
 .titleText{
-    font-size:5rem;
+    font-size:3rem;
     font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 600;
 }
 .titleSubText{
     font-size:2rem;
@@ -31,7 +32,7 @@ br::selection{
 }
 @media (max-width:1000px){
     .titleText{
-        font-size:3.8rem;
+        font-size:2.4rem;
     }
     .titleSubText{
         font-size:1.5rem;
@@ -52,7 +53,7 @@ br::selection{
 }
 @media (max-width:680px){
     .titleText{
-        font-size:2.8rem;
+        font-size:2rem;
     }
     .titleSubText{
         font-size:1.5rem;
@@ -64,7 +65,7 @@ br::selection{
 @media (max-width:520px){
     
     .titleText{
-    font-size:2rem;
+    font-size:1.5rem;
     }
     .titleSubText{
         font-size:1.1rem;

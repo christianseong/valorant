@@ -40,7 +40,7 @@
               </v-card>
             </v-col>
             <v-col cols="12">
-                <v-card v-if="!this.$vuetify.breakpoint.mdAndDown" class="d-flex justify-center" height="55" width="100%" color="green darken-3">
+                <v-card v-if="!this.$vuetify.breakpoint.mdAndDown" class="d-flex justify-center" height="55" width="100%" color="#0C9045">
                     <div style="width:100%;" class="d-flex">
                         <v-menu open-on-hover offset-y>
                             <template v-slot:activator="{ on, attrs }">

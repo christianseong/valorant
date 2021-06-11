@@ -11,6 +11,28 @@ const routes = [
     component: () => import('../views/Main.vue')
   },
   {
+    path: '/introduce',
+    name: 'Introduce',
+    component: () => import('../views/Introduce.vue'),
+    children: [
+      {
+        path: '/',
+        name: 'Media',
+        component: () => import('../components/Introduce/Media.vue')
+      },
+      {
+        path: '/introduce/help',
+        name: '/introduce/Help',
+        component: () => import('../components/Introduce/Help.vue')
+      },
+      {
+        path: '/introduce/policy',
+        name: 'Policy',
+        component: () => import('../components/Introduce/Policy.vue')
+      },
+    ]
+  },
+  {
     path: '/articleList',
     name: 'Articlelist',
     component: () => import('../views/Articlelist.vue')
