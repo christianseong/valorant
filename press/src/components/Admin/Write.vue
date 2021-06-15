@@ -35,7 +35,7 @@ export default {
          var uploadOptions = {
                 enableDragAndDropFileToEditor: true,
                 uploader: {
-                    url: 'http://localhost:8002/api/storage/test',
+                    url: 'http://alldayfootball.co.kr/api/storage/test',
                     filesVariableName: function () {
                         return "files";
                     },
