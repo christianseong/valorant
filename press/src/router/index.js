@@ -165,7 +165,7 @@ const routes = [
               }
               else{
                 alert('권한이 없습니다.');
-                router.push('/admin/login');
+                router.push('/admin/article');
                 return;
               }
             }
@@ -194,7 +194,7 @@ const routes = [
               }
               else{
                 alert('권한이 없습니다.');
-                router.push('/admin/login');
+                router.push('/admin/article');
                 return;
               }
             }
@@ -223,7 +223,7 @@ const routes = [
               }
               else{
                 alert('권한이 없습니다.');
-                router.push('/admin/login');
+                router.push('/admin/article');
                 return;
               }
             }
