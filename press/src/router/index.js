@@ -158,9 +158,14 @@ const routes = [
               return;
             }
             else{
-              if(res.data.info.admin)
+              if(res.data.info.superAdmin)
               {
                 next();
+                return;
+              }
+              else{
+                alert('권한이 없습니다.');
+                router.push('/admin/login');
                 return;
               }
             }
@@ -182,9 +187,14 @@ const routes = [
               return;
             }
             else{
-              if(res.data.info.admin)
+              if(res.data.info.superAdmin)
               {
                 next();
+                return;
+              }
+              else{
+                alert('권한이 없습니다.');
+                router.push('/admin/login');
                 return;
               }
             }
@@ -206,9 +216,14 @@ const routes = [
               return;
             }
             else{
-              if(res.data.info.admin)
+              if(res.data.info.superAdmin)
               {
                 next();
+                return;
+              }
+              else{
+                alert('권한이 없습니다.');
+                router.push('/admin/login');
                 return;
               }
             }
