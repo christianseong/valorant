@@ -20,7 +20,7 @@
       </v-col>
       <v-col class="mb-5" cols="12">
         <p style="color:rgba(255,255,255,.8); text-align:center;" class="listSubText pa-2">경기도 고양시 덕양구 삼송로 222 현대헤리엇 335호 (주) 올그라운드</p>
-        <p style="color:rgba(255,255,255,.8); text-align:center;" class="listSubText pa-2"> Copyright © 2003 By allground.co.,ltd .All rights reserved.</p>
+        <p style="color:rgba(255,255,255,.8); text-align:center;" class="listSubText pa-2"> Copyright © 2021 By allground.co.,ltd .All rights reserved.</p>
       </v-col>
     </v-row>
   </div>

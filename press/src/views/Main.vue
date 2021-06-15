@@ -15,28 +15,36 @@
         </div>
       </v-col>
       <v-col cols="12" lg="4">
-        <div class="d-flex align-end pa-1" style="width:100%; height:250px;">
-          <v-card class="scopeCard" @click="goToView(boardResult[1].seq)" width="100%" height="100%">
-            <v-row class="d-flex align-end" style="position:absolute; z-index:2; width:100%; height:100%;" no-gutters>
-                <v-col class="mb-5 pa-5 pr-16" cols="12">
-                  <p class="mainSubTitleText pr-16">{{boardResult[1].title}}</p>
-                </v-col>
-            </v-row>
-            <v-img gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.33)" style="position:absolute;" :src="boardResult[1].thumb" width="100%" height="100%">
-            </v-img>
-          </v-card>
-        </div>
-        <div class="d-flex align-end pa-1" style=" width:100%; height:250px;">
-          <v-card class="scopeCard" @click="goToView(boardResult[2].seq)" width="100%" height="100%">
+        <v-row no-gutters>
+          <v-col cols="6" lg="12">
+          <div class="d-flex align-end pa-1" style="width:100%; height:250px;">
+            <v-card class="scopeCard" @click="goToView(boardResult[1].seq)" width="100%" height="100%">
               <v-row class="d-flex align-end" style="position:absolute; z-index:2; width:100%; height:100%;" no-gutters>
-                <v-col class="mb-5 pa-5 pr-16" cols="12">
-                  <p class="mainSubTitleText pr-16">{{boardResult[2].title}}</p>
-                </v-col>
+                  <v-col class="mb-5" cols="12">
+                    <p class="mainSubTitleText px-5">{{boardResult[1].title}}</p>
+                  </v-col>
               </v-row>
-            <v-img gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.33)" style="position:absolute;" :src="boardResult[2].thumb" width="100%" height="100%">
-            </v-img>
-          </v-card>
-        </div>
+              <v-img gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.33)" style="position:absolute;" :src="boardResult[1].thumb" width="100%" height="100%">
+              </v-img>
+            </v-card>
+          </div>
+          </v-col>
+          <v-col cols="6" lg="12">
+            <div class="d-flex align-end pa-1" style=" width:100%; height:250px;">
+            <v-card class="scopeCard" @click="goToView(boardResult[2].seq)" width="100%" height="100%">
+                <v-row class="d-flex align-end" style="position:absolute; z-index:2; width:100%; height:100%;" no-gutters>
+                  <v-col class="mb-5" cols="12">
+                    <p class="mainSubTitleText px-5">{{boardResult[2].title}}</p>
+                  </v-col>
+                </v-row>
+              <v-img gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.33)" style="position:absolute;" :src="boardResult[2].thumb" width="100%" height="100%">
+              </v-img>
+            </v-card>
+          </div>
+          </v-col>
+        </v-row>
+
+        
       </v-col>
     </v-row>
 

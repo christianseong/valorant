@@ -36,29 +36,27 @@ export default {
          var uploadOptions = {
                 enableDragAndDropFileToEditor: true,
                 uploader: {
-                    url: 'file/upload',
+                    url: 'http://alldayfootball.co.kr/api/storage/test',
+                    filesVariableName: function () {
+                        return "files";
+                    },
                     isSuccess: function (resp) {
                         return resp;
                     },
-                    process: function (resp) {                       
+                    process: function (resp) {
                         return {
-                            files: resp.data.files,
-                            path: resp.data.path,
-                            baseurl: resp.data.baseurl,
-                            error: resp.data.error,
-                            message: resp.data.message
+                            // files: resp.data.files,
+                            path: resp.path,
+                            // baseurl: resp.data.baseurl,
+                            // error: resp.data.error,
+                            // message: resp.message
                         }
                     },
                     defaultHandlerSuccess: function (data) {
-                        var i, field = 'files';                      
-                        if (data[field] && data[field].length) {
-                            for (i = 0; i < data[field].length; i += 1) {
-                                this.selection.insertImage(data.baseurl + data[field][i]);
-                            }
-                        }
+                        this.selection.insertImage(data.path);
                     },
                 }
-            }
+         }
         this.editor = new Jodit('#editor1',uploadOptions)
         this.editor.value = "";
         axios.get('http://alldayfootball.co.kr/api/auth/check')

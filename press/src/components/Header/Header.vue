@@ -35,7 +35,7 @@
                         <template v-slot:activator="{ on, attrs }">
                             <a v-bind="attrs" v-on="on" href="https://smartstore.naver.com/alldaycorporation" target="_blank"><v-img class="ma-3" height="20px" width="20px" contain src="@/assets/sns/shop.png"></v-img></a>
                         </template>
-                        <span>축구용품 구입처</span>
+                        <span>스포츠 용품</span>
                     </v-tooltip>
               </v-card>
             </v-col>
@@ -48,9 +48,9 @@
                                     <p style="color:white;" class="listSubText">집중 취재 <v-icon small color="white">mdi-chevron-down</v-icon></p>
                                 </v-tab>
                             </template>
-                            <v-list :rounded="false" color="green darken-2">
+                            <v-list :rounded="false" color="#0C9045">
                                 <v-list-item v-for="(i, index) in subMenu" :key="index" class="d-flex pa-0">
-                                    <v-card :rounded="false" elevation="0" color="green darken-2" height="100%" width="100%" class="py-2" :to="i.to">
+                                    <v-card :rounded="false" elevation="0" color="#0C9045" height="100%" width="100%" class="py-2" :to="i.to">
                                         <p style="text-align:center; color:white;" class="listSubText">{{ i.title }}</p>
                                     </v-card>
                                 </v-list-item>
@@ -60,7 +60,7 @@
                         <p style="color:white;" class="listSubText">{{i.title}}</p>
                     </v-tab>
                     <v-tab style="text-decoration: none;" :ripple="false" @click="toShop" class="d-flex align-center pa-0 mx-auto">
-                        <p style="color:white;" class="listSubText">스포츠 용품점</p>
+                        <p style="color:white;" class="listSubText">스포츠 용품</p>
                     </v-tab>
                     </div>
                     <div class="d-flex align-center pt-1 px-3">

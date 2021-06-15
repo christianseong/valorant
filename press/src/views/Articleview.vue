@@ -12,19 +12,29 @@
             <p class="newsTitleText">{{title}}</p>
         </v-col>
         <v-col cols="auto my-3">
-            <p class="listTinyText"><v-icon small>mdi-account</v-icon>{{author}}</p>
+            <p class="listTinyText"><v-icon x-small>mdi-account</v-icon>{{author}}</p>
         </v-col>
-        <v-divider style="height:15px;" class="mx-5 my-3" vertical></v-divider>
+        <v-divider style="height:12px;" class="mx-5 my-auto" vertical></v-divider>
         <v-col cols="auto my-3">
-            <p class="listTinyText"><v-icon small>mdi-clock-time-three-outline</v-icon>{{regTime.slice(0,16).replace('T','｜')}}</p>
+            <p class="listTinyText"><v-icon x-small>mdi-clock-time-three-outline</v-icon>{{regTime.slice(0,16).replace('T','｜')}}</p>
         </v-col>
         <v-spacer></v-spacer>
         <v-col cols="auto">
             <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
-                    <v-btn @click="urlShare" v-bind="attrs" v-on="on"><v-icon>mdi-link-variant</v-icon></v-btn>
+                    <v-btn elevation="0" color="grey" outlined min-width="25" width="36" height="32" @click="urlShare" v-bind="attrs" v-on="on">
+                        <v-icon color="black" small>mdi-link-variant</v-icon>
+                        </v-btn>
                 </template>
                 <span>URL 공유하기</span>
+            </v-tooltip>
+            <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn elevation="0" color="grey" outlined min-width="25" width="36" height="32" @click="print" v-bind="attrs" v-on="on">
+                        <v-icon color="black" small>mdi-printer</v-icon>
+                        </v-btn>
+                </template>
+                <span>인쇄하기</span>
             </v-tooltip>
         </v-col>
     </v-row>
@@ -120,6 +130,16 @@ export default {
                 case 7 :location.href="/Articlelist?name=kresult"; break;
                 default : return 'title'
             }
+        },
+        print(){
+            window.onbeforeprint = () =>{
+                document.body.innerHTML = document.getElementById('htmlViewer').innerHTML;
+            }
+             window.onafterprint = function(){
+                location.reload();
+            };
+            window.print();
+            return false;
         },
     },
     computed:{
