@@ -214,7 +214,7 @@ export default {
         },
         maxLengthComment(n){
             if(this.cmtComment.length>n){
-                this.cmtComment = this.cmtPassword.slice(0, n);
+                this.cmtComment = this.cmtComment.slice(0, n);
             }
         },
         getComment(){
