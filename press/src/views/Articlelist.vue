@@ -90,7 +90,7 @@
                                 <v-col cols="8">
                                 <v-container class="max-width">
                                     <v-pagination
-                                    color="black"
+                                    color="#0C9045"
                                     v-model="page"
                                     class="my-4"
                                     :length="pLength"
@@ -104,7 +104,7 @@
             </v-row>
         </v-col>
         <v-col v-if="!this.$vuetify.breakpoint.mdAndDown" cols="3">
-            <v-row no-gutters style="height:88px;">
+            <v-row no-gutters style="height:78px;">
             </v-row>
             <v-divider style="width:90%; border-bottom:2px solid black;"></v-divider>
             <v-row  no-gutters>

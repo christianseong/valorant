@@ -1,4 +1,5 @@
 const Board = require('../../../models/board')
+const Comment = require('../../../models/comment')
 const jwt = require('jsonwebtoken')
 
 
@@ -273,5 +274,74 @@ exports.takeboardviews = (req,res) => {
             const r = {docs:s,totalDocs:length}
             res.send(r);
         });
+    }
+}
+
+exports.cmtwrite = (req,res) => {
+    const {parent,author,contents,password} = req.body;
+    Comment.create(parent,author,contents,password)
+    .then(()=>{
+        res.send('uploaded');
+    })
+}
+
+exports.cmtfind = (req,res) => {
+    const {parent, limit , page} = req.body;
+    Comment.paginate({parent:parent},{page:page,limit:limit,sort:{_id:-1}},(err , result)=>{
+        res.send(result);
+    });
+}
+
+exports.cmtdelete = (req ,res) => {
+    const { id , password } = req.body
+    const token = req.session.token;
+    if(!token) {
+        Comment.findOne({_id:id},function(err, comment){
+            if(err) return res.send(err);
+            console.log(comment);
+            if(password === comment.password){
+                Comment.deleteOne({_id:id})
+                .then(()=>{
+                    res.send('deleted');
+                })
+            }
+            else{
+                res.send('wrong_password')
+            }
+        })
+    }
+    else{
+        const p = new Promise(
+            (resolve, reject) => {
+                jwt.verify(token, req.app.get('jwt-secret'), (err, decoded) => {
+                    if(err) reject(err)
+                    resolve(decoded)
+                })
+            }
+        )
+
+        const onError = (error) => {
+            res.status(403).json({
+                success: false,
+                message: error.message
+            })
+        }
+
+        p.then((decoded)=>{
+            if(decoded.admin)
+            {
+                Comment.deleteOne({_id:id})
+                .then(()=>{
+                    res.send('deleted');
+                })
+            }
+            else res.send('not_admin')
+        }).catch(onError)
+
+        // const { id } = req.body
+        // Board.deleteOne({_id:id})
+        // .then(()=>{
+        //     res.send('deleted');
+        // })
     }
 }

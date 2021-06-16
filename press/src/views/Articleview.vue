@@ -44,7 +44,67 @@
             <div style="width:100%;">
                 <div id="htmlViewer" v-html="contents"></div>
             </div>
+                <v-col class="mt-16 mb-2" cols="12">
+                    <p class="listSubText my-5">전체 댓글 <span style="color:green;">{{cmtCount}}</span>개</p>
+                    <v-divider style="border:1px solid rgba(55, 155, 55, 0.3);"></v-divider>
+                </v-col>
+                <v-row v-for="(i,idx) in comments" :key="idx" class="my-2 pa-3" style="position:relative; border:1px solid rgba(0,0,0,.1); background-color:rgba(0,0,0,.05)" no-gutters>
+                    <v-col class="my-2" cols="12">
+                        <div style="position:absolute; width:100%;" class="d-flex justify-end px-3">
+                            <v-btn @click="cmtDelete(i._id)" icon class="mr-3"><v-icon>mdi-delete</v-icon></v-btn>
+                        </div>
+                        <p class="listSubText" style="color:black;"><v-icon small>mdi-account</v-icon>{{i.author}}</p>
+                    </v-col>
+                    <v-col cols="12">
+                        <p class="listSubText" style="color:black;">{{i.contents}}</p>
+                    </v-col>
+                    <v-col cols="12">
+                        <p class="listTinyText"><v-icon x-small>mdi-clock-time-eight-outline</v-icon>{{i.regTime.slice(0,16).replace('T','｜')}}</p>
+                    </v-col>
+                </v-row>
+                <v-col class="mt-5" cols="12">
+                    <v-row @keydown.enter="cmtWrite" style="border:1px solid rgba(0,0,0,.3);" no-gutters>
+                        <v-col style="border-right:1px solid rgba(55,55,55,.2);" cols="6">
+                            <v-text-field @keypress="maxLengthName(10)" @keydown="maxLengthName(10)" @keyup="maxLengthName(10)" :counter="10" :rules="[rules.required , rules.nameCounter]" solo v-model="cmtName" label="이름" hide-details></v-text-field>
+                        </v-col>
+                        <v-col style="border-left:1px solid rgba(55,55,55,.2);" cols="6">
+                            <v-text-field type="password" @keypress="maxLengthPassword(12)" @keydown="maxLengthPassword(12)" @keyup="maxLengthPassword(12)" :counter="12" :rules="[rules.required, rules.passwordCounter]" solo v-model="cmtPassword" label="비밀번호" hide-details></v-text-field>
+                        </v-col>
+                        <v-col style="border-top:1px solid rgba(55,55,55,.2);" cols="12">
+                            <v-text-field @keypress="maxLengthComment(30)" @keydown="maxLengthComment(30)" @keyup="maxLengthComment(30)" :counter="30" :rules="[rules.required, rules.commentCounter]" solo v-model="cmtComment" label="댓글" hide-details></v-text-field>
+                        </v-col>
+                    </v-row>
+                    <v-row no-gutters>
+                        <v-col class="mt-5 d-flex justify-end" cols="12">
+                            <v-btn @click="cmtWrite" dark color="#0C9045">등록</v-btn>
+                        </v-col>
+                    </v-row>
+                </v-col>
+                <v-col cols="12">
+                    <div class="text-center">
+                        <v-container>
+                        <v-row justify="center">
+                            <v-col cols="8">
+                            <v-container class="max-width">
+                                <v-pagination
+                                color="#0C9045"
+                                v-model="page"
+                                class="my-4"
+                                :length="pLength"
+                                ></v-pagination>
+                            </v-container>
+                            </v-col>
+                        </v-row>
+                        </v-container>
+                    </div>
+                </v-col>
+                <v-col class="mt-6" cols="12">
+                    <v-divider style="border:1px solid rgba(55, 155, 55, 0.3);"></v-divider>
+                </v-col>
         </v-col>
+
+
+
         <v-col v-if="!this.$vuetify.breakpoint.mdAndDown" cols="3" lg="3">
             <v-row no-gutters>
                 <v-col cols="12">
@@ -74,13 +134,102 @@ export default {
             author:null,
             bNum:null,
             contents:null,
+            parent:null,
             regTime:'',
-        }
+            comments:[{parent:-1,author:"",contents:"",password:"",regTime:""}],
+            cmtName:'',
+            cmtPassword:'',
+            cmtComment:'',
+            cmtCount:0,
+            page:1,
+            pLength:1,
+            rules: {
+                required: value => !!value || '입력이 필요합니다.',
+                nameCounter: value => value.length <= 10 || '이름은 10자 이하여야 합니다.',
+                passwordCounter: value => value.length <= 12 || '비밀번호는 12자 이하여야 합니다.',
+                commentCounter: value => value.length <= 30 || '댓글은 30자 이하여야 합니다.'
+            },
+      }
     },
     mounted(){
         this.getBoard();
+        this.getComment();
     },
     methods:{
+        cmtDelete(n){
+            var userInput = prompt("비밀번호를 입력해주세요.");
+            axios.post('http://alldayfootball.co.kr/api/board/cmtdelete',{
+            id:n,
+            password:userInput
+            })
+            .then((res)=>{
+                console.log(res.data);
+                if(res.data==="wrong_password"){
+                    alert('비밀번호가 틀립니다.');
+                    return;
+                }
+                if(res.data==="deleted"){
+                    alert('삭제되었습니다.');
+                    location.reload();
+                    return;
+                }
+            })
+        },
+        cmtWrite(){
+            if(this.cmtName === ''){
+                alert('이름을 입력해주세요.')
+                return;
+            }
+            if(this.cmtPassword === ''){
+                alert('비밀번호를 입력해주세요.')
+                return;
+            }
+            if(this.cmtComment === ''){
+                alert('댓글을 입력해주세요.')
+                return;
+            }
+            var n = parseInt(this.$route.query.num);
+            axios.post('http://alldayfootball.co.kr/api/board/cmtwrite',{
+                parent:n,
+                author:this.cmtName,
+                contents:this.cmtComment,
+                password:this.cmtPassword
+            })
+            .then((res)=>{
+              if(res.data==='uploaded'){
+                  alert('댓글이 등록되었습니다.');
+                  location.reload();
+              }  
+            })
+        },
+        maxLengthName(n){
+            if(this.cmtName.length>n){
+                this.cmtName = this.cmtName.slice(0, n);
+            }
+        },
+        maxLengthPassword(n){
+            if(this.cmtPassword.length>n){
+                this.cmtPassword = this.cmtPassword.slice(0, n);
+            }
+        },
+        maxLengthComment(n){
+            if(this.cmtComment.length>n){
+                this.cmtComment = this.cmtPassword.slice(0, n);
+            }
+        },
+        getComment(){
+            var n = parseInt(this.$route.query.num);
+            axios.post('http://alldayfootball.co.kr/api/board/cmtfind',{
+                parent:n,
+                limit:10,
+                page:this.page
+            })
+            .then((res)=>{
+                this.comments = res.data.docs;
+                this.cmtCount = res.data.totalDocs;
+                this.pLength = res.data.totalPages;
+            })
+        },
         getBoard(){
             var n = parseInt(this.$route.query.num);
             axios.post('http://alldayfootball.co.kr/api/board/findone',{
@@ -93,7 +242,6 @@ export default {
                 this.contents = res.data.contents;
                 this.regTime = res.data.regTime;
                 this.addViews();
-
             })
         },
         addViews(){
@@ -160,6 +308,10 @@ export default {
     watch:{
         $route(){
             this.getBoard();
+            this.getComment();
+        },
+        page(){
+            this.getComment();
         },
     },
 
@@ -170,5 +322,16 @@ export default {
 #htmlViewer *{
   max-width: 100% !important;
   height: auto !important;
+}
+.ArticleView .v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot {
+    box-shadow:none;
+}
+.ArticleView .v-pagination__navigation{
+    height: 25px !important;
+    width: 25px !important;
+}
+.ArticleView .v-pagination__item{
+    min-width: 25px !important;
+    height: 25px !important;
 }
 </style>
