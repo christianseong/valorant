@@ -1,30 +1,33 @@
 <template>
-<div class="Login">
-    <v-row v-if="!logged" class="mt-10 d-flex justify-center">
-        <v-col cols="6">
-            <v-text-field color="black" v-model="id" hide-details solo label="아이디"></v-text-field>
-        </v-col>
-    </v-row>
+<div style="height:100%;" class="Login mx-auto d-flex">
+    <div style="width:100%;" class="my-auto">
+        <v-row v-if="!logged" class="mt-10 d-flex justify-center">
+            <v-col cols="6">
+                <v-text-field @keydown.enter="clickLogin" color="black" v-model="id" hide-details solo label="아이디"></v-text-field>
+            </v-col>
+        </v-row>
 
-    <v-row class="d-flex justify-center">
-        <v-col v-if="!logged" cols="6">
-            <v-text-field  type="password" v-model="password" hide-details solo label="비밀번호"></v-text-field>
-        </v-col>
-    </v-row>
+        <v-row class="d-flex justify-center">
+            <v-col v-if="!logged" cols="6">
+                <v-text-field @keydown.enter="clickLogin" type="password" v-model="password" hide-details solo label="비밀번호"></v-text-field>
+            </v-col>
+        </v-row>
 
-    <v-row class="d-flex justify-center">
-        <v-col class="d-flex justify-center" v-if="!logged" align-self="center" cols="6">
-            <v-btn  @click="clickLogin">로그인</v-btn>
-        </v-col>
-        <v-col class="d-flex justify-center" v-if="logged" align-self="center" cols="6">
-            <v-btn  @click="clickLogout">로그아웃</v-btn>
-        </v-col>
-    </v-row>
+        <v-row class="d-flex justify-center">
+            <v-col class="d-flex justify-center" v-if="!logged" align-self="center" cols="6">
+                <v-btn  @click="clickLogin">로그인</v-btn>
+            </v-col>
+            <v-col class="d-flex justify-center" v-if="logged" align-self="center" cols="6">
+                <v-btn  @click="clickLogout">로그아웃</v-btn>
+            </v-col>
+        </v-row>
+    </div>
 </div>
 </template>
 
 <script>
 import axios from 'axios'
+axios.defaults.headers['Pragma'] = 'no-cache';
 export default {
     data(){
         return{

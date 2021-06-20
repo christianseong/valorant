@@ -104,7 +104,7 @@
             </v-row>
         </v-col>
         <v-col v-if="!this.$vuetify.breakpoint.mdAndDown" cols="3">
-            <v-row no-gutters style="height:78px;">
+            <v-row no-gutters style="height:88px;">
             </v-row>
             <v-divider style="width:90%; border-bottom:2px solid black;"></v-divider>
             <v-row  no-gutters>
@@ -123,6 +123,7 @@
 <script>
 import Timeline from '@/components/Timeline.vue'
 import axios from 'axios'
+axios.defaults.headers['Pragma'] = 'no-cache';
 export default {
     components:{
         Timeline

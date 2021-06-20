@@ -11,7 +11,7 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title>
-            <v-card @click="close" class="transparent d-flex justify-end"><v-icon x-large color="white">mdi-exit-to-app</v-icon></v-card>
+            <v-card class="transparent d-flex justify-end"><v-icon @click="close" color="white">mdi-exit-to-app</v-icon></v-card>
             <v-card height="100px" class="ma-0 pa-0" color="transparent" to="/"><v-img height="100%" contain src="@/assets/logo/logo.png"></v-img></v-card>
           </v-list-item-title>
         </v-list-item-content>
@@ -123,7 +123,9 @@ export default {
         return this.$store.commit('set_drawerBool',bool);
       },
     },
+
   },
+  
 
 }
 </script>

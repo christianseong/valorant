@@ -9,7 +9,7 @@
                 </v-tab>
                     <div><v-divider class="my-auto" style="height:20px;" vertical></v-divider></div>
                 <v-tab to="/introduce/help" class="mx-auto">
-                    <p style="color:black;" class="listSubText pa-5">고객센터</p>
+                    <p style="color:black;" class="listSubText pa-5">불편신고</p>
                 </v-tab>
                     <div><v-divider class="my-auto" style="height:20px;" vertical></v-divider></div>
                 <v-tab to="/introduce/policy" class="mx-auto">

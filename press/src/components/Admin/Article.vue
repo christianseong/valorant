@@ -1,5 +1,5 @@
 <template>
-<div class="Article">
+<div id="Article" class="Article">
     <v-row class="my-5">
         <v-col cols="12">
             <p class="titleSubText">기사관리</p>
@@ -8,62 +8,118 @@
     <v-row>
         <v-col cols="12">
             <v-combobox
+            color="green"
             v-model="select"
             :items="category"
             label="카테고리"
             solo
             multiple
             chips
-            ></v-combobox>
+            >
+                <template v-slot:item="{ item }">
+                    <v-chip
+                    color="green"
+                    dark
+                    label
+                    small
+                    >
+                    {{item}}
+                    </v-chip>
+                </template>
+
+                <template v-slot:selection="{item, attrs, select }">
+
+                    <v-chip
+                    v-bind="attrs"
+                    color="rgba(88,222,88,.5)"
+                    :input-value="select"
+                    label
+                    small
+                    >
+                        <p style="color:green;" class="listSubText">{{item}}</p>
+                    </v-chip>
+                </template>
+                
+            </v-combobox>
         </v-col>
     </v-row>
     <v-row>
         <v-col class="d-flex align-center" cols="12">
-        <v-text-field @keypress.enter="clickSearch" hide-details v-model="search" label="검색" solo-inverted></v-text-field>
-        <v-btn style="height:90%;" class="mx-3 px-2" @click="clickSearch" color="green darken-2" dark ><v-icon >mdi-magnify</v-icon></v-btn>
+        <v-text-field @keypress.enter="clickSearch" hide-details v-model="search" label="검색" solo></v-text-field>
+        <v-btn icon style="height:90%;" class="mx-3 px-2" @click="clickSearch" color="#0C9045" ><v-icon>mdi-magnify</v-icon></v-btn>
         </v-col>
     </v-row>
+
+    <div v-if="!this.$vuetify.breakpoint.mdAndDown">
     <v-row style="text-align:center;" class="mt-5" no-gutters>
-        <v-col class="black py-3" cols="1">
+        <v-col class="py-3" style="background-color:#0C9045;" cols="1">
             <p style="color:white; border-right:1px solid white;" class="listTitleText">No</p>
         </v-col>
-        <v-col class="black py-3" cols="1">
+        <v-col class="py-3" style="background-color:#0C9045;" cols="1">
             <p style="color:white; border-right:1px solid white;" class="listTitleText">cate</p>
         </v-col>
-        <v-col class="black py-3" cols="5">
+        <v-col class="py-3" style="background-color:#0C9045;" cols="5">
             <p style="color:white; border-right:1px solid white;" class="listTitleText">제목</p>
         </v-col>
-        <v-col class="black py-3" cols="2">
+        <v-col class="py-3" style="background-color:#0C9045;" cols="2">
             <p style="color:white; border-right:1px solid white;" class="listTitleText">작성자</p>
         </v-col>
-        <v-col class="black py-3" cols="1">
+        <v-col class="py-3" style="background-color:#0C9045;" cols="1">
             <p style="color:white; border-right:1px solid white;" class="listTitleText">조회수</p>
         </v-col>
-        <v-col class="black py-3" cols="2">
+        <v-col class="py-3" style="background-color:#0C9045;" cols="2">
             <p style="color:white;" class="listTitleText">날짜</p>
         </v-col>
     </v-row>
 
-    <v-row style="text-align:center;" no-gutters v-for="(i,index) in boardResult" :key="index">
-        <v-col class="grey lighten-2 py-2" cols="1">
-            <p style="overflow:hidden; border-right:1px solid black;" class="newsSubText">{{i.seq}}</p>
+    <v-row style="text-align:center;border-bottom:1px solid rgba(0,0,0,.2);" no-gutters v-for="(i,index) in boardResult" :key="index">
+        <v-col class="py-2" cols="1">
+            <p style="overflow:hidden; border-right:1px solid rgba(0,0,0,.2);;" class="newsSubText">{{i.seq}}</p>
         </v-col>
-        <v-col class="grey lighten-2 py-2" cols="1">
-            <p style="overflow:hidden; border-right:1px solid black;" class="newsSubText">{{i.bNum}}</p>
+        <v-col class="py-2" cols="1">
+            <p style="overflow:hidden; border-right:1px solid rgba(0,0,0,.2);;" class="newsSubText">{{category[i.bNum]}}</p>
         </v-col>
-        <v-col class="grey lighten-2 py-2" cols="5">
-            <p @click="clickTitle(i.seq)" style="overflow:hidden; border-right:1px solid black; cursor:pointer;" class="newsSubText">{{i.title}}</p>
+        <v-col class="py-2" cols="5">
+            <p @click="clickTitle(i.seq)" style="overflow:hidden; border-right:1px solid rgba(0,0,0,.2);; cursor:pointer;" class="newsSubText">{{i.title}}</p>
         </v-col>
-        <v-col class="grey lighten-2 py-2" cols="2">
-            <p style="border-right:1px solid black;" class="newsSubText">{{i.author}}</p>
+        <v-col class="py-2" cols="2">
+            <p style="border-right:1px solid rgba(0,0,0,.25);;" class="newsSubText">{{i.author}}</p>
         </v-col>
-        <v-col class="grey lighten-2 py-2" cols="1">
-            <p style="overflow:hidden; border-right:1px solid black;" class="newsSubText">{{i.views}}</p>
+        <v-col class="py-2" cols="1">
+            <p style="overflow:hidden; border-right:1px solid rgba(0,0,0,.2);;" class="newsSubText">{{i.views}}</p>
         </v-col>
-        <v-col class="grey lighten-2 py-2" cols="2">
+        <v-col class="py-2" cols="2">
             <p class="newsSubText">{{i.regTime.slice(0,10)}}</p>
         </v-col>
     </v-row>
+    </div>
+
+    <div v-if="this.$vuetify.breakpoint.mdAndDown">
+    <v-row style="text-align:center;" class="mt-5" no-gutters>
+        <v-col class="py-3" style="background-color:#0C9045;" cols="6">
+            <p style="color:white; border-right:1px solid white;" class="listTitleText">제목</p>
+        </v-col>
+        <v-col class="py-3" style="background-color:#0C9045;" cols="3">
+            <p style="color:white; border-right:1px solid white;" class="listTitleText">작성자</p>
+        </v-col>
+        <v-col class="py-3" style="background-color:#0C9045;" cols="3">
+            <p style="color:white;" class="listTitleText">날짜</p>
+        </v-col>
+    </v-row>
+
+    <v-row style="text-align:center;border-bottom:1px solid rgba(0,0,0,.2);" no-gutters v-for="(i,index) in boardResult" :key="index">
+        <v-col class="py-2" cols="6">
+            <p @click="clickTitle(i.seq)" style="overflow:hidden; border-right:1px solid rgba(0,0,0,.2);; cursor:pointer;" class="newsSubText">{{i.title}}</p>
+        </v-col>
+        <v-col class="py-2" cols="3">
+            <p style="border-right:1px solid rgba(0,0,0,.25);;" class="newsSubText">{{i.author}}</p>
+        </v-col>
+        <v-col class="py-2" cols="3">
+            <p class="newsSubText">{{i.regTime.slice(0,10)}}</p>
+        </v-col>
+    </v-row>
+    </div>
+
     <v-row>
         <v-col class="d-flex justify-end" cols="12">
             <v-btn to="/admin/write">글쓰기</v-btn>
@@ -94,6 +150,7 @@
 
 <script>
 import axios from 'axios'
+axios.defaults.headers['Pragma'] = 'no-cache';
 export default {
     data(){
         return{
@@ -109,11 +166,11 @@ export default {
                 'k3',
                 'k4',
                 'k5',
-                'interview',
-                'column',
-                'kresult',
+                '인터뷰',
+                '스포츠칼럼',
+                'K리그결과',
             ],
-            select:['k1','k2','k3','k4','k5','interview','column','kresult'],
+            select:['k1','k2','k3','k4','k5','인터뷰','스포츠칼럼','K리그결과'],
         }
     },
     created(){
@@ -130,9 +187,9 @@ export default {
                     case 'k3': sc[i] = 2; break;
                     case 'k4': sc[i] = 3; break;
                     case 'k5': sc[i] = 4; break;
-                    case 'interview': sc[i] = 5; break;
-                    case 'column': sc[i] = 6; break;
-                    case 'kresult': sc[i] = 7; break;
+                    case '인터뷰': sc[i] = 5; break;
+                    case '스포츠칼럼': sc[i] = 6; break;
+                    case 'K리그결과': sc[i] = 7; break;
                 }
             }
             return sc;
@@ -177,9 +234,6 @@ export default {
 </script>
 
 <style>
-.Write .v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot{
-    box-shadow: none;
-}
 .Article .v-pagination__navigation{
     height: 25px !important;
     width: 25px !important;
@@ -187,6 +241,9 @@ export default {
 .Article .v-pagination__item{
     min-width: 25px !important;
     height: 25px !important;
+}
+.v-application .primary--text{
+    color:green !important
 }
 </style>
 

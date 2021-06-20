@@ -202,9 +202,9 @@ const routes = [
         },
       },
       {
-        path : '/admin/etc',
-        name : 'Etc',
-        component: () => import('../components/Admin/Etc.vue'),
+        path : '/admin/configtext',
+        name : 'Configtext',
+        component: () => import('../components/Admin/ConfigText.vue'),
         beforeEnter: (to,from,next) => {
           axios.get('http://alldayfootball.co.kr/api/auth/check')
           .then((res)=>{

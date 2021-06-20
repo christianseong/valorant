@@ -2,7 +2,7 @@
 <div v-scroll="onScroll" class="screen">
   <v-app>
     <Header v-if="!isAdmin" />
-    <Drawer/>
+    <Drawer v-if="!isAdmin" />
     <v-main>
       <!-- <div style="height:100%;" class="d-flex mt-5">
         <div v-if="!this.$vuetify.breakpoint.mdAndDown && !isAdmin " class="mx-auto" style="width:10%; height:100%;">
@@ -40,7 +40,16 @@ export default {
   },
   computed:{
     ContentWidth(){  
-      if(window.location.href.includes('admin')) return '100%';
+      if(window.location.href.includes('admin')){
+          switch(this.$vuetify.breakpoint.name){
+            case 'xs' : return "95%";
+            case 'sm' : return "95%";
+            case 'md' : return "95%";
+            case 'lg' : return "70%";
+            case 'xl' : return "70%";
+            default : return "70%";
+        }
+      }
         switch(this.$vuetify.breakpoint.name){
             case 'xs' : return "95%";
             case 'sm' : return "95%";
@@ -90,6 +99,6 @@ export default {
   margin:0;
 }
 .screen{
-  padding-top:30px;
+  /* padding-top:30px; */
 }
 </style>

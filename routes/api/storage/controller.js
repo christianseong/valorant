@@ -47,14 +47,14 @@ exports.upload = (req, res) => {
             const local_file_path = '/test/test.png';
             (async () => {
             
-                let object_name = 'img/';
+                let object_name = 'profileimg/';
                 // create folder
                 await S3.putObject({
                     Bucket: bucket_name,
                     Key: object_name
                 }).promise();
             
-                object_name = 'img/sample-object.png';
+                object_name = 'profileimg/sample-object.png';
             
                 // upload file
                 await S3.putObject({

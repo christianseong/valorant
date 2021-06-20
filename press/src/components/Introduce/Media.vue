@@ -14,15 +14,17 @@
             <p class="titleText">매체소개</p>
         </v-col>
         <v-col class="d-flex justify-center my-15" cols="12">
-            <v-card elevation="0" class="transparent" width="300" height="94"><v-img width="100%" height="100%" contain src="@/assets/logo/logo.png"></v-img></v-card>
+            <div style="width:100%;" v-html="this.contents">
+
+            </div>
         </v-col>
-        <v-col class="d-flex justify-center" cols="12">
+        <!-- <v-col class="d-flex justify-center" cols="12">
             <p class="listText">2010년 2월 설립된 (주)인터풋볼은 No.1 축구 미디어로서 전문기자들이 국내외 축구 소식을 빠르고 심도 있게 전달하며 
             <br>대한민국 축구의 발전을 위한 역할을 다하고 있습니다.</p>
         </v-col>
         <v-col cols="12">
             <div style="height:600px; width:100%; background-color:red"></div>
-        </v-col>
+        </v-col> -->
     </v-row>
 
     <v-row class="mt-16" v-if="!tab">
@@ -47,7 +49,22 @@
 </template>
 
 <script>
+import axios from 'axios'
+axios.defaults.headers['Pragma'] = 'no-cache';
 export default {
+    mounted(){
+        axios.post('http://alldayfootball.co.kr/api/settingboard/findone',{
+                id:"60ce99f5b7062e4c6c092cb3"
+            })
+            .then((res)=>{
+                this.contents = res.data.contents;
+            })
+    },
+    data(){
+        return{
+            contents:"",
+        }
+    },
     methods:{
         goto(n){
             location.href=n;

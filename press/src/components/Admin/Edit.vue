@@ -1,18 +1,18 @@
 <template>
-<div class="Write">
+<div class="Edit">
     <v-row class="my-5">
         <v-col cols="12">
             <p class="titleSubText">글쓰기</p>
         </v-col>
     </v-row>
     <v-row class="mt-5" no-gutters>
-        <v-col cols="1">
+        <v-col cols="12" lg="1">
             <v-select
             :items="bNumItems" v-model="select"
             style="border:0.5px solid rgba(55,55,55,.2);" color="blue darken-4" 
             hide-details solo></v-select>
         </v-col>
-        <v-col style="border:1px solid rgba(55,55,55,.2);" cols="11">
+        <v-col style="border:1px solid rgba(55,55,55,.2);" cols="12" lg="11">
             <v-text-field solo v-model="title" label="제목" hide-details></v-text-field>
         </v-col>
         <v-col style="border-bottom:1px solid grey;" cols="12">
@@ -29,11 +29,13 @@
 
 <script>
 import axios from 'axios'
+axios.defaults.headers['Pragma'] = 'no-cache';
 import { Jodit } from 'jodit'
 import 'jodit/build/jodit.min.css'
 export default {
     mounted() {
          var uploadOptions = {
+             height:'70vh',
                 enableDragAndDropFileToEditor: true,
                 uploader: {
                     url: 'http://alldayfootball.co.kr/api/storage/test',

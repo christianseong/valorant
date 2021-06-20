@@ -28,11 +28,13 @@
 
 <script>
 import axios from 'axios'
+axios.defaults.headers['Pragma'] = 'no-cache';
 import { Jodit } from 'jodit'
 import 'jodit/build/jodit.min.css'
 export default {
     mounted() {
          var uploadOptions = {
+             height:'70vh',
                 enableDragAndDropFileToEditor: true,
                 uploader: {
                     url: 'http://alldayfootball.co.kr/api/storage/test',

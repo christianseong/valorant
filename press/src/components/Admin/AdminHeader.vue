@@ -1,16 +1,11 @@
 <template>
-    <div style="width:100%;" class="AdminHeader mx-auto">
-
-        <v-row no-gutters>
-            <v-col class="d-flex justify-center my-10" cols="12">
-                <v-card @click="home" elevation="0" class="transparent" width="300" height="94"><v-img contain src="@/assets/logo/logo.png"></v-img></v-card>
-            </v-col>
-            <v-col cols="12">
-                <v-tabs height="55" grow centered show-arrows background-color="#0C9045" color="#0C9045" hide-slider>
-                    <v-tab :to="i.to" class="d-flex" v-for="i in menuList" :key="i.to">
-                        <p style="color:white;">{{i.title}}</p>
-                    </v-tab>
-                </v-tabs>
+    <div style="background-color:rgba(0,0,0,.85); width:100vw; height:55px; position:absolute; left:0; top:0;" class="AdminHeader">
+        <v-row class="fill-height" no-gutters>
+            <v-col cols="12" class="d-flex align-center">
+                <v-app-bar-nav-icon v-if="this.$vuetify.breakpoint.mdAndDown" class="mx-2" color="white" @click="OpenAdminDrawer"></v-app-bar-nav-icon>
+                <v-card @click="toHome" class="d-flex align-center" height="50%" elevation="0" rounded="0" color="transparent">
+                    <v-img height="100%" contain src="@/assets/logo/smlogo.png"></v-img>
+                </v-card>
             </v-col>
         </v-row>
     </div>
@@ -20,25 +15,18 @@
 export default {
     data(){
         return{
-            menuList:[
-                {title:"기사관리",to:"/admin/article"},
-                {title:"광고관리",to:"/admin/ad"},
-                {title:"계정관리",to:"/admin/accout"},
-                {title:"환경설정",to:"/admin/etc"},
-            ],
         }
     },
     methods:{
-        home(){
-            location.href="/";
+        OpenAdminDrawer(){
+            this.$store.commit('set_adminDrawerBool',!this.$store.state.adminDrawerBool);
+        },
+        toHome(){
+            location.href='/';
         },
     },
 }
 </script>
 
 <style>
-.v-text-field.v-text-field--solo .v-input__control{
-    min-height:35px !important;
-    align-self: center;
-}
 </style>

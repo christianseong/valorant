@@ -44,7 +44,7 @@
             <div style="width:100%;">
                 <div id="htmlViewer" v-html="contents"></div>
             </div>
-                <v-col class="mt-16 mb-2" cols="12">
+                <!-- <v-col class="mt-16 mb-2" cols="12">
                     <p class="listSubText my-5">전체 댓글 <span style="color:green;">{{cmtCount}}</span>개</p>
                     <v-divider style="border:1px solid rgba(55, 155, 55, 0.3);"></v-divider>
                 </v-col>
@@ -100,7 +100,7 @@
                 </v-col>
                 <v-col class="mt-6" cols="12">
                     <v-divider style="border:1px solid rgba(55, 155, 55, 0.3);"></v-divider>
-                </v-col>
+                </v-col> -->
         </v-col>
 
 
@@ -121,6 +121,7 @@
 
 <script>
 import axios from 'axios'
+axios.defaults.headers['Pragma'] = 'no-cache';
 import Timeline from '@/components/Timeline.vue'
 import VueCookies from 'vue-cookies'
 export default {
@@ -136,100 +137,100 @@ export default {
             contents:null,
             parent:null,
             regTime:'',
-            comments:[{parent:-1,author:"",contents:"",password:"",regTime:""}],
-            cmtName:'',
-            cmtPassword:'',
-            cmtComment:'',
-            cmtCount:0,
-            page:1,
-            pLength:1,
-            rules: {
-                required: value => !!value || '입력이 필요합니다.',
-                nameCounter: value => value.length <= 10 || '이름은 10자 이하여야 합니다.',
-                passwordCounter: value => value.length <= 12 || '비밀번호는 12자 이하여야 합니다.',
-                commentCounter: value => value.length <= 30 || '댓글은 30자 이하여야 합니다.'
-            },
+            // comments:[{parent:-1,author:"",contents:"",password:"",regTime:""}],
+            // cmtName:'',
+            // cmtPassword:'',
+            // cmtComment:'',
+            // cmtCount:0,
+            // page:1,
+            // pLength:1,
+            // rules: {
+            //     required: value => !!value || '입력이 필요합니다.',
+            //     nameCounter: value => value.length <= 10 || '이름은 10자 이하여야 합니다.',
+            //     passwordCounter: value => value.length <= 12 || '비밀번호는 12자 이하여야 합니다.',
+            //     commentCounter: value => value.length <= 30 || '댓글은 30자 이하여야 합니다.'
+            // },
       }
     },
     mounted(){
         this.getBoard();
-        this.getComment();
+        // this.getComment();
     },
     methods:{
-        cmtDelete(n){
-            var userInput = prompt("비밀번호를 입력해주세요.");
-            axios.post('http://alldayfootball.co.kr/api/board/cmtdelete',{
-            id:n,
-            password:userInput
-            })
-            .then((res)=>{
-                console.log(res.data);
-                if(res.data==="wrong_password"){
-                    alert('비밀번호가 틀립니다.');
-                    return;
-                }
-                if(res.data==="deleted"){
-                    alert('삭제되었습니다.');
-                    location.reload();
-                    return;
-                }
-            })
-        },
-        cmtWrite(){
-            if(this.cmtName === ''){
-                alert('이름을 입력해주세요.')
-                return;
-            }
-            if(this.cmtPassword === ''){
-                alert('비밀번호를 입력해주세요.')
-                return;
-            }
-            if(this.cmtComment === ''){
-                alert('댓글을 입력해주세요.')
-                return;
-            }
-            var n = parseInt(this.$route.query.num);
-            axios.post('http://alldayfootball.co.kr/api/board/cmtwrite',{
-                parent:n,
-                author:this.cmtName,
-                contents:this.cmtComment,
-                password:this.cmtPassword
-            })
-            .then((res)=>{
-              if(res.data==='uploaded'){
-                  alert('댓글이 등록되었습니다.');
-                  location.reload();
-              }  
-            })
-        },
-        maxLengthName(n){
-            if(this.cmtName.length>n){
-                this.cmtName = this.cmtName.slice(0, n);
-            }
-        },
-        maxLengthPassword(n){
-            if(this.cmtPassword.length>n){
-                this.cmtPassword = this.cmtPassword.slice(0, n);
-            }
-        },
-        maxLengthComment(n){
-            if(this.cmtComment.length>n){
-                this.cmtComment = this.cmtComment.slice(0, n);
-            }
-        },
-        getComment(){
-            var n = parseInt(this.$route.query.num);
-            axios.post('http://alldayfootball.co.kr/api/board/cmtfind',{
-                parent:n,
-                limit:10,
-                page:this.page
-            })
-            .then((res)=>{
-                this.comments = res.data.docs;
-                this.cmtCount = res.data.totalDocs;
-                this.pLength = res.data.totalPages;
-            })
-        },
+        // cmtDelete(n){
+        //     var userInput = prompt("비밀번호를 입력해주세요.");
+        //     axios.post('http://alldayfootball.co.kr/api/board/cmtdelete',{
+        //     id:n,
+        //     password:userInput
+        //     })
+        //     .then((res)=>{
+        //         console.log(res.data);
+        //         if(res.data==="wrong_password"){
+        //             alert('비밀번호가 틀립니다.');
+        //             return;
+        //         }
+        //         if(res.data==="deleted"){
+        //             alert('삭제되었습니다.');
+        //             location.reload();
+        //             return;
+        //         }
+        //     })
+        // },
+        // cmtWrite(){
+        //     if(this.cmtName === ''){
+        //         alert('이름을 입력해주세요.')
+        //         return;
+        //     }
+        //     if(this.cmtPassword === ''){
+        //         alert('비밀번호를 입력해주세요.')
+        //         return;
+        //     }
+        //     if(this.cmtComment === ''){
+        //         alert('댓글을 입력해주세요.')
+        //         return;
+        //     }
+        //     var n = parseInt(this.$route.query.num);
+        //     axios.post('http://alldayfootball.co.kr/api/board/cmtwrite',{
+        //         parent:n,
+        //         author:this.cmtName,
+        //         contents:this.cmtComment,
+        //         password:this.cmtPassword
+        //     })
+        //     .then((res)=>{
+        //       if(res.data==='uploaded'){
+        //           alert('댓글이 등록되었습니다.');
+        //           location.reload();
+        //       }  
+        //     })
+        // },
+        // maxLengthName(n){
+        //     if(this.cmtName.length>n){
+        //         this.cmtName = this.cmtName.slice(0, n);
+        //     }
+        // },
+        // maxLengthPassword(n){
+        //     if(this.cmtPassword.length>n){
+        //         this.cmtPassword = this.cmtPassword.slice(0, n);
+        //     }
+        // },
+        // maxLengthComment(n){
+        //     if(this.cmtComment.length>n){
+        //         this.cmtComment = this.cmtComment.slice(0, n);
+        //     }
+        // },
+        // getComment(){
+        //     var n = parseInt(this.$route.query.num);
+        //     axios.post('http://alldayfootball.co.kr/api/board/cmtfind',{
+        //         parent:n,
+        //         limit:10,
+        //         page:this.page
+        //     })
+        //     .then((res)=>{
+        //         this.comments = res.data.docs;
+        //         this.cmtCount = res.data.totalDocs;
+        //         this.pLength = res.data.totalPages;
+        //     })
+        // },
         getBoard(){
             var n = parseInt(this.$route.query.num);
             axios.post('http://alldayfootball.co.kr/api/board/findone',{

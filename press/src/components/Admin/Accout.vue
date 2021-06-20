@@ -16,16 +16,16 @@
             <p style="text-align:center" class="listSubText">등급</p>
         </v-col>
     </v-row>
-    <v-row @click="openEdit(userList[idx])" v-for="(i,idx) in userList" :key="idx">
-        <v-col :class="{ 'grey darken-1': idx%2===0, 'grey darken-2' : idx%2>0 }" cols="4">
-            <p style="text-align:center; color:white;" class="listSubText">{{i.name}}</p>
+    <v-row style="border-bottom:1px solid rgba(0,0,0,.2);" @click="openEdit(userList[idx])" v-for="(i,idx) in userList" :key="idx">
+        <v-col style="border-right:1px solid rgba(0,0,0,.2);" cols="4">
+            <p style="text-align:center; color:black" class="listSubText">{{i.name}}</p>
         </v-col>
-        <v-col :class="{ 'grey darken-1': idx%2===0, 'grey darken-2' : idx%2>0 }" cols="4">
-            <p style="text-align:center; color:white;" class="listSubText">{{i.id}}</p>
+        <v-col style="border-right:1px solid rgba(0,0,0,.2);" cols="4">
+            <p style="text-align:center; color:black;" class="listSubText">{{i.id}}</p>
         </v-col>
-        <v-col :class="{ 'grey darken-1': idx%2===0, 'grey darken-2' : idx%2>0 }" cols="4">
-            <p v-if="i.superAdmin" style="text-align:center; color:white;" class="listSubText">최고관리자</p>
-            <p v-if="!i.superAdmin" style="text-align:center; color:white;" class="listSubText">일반관리자</p>
+        <v-col cols="4">
+            <p v-if="i.superAdmin" style="text-align:center; color:black;" class="listSubText">최고관리자</p>
+            <p v-if="!i.superAdmin" style="text-align:center; color:black;" class="listSubText">일반관리자</p>
         </v-col>
     </v-row>
     <v-row>
@@ -74,6 +74,14 @@
                     <v-radio label="최고 관리자" :value="0"></v-radio>
                     <v-radio label="일반 관리자" :value="1"></v-radio>
                 </v-radio-group>
+            </v-col>
+        </v-row>
+        <v-row class="d-flex justify-center">
+            <v-col class="d-flex align-center" lg="2">
+                <p class="listSubText" style="color:black;">사진업로드</p>
+            </v-col>
+            <v-col cols="12" lg="6">
+                  <v-file-input v-model="regFile" prepend-icon="mdi-camera" accept="image/png, image/jpeg, image/bmp" label="사진업로드"></v-file-input>
             </v-col>
         </v-row>
 
@@ -128,6 +136,14 @@
                 </v-radio-group>
             </v-col>
         </v-row>
+        <v-row class="d-flex justify-center">
+            <v-col class="d-flex align-center" lg="2">
+                <p class="listSubText" style="color:black;">사진업로드</p>
+            </v-col>
+            <v-col cols="12" lg="6">
+                  <v-file-input v-model="editFile" prepend-icon="mdi-camera" accept="image/png, image/jpeg, image/bmp" label="사진업로드"></v-file-input>
+            </v-col>
+        </v-row>
 
         <v-row v-if="!$vuetify.mdAndDown" class="d-flex justify-center">
             <v-col class="d-flex justify-space-around" cols="12" lg="12">
@@ -150,6 +166,7 @@
 
 <script>
 import axios from 'axios'
+axios.defaults.headers['Pragma'] = 'no-cache';
 export default {
     data(){
         return{
@@ -162,11 +179,13 @@ export default {
             regName:'',
             regPassword:'',
             regRadio:0,
+            regFile:"",
 
             editId:'',
             editName:'',
             editPassword:'',
             editRadio:0,
+            editFile:"",
         }
     },
     computed:{
@@ -183,15 +202,17 @@ export default {
     },
     mounted(){
         this.getUserList();
+        
     },
     methods:{
         getUserList(){
             axios.get('http://alldayfootball.co.kr/api/auth/find')
             .then((res)=>{
                 this.userList = res.data;
+                console.log(this.userList);
             })
         },
-        register(){
+        async register(){
             if(this.regId==='') {
                 alert('id를 입력하세요');
                 return;
@@ -204,50 +225,80 @@ export default {
                 alert('이름을 입력하세요');
                 return
             }
-            axios.post('http://alldayfootball.co.kr/api/auth/register',{
+            var photoURL = "";
+            if(this.regFile!="")
+            {
+                const formData = new FormData();
+                formData.append('image', this.regFile);
+                const res = await axios.post('http://alldayfootball.co.kr/api/storage/profileupload',formData,{
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                photoURL = res.data.slice(0);
+                console.log(photoURL);
+            }
+            await axios.post('http://alldayfootball.co.kr/api/auth/register',{
                 id:this.regId,
-                password:this.regPassword,
                 name:this.regName,
+                photo:photoURL,
+                password:this.regPassword,
                 superAdmin:this.regRadio===0
-            })
-            .then((res)=>{
-                // console.log(res.data);
-                if(res.data.message==='registered'){
-                    this.getUserList();
-                    alert('등록되었습니다.');
-                    this.regId='';
-                    this.regName='';
-                    this.regPassword='';
-                    this.regRadio=0;
-                    this.dialog=false;
-                    return;
-                }
-                if(res.data==='not_logged'){
-                    alert('권한이 없습니다.');
-                    return;
-                }
-                if(res.data==='id_exists'){
-                    alert('이미 등록된 ID입니다.');
-                    return;
-                }
-                if(res.data==='not_admin'){
-                    alert('권한이 없습니다.');
-                    return;
-                }
-            })
+                })
+                .then((res)=>{
+                    console.log(photoURL);
+                    if(res.data==='registered'){
+                        alert('등록되었습니다.');
+                        this.getUserList();
+                        this.regId='';
+                        this.regName='';
+                        this.regPassword='';
+                        this.regRadio=0;
+                        this.regFile="",
+                        this.dialog=false;
+                        return;
+                    }
+                    if(res.data==='not_logged'){
+                        alert('권한이 없습니다.');
+                        return;
+                    }
+                    if(res.data==='id_exists'){
+                        alert('이미 등록된 ID입니다.');
+                        return;
+                    }
+                    if(res.data==='not_admin'){
+                        alert('권한이 없습니다.');
+                        return;
+                    }
+                })
         },
         openEdit(data){
             this.editId = data.id;
             this.editName = data.name;
             this.editPassword = '';
+            this.editFile = '';
             this.editRadio = (data.superAdmin ? 0 : 1);
             this.dialog2=true;
         },
-        edit(){
-            axios.put('http://alldayfootball.co.kr/api/auth/edit',{
+        async edit(){
+            var photoURL = "";
+            if(this.editFile!="")
+            {
+                const formData = new FormData();
+                formData.append('image', this.editFile);
+                const res = await axios.post('http://alldayfootball.co.kr/api/storage/profileupload',formData,{
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                photoURL = res.data.slice(0);
+                console.log(photoURL);
+            }
+            await axios.put('http://alldayfootball.co.kr/api/auth/edit',{
                 id:this.editId,
-                password:this.editPassword,
                 name:this.editName,
+                photo:photoURL,
+                password:this.editPassword,
                 superAdmin:this.editRadio===0
             })
             .then((res)=>{
@@ -256,11 +307,12 @@ export default {
                     return;
                 }
                 if(res.data==='updated'){
-                    this.getUserList();
                     alert('수정되었습니다.');
+                    this.getUserList();
                     this.editId='';
                     this.editName='';
                     this.editPassword='';
+                    this.editFile = "";
                     this.editRadio=0;
                     this.dialog2=false;
                     return;
@@ -299,6 +351,7 @@ export default {
                 this.regName='';
                 this.regPassword='';
                 this.regRadio=0;
+                this.regFile='';
                 this.dialog = false;
                 return;
             }
@@ -308,6 +361,7 @@ export default {
             this.editName='';
             this.editPassword='';
             this.editRadio=0;
+            this.editFile='';
             this.dialog2 = false;
             return;
             }

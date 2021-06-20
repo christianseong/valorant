@@ -5,7 +5,7 @@ const config = require('../../../config')
 
 
 exports.register = (req, res) => {
-    const { id, name, password, superAdmin } = req.body
+    const { id, name, photo, password, superAdmin } = req.body
     let newUser = null
     const token = req.session.token;
     if(!token) {
@@ -34,7 +34,7 @@ exports.register = (req, res) => {
                 if(user) {
                     res.send("id_exists");
                 } else {
-                    return User.create(id, name, password, superAdmin)
+                    return User.create(id, name, photo, password, superAdmin)
                 }
             }
         
@@ -54,10 +54,7 @@ exports.register = (req, res) => {
             }
         
             const respond = () => {
-                res.json({
-                    message: 'registered',
-                    admin: true
-                })
+                res.send('registered');
             }
         
             const onError = (error) => {
@@ -103,6 +100,7 @@ exports.login = (req, res) => {
                             _id: user._id,
                             id: user.id,
                             name: user.name,
+                            photo: user.photo,
                             admin: user.admin,
                             superAdmin: user.superAdmin
                         }, 
@@ -235,7 +233,7 @@ exports.delete = (req ,res) => {
 }
 
 exports.edit = (req, res) => {
-    const {id , name , password, superAdmin} = req.body
+    const {id , name , photo, password, superAdmin} = req.body
     const token = req.session.token;
     if(!token) {
         return res.send('not_logged')
@@ -261,7 +259,7 @@ exports.edit = (req, res) => {
         {
             if(password==='')
             {
-                User.findOneAndUpdate({id:id,},{$set:{name:name,superAdmin:superAdmin}})
+                User.findOneAndUpdate({id:id,},{$set:{name:name,photo:photo,superAdmin:superAdmin}})
                 .then(()=>{
                     res.send('updated');
                 })
@@ -272,7 +270,7 @@ exports.edit = (req, res) => {
                 .update(password)
                 .digest('base64')
 
-                User.findOneAndUpdate({id:id,},{$set:{name:name,password:encrypted,superAdmin:superAdmin}})
+                User.findOneAndUpdate({id:id,},{$set:{name:name,photo:photo,password:encrypted,superAdmin:superAdmin}})
                 .then(()=>{
                     res.send('updated');
                 })
