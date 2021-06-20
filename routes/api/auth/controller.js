@@ -259,6 +259,14 @@ exports.edit = (req, res) => {
         {
             if(password==='')
             {
+                if(photo==='')
+                {
+                    User.findOneAndUpdate({id:id,},{$set:{name:name,superAdmin:superAdmin}})
+                    .then(()=>{
+                        res.send('updated');
+                    })
+                    return;
+                }
                 User.findOneAndUpdate({id:id,},{$set:{name:name,photo:photo,superAdmin:superAdmin}})
                 .then(()=>{
                     res.send('updated');
