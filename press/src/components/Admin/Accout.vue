@@ -149,7 +149,7 @@
             <v-col class="d-flex justify-space-around" cols="12" lg="12">
                 <v-btn @click="edit" color="green"><v-icon color="white">mdi-upload</v-icon><p class="subText" style="color:white;">등록하기</p></v-btn>
                 <v-btn @click="remove" color="pink"><v-icon color="white">mdi-trash-can-outline</v-icon><p class="subText" style="color:white;">삭제하기</p></v-btn>
-                <v-btn @click="closeDialog(1)" color="red"><v-icon color="white">mdi-close</v-icon><p class="subText" style="color:white;">글쓰기</p></v-btn>
+                <v-btn @click="closeDialog(1)" color="red"><v-icon color="white">mdi-close</v-icon><p class="subText" style="color:white;">취소</p></v-btn>
             </v-col>
         </v-row>
         <v-row v-if="$vuetify.mdAndDown" class="d-flex justify-center">

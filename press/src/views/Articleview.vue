@@ -45,7 +45,7 @@
                 <div id="htmlViewer" v-html="contents"></div>
             </div>
             <v-row no-gutters>
-                <v-col cols="12">
+                <v-col class="mt-10" cols="12">
                     <v-card shaped class="d-flex align-center pa-2">
                         <v-card outlined height="75" width="75" color="rgba(88,211,88,.2)" rounded="circle">
                             <v-img width="100%" height="100%" src="@/assets/logo/defalut.png"></v-img>

@@ -7,7 +7,7 @@
         <v-col cols="12">
     <v-expansion-panels v-model="panel" multiple focusable>
         <v-expansion-panel class="my-5">
-        <v-expansion-panel-header><p class="sliderSubText">Footer 수정</p></v-expansion-panel-header>
+        <v-expansion-panel-header><p class="mainSubText">Footer 수정</p></v-expansion-panel-header>
         <v-expansion-panel-content>
             <div class="Footer mt-10" style="width:100%; background-color:#0C9045;">
                 <v-row no-gutters>
