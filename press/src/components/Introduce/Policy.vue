@@ -2,10 +2,10 @@
 <div class="policy">
     <v-row class="mt-16">
         <v-col class="d-flex justify-center" cols="12">
-            <p class="titleText">약관 및 정책</p>
+            <p class="mainText">약관 및 정책</p>
         </v-col>
         <v-col class="d-flex justify-center my-16" cols="12">
-            <div style="width:100%;" v-html="this.contents">
+            <div style="width:100%; min-height:60vh;" v-html="this.contents">
 
             </div>
         </v-col>

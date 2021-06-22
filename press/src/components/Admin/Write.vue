@@ -2,7 +2,7 @@
 <div class="Write">
     <v-row class="my-5">
         <v-col cols="12">
-            <p class="titleSubText">글쓰기</p>
+            <p class="mainText">글쓰기</p>
         </v-col>
     </v-row>
     <v-row class="mt-5" no-gutters>
@@ -19,8 +19,8 @@
             <div id="editor"></div>
         </v-col>
         <v-col class="d-flex justify-center" cols="12">
-            <v-btn class="ma-3" @click="clickSubmit" width="100px" color="green">등록하기</v-btn>
-            <v-btn @click="cancle" class="ma-3"  width="100px" color="grey">취소</v-btn>
+            <v-btn class="ma-3" @click="clickSubmit" width="100px" color="green"><v-icon color="white">mdi-upload</v-icon>등록하기</v-btn>
+            <v-btn @click="cancle" class="ma-3"  width="100px" color="grey"><v-icon color="white">mdi-close</v-icon>취소</v-btn>
         </v-col>
     </v-row>
 </div>

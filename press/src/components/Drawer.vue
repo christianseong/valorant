@@ -27,22 +27,22 @@
                 <v-icon color="white">mdi-chevron-down</v-icon>
             </template>
             <template v-slot:activator>
-              <v-list-item-title style="color:white; text-align:center;" class="subText ma-0 ml-8">집중 취재</v-list-item-title>
+              <v-list-item-title style="color:white; text-align:center;" class="mainText ma-0 ml-8">집중 취재</v-list-item-title>
             </template>
             <v-list-item-content v-for="(i,idx) in subMenu" :key="idx">
-              <v-list-item-title @click="gotoList(i.to)" style="color:white; text-align:center;" class="subText">{{i.title}}</v-list-item-title>
+              <v-list-item-title @click="gotoList(i.to)" style="color:white; text-align:center;" class="mainText">{{i.title}}</v-list-item-title>
             </v-list-item-content>
           </v-list-group>
         </v-list-item>
         
         <v-list-item v-for="item in menuList" :key="item.title" link :to="item.to">
         <v-list-item-content>
-          <v-list-item-title style="color:white; text-align:center;" class="subText"><p>{{ item.title }}</p></v-list-item-title>
+          <v-list-item-title style="color:white; text-align:center;" class="mainText"><p>{{ item.title }}</p></v-list-item-title>
         </v-list-item-content>
         </v-list-item>
         <v-list-item link>
         <v-list-item-content>
-          <v-list-item-title @click="toShop" style="color:white; text-align:center;" class="subText"><p>스포츠 용품 쇼핑물</p></v-list-item-title>
+          <v-list-item-title @click="toShop" style="color:white; text-align:center;" class="mainText"><p>스포츠 용품 쇼핑물</p></v-list-item-title>
         </v-list-item-content>
         </v-list-item>
         <v-list-item class="d-flex justify-center">
@@ -94,11 +94,11 @@ export default {
         {title:'K리그 경기결과', to:'/Articlelist?name=kresult'},
       ],
       subMenu:[
-        {title:'K1',to:"/Articlelist?name=k1"},
-        {title:'K2',to:"/Articlelist?name=k2"},
-        {title:'K3',to:"/Articlelist?name=k3"},
-        {title:'K4',to:"/Articlelist?name=k4"},
-        {title:'K5',to:"/Articlelist?name=k5"},
+        {title:'K1 리그',to:"/Articlelist?name=k1"},
+        {title:'K2 리그',to:"/Articlelist?name=k2"},
+        {title:'K3 리그',to:"/Articlelist?name=k3"},
+        {title:'K4 리그',to:"/Articlelist?name=k4"},
+        {title:'K5 리그',to:"/Articlelist?name=k5"},
       ],
       // drawerBood
     }

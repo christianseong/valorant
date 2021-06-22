@@ -4,175 +4,93 @@
 }
 .v-application p{
     margin-bottom:0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+p{
+    font-family: 'Noto Sans KR', sans-serif;
 }
 p::selection{
-    background-color:rgba(55,200,55,.5);
+    background-color:rgba(55,200,55,.2);
 }
 br::selection{
     background-color:transparent;
 }
-.titleText{
-    font-size:3rem;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 600;
-}
-.titleSubText{
-    font-size:2rem;
-    font-family: 'Noto Sans KR', sans-serif;
-}
-.subText{
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size:1.4rem;
-}
-
-@media (max-width:1270px){
-    .subText{
-        font-size:1.2rem;
-    }
-}
-@media (max-width:1000px){
-    .titleText{
-        font-size:2.4rem;
-    }
-    .titleSubText{
-        font-size:1.5rem;
-    }
-    .subText{
-        font-size:1.1rem;
-    }
-}
-
-@media (max-width:600px){
-    .viewContainer{
-        padding-top:35px;
-        padding-bottom:50px;
-        height:100%;
-        width: 100%;
-        
-    }
-}
-@media (max-width:680px){
-    .titleText{
-        font-size:2rem;
-    }
-    .titleSubText{
-        font-size:1.5rem;
-    }
-    .subText{
-        font-size:1.1rem;
-    }
-}
-@media (max-width:520px){
-    
-    .titleText{
-    font-size:1.5rem;
-    }
-    .titleSubText{
-        font-size:1.1rem;
-    }
-    .subText{
-        font-size:.8rem;
-    }
-}
 
 
-.mainTitleText{
-    font-family: 'Noto Sans KR', sans-serif;
+.headerText{
+    font-size:17px;
+    font-weight: 700;
+}
+.mainText{
     font-size:32px;
-    color:white;
+    font-weight: 900;
 }
-.mainSubTitleText{
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size:20px;
-    color:white;
-}
-.newsTitleText{
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size:1.2rem;
-}
-.newsTitleText:hover{
-    color:green;
+.mainSubText{
+    font-size:18px;
+    font-weight: 700;
 }
 
-.tinyTitleText{
-    font-family: 'Noto Sans KR', sans-serif;
+.sliderTitleText{
     font-size:16px;
 }
-.tinyTitleText:hover{
-    color:green;
-}
-
-.listSubText{
-    font-family: 'Noto Sans KR', 'sans-serif';
-    font-size:16px;
-    color:#737475;
-}
-.listSubText:hover{
-    color:green;
-}
-.listTinyText{
-    font-family: 'Noto Sans KR', sans-serif;
+.sliderSubText{
     font-size:12px;
-    color:#b7b7b7;
+    color:rgba(0,0,0,.5);
+}
+.topicText{
+    font-size:32px;
+    font-weight: 700;
+}
+.topicSubText{
+    font-size:16px;
+    font-weight: 700;
+    color:rgba(0,0,0,.5);
+}
+.articleTitleText{
+    font-size:18px;
+    font-weight: 500;
+}
+.articleTitleText2{
+    font-size:16px;
+    font-weight: 500;
+}
+.articleSubText{
+    font-size:14px;
+}
+.articleTinyText{
+    font-size:12px;
+    color:rgba(0,0,0,.5)
 }
 
-@media (max-width:1000px){
-    .mainTitleText{
-        font-size:30px;
-    }
-    .mainSubTitleText{
-        font-size:18px;
-    }
-    .newsTitleText{
-        font-size:1.2rem;
-    }
-    .listSubText{
-        font-size:13px;
-    }
-    .listTinyText{
-        font-size:11px;
-    }
-    .tinyTitleText{
-        font-size:15px;
-    }
-}
-@media (max-width:680px){
-    .mainTitleText{
-        font-size:27px;
-    }
-    .mainSubTitleText{
-        font-size:16px;
-    }
-    .newsTitleText{
-        font-size:1rem;
-    }
-    .listSubText{
-        font-size:13px;
-    }
-    .listTinyText{
-        font-size:11px;
-    }
-    .tinyTitleText{
+@media (max-width:1550px){
+    .headerText{
         font-size:14px;
     }
-}
-@media (max-width:520px){
-    .mainTitleText{
-        font-size:20px;
+    .mainText{
+        font-size:28px;
     }
-    .mainSubTitleText{
+    .mainSubText{
         font-size:14px;
     }
-    .newsTitleText{
-    font-size:1rem;
+    .sliderTitleText{
+        font-size:14px;
     }
-    .listSubText{
-        font-size:12px;
-    }
-    .listTinyText{
+    .sliderSubText{
         font-size:10px;
     }
-    .tinyTitleText{
-        font-size:13px;
+}
+@media (max-width:1350px){
+    .headerText{
+        font-size:12px;
+    }
+}
+@media (max-width:680px){
+    .mainText{
+        font-size:20px;
+    }
+}
+@media (max-width:520px){
+    .mainText{
+        font-size:18px;
     }
 }

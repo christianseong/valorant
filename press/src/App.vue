@@ -54,9 +54,9 @@ export default {
             case 'xs' : return "95%";
             case 'sm' : return "95%";
             case 'md' : return "95%";
-            case 'lg' : return "60%";
-            case 'xl' : return "60%";
-            default : return "60%";
+            case 'lg' : return "70%";
+            case 'xl' : return "70%";
+            default : return "70%";
         }
     },
     isAdmin(){

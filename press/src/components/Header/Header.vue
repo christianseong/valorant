@@ -45,22 +45,22 @@
                         <v-menu open-on-hover offset-y>
                             <template v-slot:activator="{ on, attrs }">
                                 <v-tab :ripple="false" style="text-decoration: none;" to="/Articlelist?name=k1" class="d-flex align-center justify-center pl-10" v-bind="attrs" v-on="on">
-                                    <p style="color:white;" class="listSubText">집중 취재 <v-icon small color="white">mdi-chevron-down</v-icon></p>
+                                    <p style="color:white;" class="headerText">집중 취재 <v-icon small color="white">mdi-chevron-down</v-icon></p>
                                 </v-tab>
                             </template>
                             <v-list :rounded="false" color="#0C9045">
                                 <v-list-item v-for="(i, index) in subMenu" :key="index" class="d-flex pa-0">
                                     <v-card :rounded="false" elevation="0" color="#0C9045" height="100%" width="100%" class="py-2" :to="i.to">
-                                        <p style="text-align:center; color:white;" class="listSubText">{{ i.title }}</p>
+                                        <p style="text-align:center; color:white;" class="headerText">{{ i.title }}</p>
                                     </v-card>
                                 </v-list-item>
                             </v-list>
                         </v-menu>
                     <v-tab style="text-decoration: none;" :ripple="false" :to="i.to" class="d-flex align-center pa-0 mx-auto" v-for="i in menuList" :key="i.title">
-                        <p style="color:white;" class="listSubText">{{i.title}}</p>
+                        <p style="color:white;" class="headerText">{{i.title}}</p>
                     </v-tab>
                     <v-tab style="text-decoration: none;" :ripple="false" @click="toShop" class="d-flex align-center pa-0 mx-auto">
-                        <p style="color:white;" class="listSubText">스포츠 용품</p>
+                        <p style="color:white;" class="headerText">스포츠 용품</p>
                     </v-tab>
                     </div>
                     <div class="d-flex align-center pt-1 px-3">
@@ -71,7 +71,7 @@
                         </v-text-field>
                     </div>
                 </v-card>
-                <v-card v-if="this.$vuetify.breakpoint.mdAndDown" class="d-flex justify-space-around" height="55" color="green">
+                <v-card v-if="this.$vuetify.breakpoint.mdAndDown" class="d-flex justify-space-around" height="55" color="#0C9045">
                     <v-app-bar-nav-icon class="my-auto ml-2" color="white" @click="OpenDrawer"></v-app-bar-nav-icon>
                     <v-spacer></v-spacer>
                     <div class="d-flex align-center pt-1">
@@ -98,11 +98,11 @@ export default {
                 {title:'K리그 경기결과', to:'/Articlelist?name=kresult'},
             ],
             subMenu:[
-                {title:'K1',to:"/Articlelist?name=k1"},
-                {title:'K2',to:"/Articlelist?name=k2"},
-                {title:'K3',to:"/Articlelist?name=k3"},
-                {title:'K4',to:"/Articlelist?name=k4"},
-                {title:'K5',to:"/Articlelist?name=k5"},
+                {title:'K1 리그',to:"/Articlelist?name=k1"},
+                {title:'K2 리그',to:"/Articlelist?name=k2"},
+                {title:'K3 리그',to:"/Articlelist?name=k3"},
+                {title:'K4 리그',to:"/Articlelist?name=k4"},
+                {title:'K5 리그',to:"/Articlelist?name=k5"},
             ]
         }
     },
@@ -112,9 +112,9 @@ export default {
                 case 'xs' : return "100%";
                 case 'sm' : return "100%";
                 case 'md' : return "100%";
-                case 'lg' : return "60%";
-                case 'xl' : return "60%";
-                default : return "60%";
+                case 'lg' : return "70%";
+                case 'xl' : return "70%";
+                default : return "70%";
             }
         },
     },

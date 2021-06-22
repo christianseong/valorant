@@ -2,7 +2,7 @@
 <div id="Article" class="Article">
     <v-row class="my-5">
         <v-col cols="12">
-            <p class="titleSubText">기사관리</p>
+            <p class="mainText">기사관리</p>
         </v-col>
     </v-row>
     <v-row>
@@ -36,7 +36,7 @@
                     label
                     small
                     >
-                        <p style="color:green;" class="listSubText">{{item}}</p>
+                        <p style="color:green;" class="headerText">{{item}}</p>
                     </v-chip>
                 </template>
                 
@@ -53,43 +53,43 @@
     <div v-if="!this.$vuetify.breakpoint.mdAndDown">
     <v-row style="text-align:center;" class="mt-5" no-gutters>
         <v-col class="py-3" style="background-color:#0C9045;" cols="1">
-            <p style="color:white; border-right:1px solid white;" class="listTitleText">No</p>
+            <p style="color:white; border-right:1px solid white;" class="sliderTitleText">No</p>
         </v-col>
         <v-col class="py-3" style="background-color:#0C9045;" cols="1">
-            <p style="color:white; border-right:1px solid white;" class="listTitleText">cate</p>
+            <p style="color:white; border-right:1px solid white;" class="sliderTitleText">분류</p>
         </v-col>
         <v-col class="py-3" style="background-color:#0C9045;" cols="5">
-            <p style="color:white; border-right:1px solid white;" class="listTitleText">제목</p>
+            <p style="color:white; border-right:1px solid white;" class="sliderTitleText">제목</p>
         </v-col>
         <v-col class="py-3" style="background-color:#0C9045;" cols="2">
-            <p style="color:white; border-right:1px solid white;" class="listTitleText">작성자</p>
+            <p style="color:white; border-right:1px solid white;" class="sliderTitleText">작성자</p>
         </v-col>
         <v-col class="py-3" style="background-color:#0C9045;" cols="1">
-            <p style="color:white; border-right:1px solid white;" class="listTitleText">조회수</p>
+            <p style="color:white; border-right:1px solid white;" class="sliderTitleText">조회수</p>
         </v-col>
         <v-col class="py-3" style="background-color:#0C9045;" cols="2">
-            <p style="color:white;" class="listTitleText">날짜</p>
+            <p style="color:white;" class="sliderTitleText">날짜</p>
         </v-col>
     </v-row>
 
     <v-row style="text-align:center;border-bottom:1px solid rgba(0,0,0,.2);" no-gutters v-for="(i,index) in boardResult" :key="index">
         <v-col class="py-2" cols="1">
-            <p style="overflow:hidden; border-right:1px solid rgba(0,0,0,.2);;" class="newsSubText">{{i.seq}}</p>
+            <p style="overflow:hidden; border-right:1px solid rgba(0,0,0,.2);;" class="sliderTitleText">{{i.seq}}</p>
         </v-col>
         <v-col class="py-2" cols="1">
-            <p style="overflow:hidden; border-right:1px solid rgba(0,0,0,.2);;" class="newsSubText">{{category[i.bNum]}}</p>
+            <p style="overflow:hidden; border-right:1px solid rgba(0,0,0,.2);;" class="sliderTitleText">{{category[i.bNum]}}</p>
         </v-col>
         <v-col class="py-2" cols="5">
             <p @click="clickTitle(i.seq)" style="overflow:hidden; border-right:1px solid rgba(0,0,0,.2);; cursor:pointer;" class="newsSubText">{{i.title}}</p>
         </v-col>
         <v-col class="py-2" cols="2">
-            <p style="border-right:1px solid rgba(0,0,0,.25);;" class="newsSubText">{{i.author}}</p>
+            <p style="border-right:1px solid rgba(0,0,0,.25);;" class="sliderTitleText">{{i.author}}</p>
         </v-col>
         <v-col class="py-2" cols="1">
-            <p style="overflow:hidden; border-right:1px solid rgba(0,0,0,.2);;" class="newsSubText">{{i.views}}</p>
+            <p style="overflow:hidden; border-right:1px solid rgba(0,0,0,.2);;" class="sliderTitleText">{{i.views}}</p>
         </v-col>
         <v-col class="py-2" cols="2">
-            <p class="newsSubText">{{i.regTime.slice(0,10)}}</p>
+            <p class="sliderTitleText">{{i.regTime.slice(0,10)}}</p>
         </v-col>
     </v-row>
     </div>
@@ -97,31 +97,31 @@
     <div v-if="this.$vuetify.breakpoint.mdAndDown">
     <v-row style="text-align:center;" class="mt-5" no-gutters>
         <v-col class="py-3" style="background-color:#0C9045;" cols="6">
-            <p style="color:white; border-right:1px solid white;" class="listTitleText">제목</p>
+            <p style="color:white; border-right:1px solid white;" class="sliderTitleText">제목</p>
         </v-col>
         <v-col class="py-3" style="background-color:#0C9045;" cols="3">
-            <p style="color:white; border-right:1px solid white;" class="listTitleText">작성자</p>
+            <p style="color:white; border-right:1px solid white;" class="sliderTitleText">작성자</p>
         </v-col>
         <v-col class="py-3" style="background-color:#0C9045;" cols="3">
-            <p style="color:white;" class="listTitleText">날짜</p>
+            <p style="color:white;" class="sliderTitleText">날짜</p>
         </v-col>
     </v-row>
 
     <v-row style="text-align:center;border-bottom:1px solid rgba(0,0,0,.2);" no-gutters v-for="(i,index) in boardResult" :key="index">
         <v-col class="py-2" cols="6">
-            <p @click="clickTitle(i.seq)" style="overflow:hidden; border-right:1px solid rgba(0,0,0,.2);; cursor:pointer;" class="newsSubText">{{i.title}}</p>
+            <p @click="clickTitle(i.seq)" style="overflow:hidden; border-right:1px solid rgba(0,0,0,.2);; cursor:pointer;" class="sliderTitleText">{{i.title}}</p>
         </v-col>
         <v-col class="py-2" cols="3">
-            <p style="border-right:1px solid rgba(0,0,0,.25);;" class="newsSubText">{{i.author}}</p>
+            <p style="border-right:1px solid rgba(0,0,0,.25);;" class="sliderTitleText">{{i.author}}</p>
         </v-col>
         <v-col class="py-2" cols="3">
-            <p class="newsSubText">{{i.regTime.slice(0,10)}}</p>
+            <p class="sliderTitleText">{{i.regTime.slice(0,10)}}</p>
         </v-col>
     </v-row>
     </div>
 
     <v-row>
-        <v-col class="d-flex justify-end" cols="12">
+        <v-col class="d-flex justify-end mt-6 mr-3" cols="12">
             <v-btn to="/admin/write">글쓰기</v-btn>
         </v-col>
     </v-row>
@@ -135,7 +135,7 @@
                         <v-pagination
                         v-model="page"
                         class="my-4"
-                        color="black"
+                        color="#0C9045"
                         :length="pLength"
                         ></v-pagination>
                     </v-container>

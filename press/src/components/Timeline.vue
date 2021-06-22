@@ -1,18 +1,16 @@
 <template>
 <div>
-  <v-divider></v-divider>
   <v-timeline dense>
     <v-timeline-item v-for="(i, idx) in boardResult" :key="idx" color="white" small>
         <template v-slot:icon>
           <v-icon dark></v-icon>
         </template>
-
-      <div class="py-4">
+      <div class="py-2" style="width:80%;">
         <v-card rounded="0" class="pa-2" color="#0C9045">
-            <p style="color:white;" class="listTinyText">{{i.regTime.slice(0,16).replace('T','｜')}}</p>
+            <p style="color:white;" class="articleTinyText">{{i.regTime.slice(0,16).replace('T','｜')}}</p>
         </v-card>
-        <v-card rounded="0" class="pa-2" @click="goToView(i.seq)">
-          <p style="color:black;" class="listTinyText">{{i.title}}</p>
+        <v-card rounded="0" class="pa-3" @click="goToView(i.seq)">
+          <p style="color:black;" class="articleTinyText">{{i.title}}</p>
         </v-card>
       </div>
     </v-timeline-item>

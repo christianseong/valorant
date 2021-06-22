@@ -1,22 +1,22 @@
 <template>
 <div class="ArticleView mx-auto">
     <v-row no-gutters>
-        <v-col class="d-flex my-5" cols="12">
-            <p style="cursor:pointer;" class="listSubText" @click="toHome"><v-icon small>mdi-home</v-icon>Home</p>
+        <v-col class="d-flex mt-10 mb-5" cols="12">
+            <p style="cursor:pointer;" class="articleTinyText" @click="toHome">Home</p>
             <v-icon small class="mx-3">mdi-chevron-right</v-icon>
-            <p style="cursor:pointer; font-weight:900;" class="listSubText" @click="toCate">{{queryTitle}}</p>
+            <p style="cursor:pointer; font-weight:900; color:green;" class="articleTinyText" @click="toCate">{{queryTitle}}</p>
         </v-col>
     </v-row>
     <v-row no-gutters>
         <v-col class="my-3" cols="12">
-            <p class="newsTitleText">{{title}}</p>
+            <p class="articleTitleText">{{title}}</p>
         </v-col>
         <v-col cols="auto my-3">
-            <p class="listTinyText"><v-icon x-small>mdi-account</v-icon>{{author}}</p>
+            <p class="articleTinyText"><v-icon class="mx-2" x-small>mdi-account</v-icon>{{author}}</p>
         </v-col>
         <v-divider style="height:12px;" class="mx-5 my-auto" vertical></v-divider>
         <v-col cols="auto my-3">
-            <p class="listTinyText"><v-icon x-small>mdi-clock-time-three-outline</v-icon>{{regTime.slice(0,16).replace('T','｜')}}</p>
+            <p class="articleTinyText"><v-icon class="mx-2" x-small>mdi-clock-time-three-outline</v-icon>{{regTime.slice(0,16).replace('T','｜')}}</p>
         </v-col>
         <v-spacer></v-spacer>
         <v-col cols="auto">
@@ -44,6 +44,16 @@
             <div style="width:100%;">
                 <div id="htmlViewer" v-html="contents"></div>
             </div>
+            <v-row no-gutters>
+                <v-col cols="12">
+                    <v-card shaped class="d-flex align-center pa-2">
+                        <v-card outlined height="75" width="75" color="rgba(88,211,88,.2)" rounded="circle">
+                            <v-img width="100%" height="100%" src="@/assets/logo/defalut.png"></v-img>
+                        </v-card>
+                        <p class="mx-5 articleTitleText">홍길동 기자</p>
+                    </v-card>
+                </v-col>
+            </v-row>
                 <!-- <v-col class="mt-16 mb-2" cols="12">
                     <p class="listSubText my-5">전체 댓글 <span style="color:green;">{{cmtCount}}</span>개</p>
                     <v-divider style="border:1px solid rgba(55, 155, 55, 0.3);"></v-divider>
@@ -108,7 +118,7 @@
         <v-col v-if="!this.$vuetify.breakpoint.mdAndDown" cols="3" lg="3">
             <v-row no-gutters>
                 <v-col cols="12">
-                    <p class="newsTitleText ml-3">최신뉴스</p>
+                    <p class="topicText my-5 mx-5">최신뉴스</p>
                 </v-col>
                 <v-col cols="12">
                     <Timeline/>

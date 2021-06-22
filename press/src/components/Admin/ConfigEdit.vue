@@ -8,7 +8,7 @@
             <div id="editor2"></div>
         </v-col>
         <v-col class="d-flex justify-center" cols="12">
-            <v-btn class="ma-3" @click="clickSubmit" width="100px" color="green">수정하기</v-btn>
+            <v-btn class="ma-3" @click="clickSubmit" width="100px" color="green"><v-icon color="white">mdi-upload</v-icon>수정하기</v-btn>
         </v-col>
     </v-row>
 </div>

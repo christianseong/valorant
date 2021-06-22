@@ -2,10 +2,10 @@
 <div class="help">
     <v-row class="mt-16">
         <v-col class="d-flex justify-center" cols="12">
-            <p class="titleText">불편신고</p>
+            <p class="mainText">불편신고</p>
         </v-col>
         <v-col class="d-flex justify-center my-15" cols="12">
-            <div style="width:100%;" v-html="this.contents"></div>
+            <div style="width:100%; min-height:60vh;" v-html="this.contents"></div>
         </v-col>
         <!-- <v-col style="border-top:1px solid rgba(0,0,0,.1);" class="mx-auto" cols="10">
             <v-row>

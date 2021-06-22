@@ -2,30 +2,30 @@
 <div class="Accout">
     <v-row class="my-5">
         <v-col cols="12">
-            <p class="titleSubText">계정관리</p>
+            <p class="mainText">계정관리</p>
         </v-col>
     </v-row>
     <v-row>
         <v-col class="grey lighten-2" cols="4">
-            <p style="text-align:center" class="listSubText">이름</p>
+            <p style="text-align:center" class="sliderTitleText">이름</p>
         </v-col>
         <v-col class="grey lighten-2" cols="4">
-            <p style="text-align:center" class="listSubText">아이디</p>
+            <p style="text-align:center" class="sliderTitleText">아이디</p>
         </v-col>
         <v-col class="grey lighten-2" cols="4">
-            <p style="text-align:center" class="listSubText">등급</p>
+            <p style="text-align:center" class="sliderTitleText">등급</p>
         </v-col>
     </v-row>
     <v-row style="border-bottom:1px solid rgba(0,0,0,.2);" @click="openEdit(userList[idx])" v-for="(i,idx) in userList" :key="idx">
         <v-col style="border-right:1px solid rgba(0,0,0,.2);" cols="4">
-            <p style="text-align:center; color:black" class="listSubText">{{i.name}}</p>
+            <p style="text-align:center; color:black" class="sliderTitleText">{{i.name}}</p>
         </v-col>
         <v-col style="border-right:1px solid rgba(0,0,0,.2);" cols="4">
-            <p style="text-align:center; color:black;" class="listSubText">{{i.id}}</p>
+            <p style="text-align:center; color:black;" class="sliderTitleText">{{i.id}}</p>
         </v-col>
         <v-col cols="4">
-            <p v-if="i.superAdmin" style="text-align:center; color:black;" class="listSubText">최고관리자</p>
-            <p v-if="!i.superAdmin" style="text-align:center; color:black;" class="listSubText">일반관리자</p>
+            <p v-if="i.superAdmin" style="text-align:center; color:black;" class="sliderTitleText">최고관리자</p>
+            <p v-if="!i.superAdmin" style="text-align:center; color:black;" class="sliderTitleText">일반관리자</p>
         </v-col>
     </v-row>
     <v-row>
@@ -38,12 +38,12 @@
         <v-container class="white">
         <v-row>
             <v-col class="black" cols="12" lg="12">
-                <p class="listSubText" style="color:white;">관리자 등록</p>
+                <p class="sliderTitleText" style="color:white;">관리자 등록</p>
             </v-col>
         </v-row>
         <v-row class="d-flex justify-center">
             <v-col cols="12" lg="2">
-                <p class="listSubText" style="color:black;">ID</p>
+                <p class="sliderTitleText" style="color:black;">ID</p>
             </v-col>
             <v-col cols="12" lg="6">
                 <v-text-field v-model="regId" hide-details label="ID" solo></v-text-field>
@@ -51,7 +51,7 @@
         </v-row>
         <v-row class="d-flex justify-center">
             <v-col cols="12" lg="2">
-                <p class="listSubText" style="color:black;">비밀번호</p>
+                <p class="sliderTitleText" style="color:black;">비밀번호</p>
             </v-col>
             <v-col cols="12" lg="6">
                 <v-text-field v-model="regPassword" hide-details label="Password" solo></v-text-field>
@@ -59,7 +59,7 @@
         </v-row>
         <v-row class="d-flex justify-center">
             <v-col cols="12" lg="2">
-                <p class="listSubText" style="color:black;">이름</p>
+                <p class="sliderTitleText" style="color:black;">이름</p>
             </v-col>
             <v-col cols="12" lg="6">
                 <v-text-field v-model="regName" hide-details label="name" solo></v-text-field>
@@ -67,7 +67,7 @@
         </v-row>
         <v-row class="d-flex justify-center">
             <v-col class="d-flex align-center" cols="12" lg="2">
-                <p class="listSubText" style="color:black;">구분</p>
+                <p class="sliderTitleText" style="color:black;">구분</p>
             </v-col>
             <v-col cols="12" lg="6">
                 <v-radio-group row v-model="regRadio">
@@ -78,7 +78,7 @@
         </v-row>
         <v-row class="d-flex justify-center">
             <v-col class="d-flex align-center" lg="2">
-                <p class="listSubText" style="color:black;">사진업로드</p>
+                <p class="sliderTitleText" style="color:black;">사진업로드</p>
             </v-col>
             <v-col cols="12" lg="6">
                   <v-file-input v-model="regFile" prepend-icon="mdi-camera" accept="image/png, image/jpeg, image/bmp" label="사진업로드"></v-file-input>
@@ -87,8 +87,8 @@
 
         <v-row class="d-flex justify-center">
             <v-col class="d-flex justify-space-around" cols="12">
-                <v-btn @click="register" color="green">등록하기</v-btn>
-                <v-btn @click="closeDialog(0)" color="red">취소</v-btn>
+                <v-btn @click="register" color="green"><v-icon color="white">mdi-upload</v-icon>등록하기</v-btn>
+                <v-btn @click="closeDialog(0)" color="red"><v-icon color="white">mdi-close</v-icon>취소</v-btn>
             </v-col>
         </v-row>
         </v-container>
@@ -98,12 +98,12 @@
         <v-container class="white">
         <v-row>
             <v-col class="black" cols="12" lg="12">
-                <p class="listSubText" style="color:white;">관리자 정보 수정</p>
+                <p class="sliderTitleText" style="color:white;">관리자 정보 수정</p>
             </v-col>
         </v-row>
         <v-row class="d-flex justify-center">
             <v-col cols="12" lg="2">
-                <p class="listSubText" style="color:black;">ID</p>
+                <p class="sliderTitleText" style="color:black;">ID</p>
             </v-col>
             <v-col cols="12" lg="6">
                 <v-text-field v-model="editId" hide-details label="ID" disabled solo></v-text-field>
@@ -111,7 +111,7 @@
         </v-row>
         <v-row class="d-flex justify-center">
             <v-col cols="12" lg="2">
-                <p class="listSubText" style="color:black;">비밀번호</p>
+                <p class="sliderTitleText" style="color:black;">비밀번호</p>
             </v-col>
             <v-col cols="12" lg="6">
                 <v-text-field v-model="editPassword" hide-details label="Password" solo></v-text-field>
@@ -119,7 +119,7 @@
         </v-row>
         <v-row class="d-flex justify-center">
             <v-col cols="12" lg="2">
-                <p class="listSubText" style="color:black;">이름</p>
+                <p class="sliderTitleText" style="color:black;">이름</p>
             </v-col>
             <v-col cols="12" lg="6">
                 <v-text-field v-model="editName" hide-details label="name" solo></v-text-field>
@@ -127,7 +127,7 @@
         </v-row>
         <v-row class="d-flex justify-center">
             <v-col class="d-flex align-center" lg="2">
-                <p class="listSubText" style="color:black;">구분</p>
+                <p class="sliderTitleText" style="color:black;">구분</p>
             </v-col>
             <v-col cols="12" lg="6">
                 <v-radio-group row v-model="editRadio">
@@ -138,7 +138,7 @@
         </v-row>
         <v-row class="d-flex justify-center">
             <v-col class="d-flex align-center" lg="2">
-                <p class="listSubText" style="color:black;">사진업로드</p>
+                <p class="sliderTitleText" style="color:black;">사진업로드</p>
             </v-col>
             <v-col cols="12" lg="6">
                   <v-file-input v-model="editFile" prepend-icon="mdi-camera" accept="image/png, image/jpeg, image/bmp" label="사진업로드"></v-file-input>
@@ -147,16 +147,16 @@
 
         <v-row v-if="!$vuetify.mdAndDown" class="d-flex justify-center">
             <v-col class="d-flex justify-space-around" cols="12" lg="12">
-                <v-btn @click="edit" color="green">등록하기</v-btn>
-                <v-btn @click="remove" color="pink">삭제하기</v-btn>
-                <v-btn @click="closeDialog(1)" color="red">취소</v-btn>
+                <v-btn @click="edit" color="green"><v-icon color="white">mdi-upload</v-icon>등록하기</v-btn>
+                <v-btn @click="remove" color="pink"><v-icon color="white">mdi-trash-can-outline</v-icon>삭제하기</v-btn>
+                <v-btn @click="closeDialog(1)" color="red"><v-icon color="white">mdi-close</v-icon>취소</v-btn>
             </v-col>
         </v-row>
         <v-row v-if="$vuetify.mdAndDown" class="d-flex justify-center">
             <v-col class="d-flex justify-space-around" cols="12" lg="12">
-                <v-btn x-small @click="edit" color="green">등록</v-btn>
-                <v-btn x-small @click="remove" color="pink">삭제</v-btn>
-                <v-btn x-small @click="closeDialog(1)" color="red">취소</v-btn>
+                <v-btn x-small @click="edit" color="green"><v-icon color="white">mdi-upload</v-icon>등록</v-btn>
+                <v-btn x-small @click="remove" color="pink"><v-icon color="white">mdi-trash-can-outline</v-icon>삭제</v-btn>
+                <v-btn x-small @click="closeDialog(1)" color="red"><v-icon color="white">mdi-close</v-icon>취소</v-btn>
             </v-col>
         </v-row>
         </v-container>

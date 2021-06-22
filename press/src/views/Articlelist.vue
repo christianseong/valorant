@@ -4,22 +4,22 @@
         <v-col cols="12" lg="9">
             <v-row no-gutters>
                 <v-col class="my-5" cols="auto">
-                    <p class="titleSubText">{{queryTitle}} <span class="listSubText">({{this.bLength}}건)</span></p>
+                    <p class="topicText">{{queryTitle}} <span class="topicSubText">({{this.bLength}}건)</span></p>
                 </v-col>
                 <v-spacer></v-spacer>
                 <v-col class="d-flex align-center" cols="auto">
                     <v-btn-toggle v-model="toggle">
-                        <v-btn small>
-                            <v-icon small>mdi-image-text</v-icon>
-                            <p v-if="!$vuetify.breakpoint.mdAndDown">요약형</p>
+                        <v-btn class="py-4" small>
+                            <v-icon>mdi-image-text</v-icon>
+                            <p class="sliderTitleText" v-if="!$vuetify.breakpoint.mdAndDown">요약형</p>
                         </v-btn>
-                        <v-btn small>
-                            <v-icon small>mdi-format-align-justify</v-icon>
-                            <p v-if="!$vuetify.breakpoint.mdAndDown">제목형</p>
+                        <v-btn class="py-4" small>
+                            <v-icon>mdi-format-align-justify</v-icon>
+                            <p class="sliderTitleText" v-if="!$vuetify.breakpoint.mdAndDown">제목형</p>
                         </v-btn>
-                        <v-btn small>
-                            <v-icon small>mdi-image</v-icon>
-                            <p v-if="!$vuetify.breakpoint.mdAndDown">포토형</p>
+                        <v-btn class="py-4" small>
+                            <v-icon>mdi-image</v-icon>
+                            <p class="sliderTitleText" v-if="!$vuetify.breakpoint.mdAndDown">포토형</p>
                         </v-btn>
                     </v-btn-toggle>
                 </v-col>
@@ -35,17 +35,17 @@
                             <v-col cols="12" lg="8">
                                 <v-row no-gutters>
                                     <v-col class="py-3" cols="12">
-                                        <p @click="goToView(i.seq)" style="cursor:pointer" class="newsTitleText">{{i.title}}</p>
+                                        <p @click="goToView(i.seq)" style="cursor:pointer" class="articleTitleText">{{i.title}}</p>
                                     </v-col>
                                 </v-row>
                                 <v-row no-gutters>
                                     <v-col cols="12" class="my-3">
-                                        <p @click="goToView(i.seq)" style="cursor:pointer" class="listSubText">{{i.pretext}}</p>
+                                        <p @click="goToView(i.seq)" style="cursor:pointer" class="articleSubText">{{i.pretext}}</p>
                                     </v-col>
                                 </v-row>
                                 <v-row no-gutters>
                                     <v-col cols="12">
-                                        <p class="listTinyText">{{i.author}} ｜ {{i.regTime.slice(0,16).replace('T','｜')}}</p>
+                                        <p class="articleTinyText"><v-icon x-small>mdi-account</v-icon>{{i.author}} ｜ <v-icon x-small>mdi-clock-time-three-outline</v-icon>{{i.regTime.slice(0,16).replace('T','｜')}}</p>
                                     </v-col>
                                 </v-row>
                             </v-col>
@@ -55,9 +55,9 @@
 
             <v-row class="my-10" v-if="toggle===1" no-gutters>
                 <v-col class="my-1" v-for="(i,index) in boardResult" :key="index" cols="12">
-                    <p @click="goToView(i.seq)" style="cursor:pointer; white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" class="tinyTitleText">{{i.title}}
+                    <p @click="goToView(i.seq)" style="cursor:pointer; white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" class="articleTitleText">{{i.title}}
                         <br v-if="$vuetify.breakpoint.mdAndDown">
-                        <span class="listTinyText ml-5">{{i.author}} ｜ {{i.regTime.slice(0,16).replace('T','｜')}}</span>
+                        <span class="articleTinyText ml-5">{{i.author}} ｜ {{i.regTime.slice(0,16).replace('T','｜')}}</span>
                     </p>
                     <v-divider class="my-5" v-if="(index===5||index===10||index===15)"></v-divider>
                 </v-col>
@@ -65,18 +65,18 @@
 
             <v-row class="my-10" v-if="toggle===2" no-gutters>
                 <v-col v-for="(i,index) in boardResult" :key="index" cols="6" lg="3">
-                    <v-row no-gutters class="pa-3">
+                    <v-row no-gutters class="pa-5">
                         <v-col cols="12">
                             <v-card @click="goToView(i.seq)" width="100%" height="120"><v-img height="100%" width="100%" :src="i.thumb"></v-img></v-card>
                         </v-col>
                         <v-col class="my-2" cols="12">
-                            <p @click="goToView(i.seq)" style="cursor:pointer" class="tinyTitleText">{{i.title}}</p>
+                            <p @click="goToView(i.seq)" style="cursor:pointer" class="articleTitleText2">{{i.title}}</p>
                         </v-col>
                         <v-col cols="12">
-                            <p class="listTinyText">{{i.author}}</p>
+                            <p class="articleTinyText"><v-icon x-small>mdi-account</v-icon>{{i.author}}</p>
                         </v-col>
                         <v-col cols="12">
-                            <p class="listTinyText"> {{i.regTime.slice(0,16).replace('T','｜')}}</p>
+                            <p class="articleTinyText"> <v-icon x-small>mdi-clock-time-three-outline</v-icon>{{i.regTime.slice(0,16).replace('T','｜')}}</p>
                         </v-col>
                     </v-row>
                 </v-col>
@@ -109,7 +109,7 @@
             <v-divider style="width:90%; border-bottom:2px solid black;"></v-divider>
             <v-row  no-gutters>
                 <v-col cols="12">
-                    <p class="newsTitleText ml-3">최신뉴스</p>
+                    <p class="topicText my-5 mx-5">최신뉴스</p>
                 </v-col>
                 <v-col cols="12">
                     <Timeline/>
