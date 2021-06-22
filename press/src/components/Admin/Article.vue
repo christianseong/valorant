@@ -122,7 +122,7 @@
 
     <v-row>
         <v-col class="d-flex justify-end mt-6 mr-3" cols="12">
-            <v-btn to="/admin/write">글쓰기</v-btn>
+            <v-btn color="#0C9045" to="/admin/write"><v-icon color="white">mdi-pencil-plus</v-icon><p class="subText" style="color:white;">글쓰기</p></v-btn>
         </v-col>
     </v-row>
     <v-row>

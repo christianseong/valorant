@@ -19,8 +19,8 @@
             <div id="editor"></div>
         </v-col>
         <v-col class="d-flex justify-center" cols="12">
-            <v-btn class="ma-3" @click="clickSubmit" width="100px" color="green"><v-icon color="white">mdi-upload</v-icon>등록하기</v-btn>
-            <v-btn @click="cancle" class="ma-3"  width="100px" color="grey"><v-icon color="white">mdi-close</v-icon>취소</v-btn>
+            <v-btn class="ma-3" @click="clickSubmit" width="100px" color="green"><v-icon color="white">mdi-upload</v-icon><p class="subText" style="color:white;">등록하기</p></v-btn>
+            <v-btn @click="cancle" class="ma-3"  width="100px" color="grey"><v-icon color="white">mdi-close</v-icon><p class="subText" style="color:white;">취소</p></v-btn>
         </v-col>
     </v-row>
 </div>

@@ -16,6 +16,23 @@ br::selection{
     background-color:transparent;
 }
 
+.titleText{
+    font-size:3rem;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 600;
+}
+.titleSubText{
+    font-size:2rem;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.subText{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size:1.4rem;
+}
+.listTinyText{
+    font-size:12px;
+    color:#b7b7b7;
+}
 
 .headerText{
     font-size:17px;
@@ -62,6 +79,7 @@ br::selection{
     color:rgba(0,0,0,.5)
 }
 
+
 @media (max-width:1550px){
     .headerText{
         font-size:14px;
@@ -84,13 +102,56 @@ br::selection{
         font-size:12px;
     }
 }
+@media (max-width:1270px){
+    .subText{
+        font-size:1.2rem;
+    }
+}
+@media (max-width:1000px){
+    .titleText{
+        font-size:2.4rem;
+    }
+    .titleSubText{
+        font-size:1.5rem;
+    }
+    .subText{
+        font-size:1.1rem;
+    }
+    .listTinyText{
+        font-size:11px;
+    }
+}
 @media (max-width:680px){
     .mainText{
         font-size:20px;
+    }
+    .titleText{
+        font-size:2rem;
+    }
+    .titleSubText{
+        font-size:1.5rem;
+    }
+    .subText{
+        font-size:1.1rem;
+    }
+    .listTinyText{
+        font-size:11px;
     }
 }
 @media (max-width:520px){
     .mainText{
         font-size:18px;
+    }
+    .titleText{
+        font-size:1.5rem;
+        }
+    .titleSubText{
+        font-size:1.1rem;
+    }
+    .subText{
+        font-size:.8rem;
+    }
+    .listTinyText{
+        font-size:10px;
     }
 }

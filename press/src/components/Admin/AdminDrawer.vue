@@ -18,7 +18,7 @@
           </v-card>
         </v-col>
         <v-col class="d-flex justify-center" cols="12">
-          <p class="articleTitleText2" style="color:white;">{{userData.name}}<span class="ml-5 articleTinyText">{{userData.id}}</span></p>
+          <p class="subText" style="color:white;">{{userData.name}}<span class="ml-5 listTinyText">{{userData.id}}</span></p>
         </v-col>
         <v-col class="d-flex justify-center my-5" cols="12">
           <v-btn @click="logout" color="white" outlined><v-icon>mdi-logout</v-icon>로그아웃</v-btn>
@@ -30,7 +30,7 @@
       <v-list nav>
         <v-list-item active-class="activeList" v-for="i in menuList" :key="i.title" link :to="i.to">
         <v-list-item-content>
-          <v-list-item-title style="color:white; text-align:center;" class="mainText my-1"><p><v-icon color="white" class="mr-2">{{`mdi-${i.icon}`}}</v-icon>{{i.title}}</p></v-list-item-title>
+          <v-list-item-title style="color:white; text-align:center;" class="subText my-1"><p><v-icon color="white" class="mr-2">{{`mdi-${i.icon}`}}</v-icon>{{i.title}}</p></v-list-item-title>
         </v-list-item-content>
         </v-list-item>
         <v-list-group active-class="activeList" color="transparent" :value="true">
@@ -38,10 +38,10 @@
                 <v-icon color="white">mdi-chevron-down</v-icon>
             </template>
             <template v-slot:activator>
-              <v-list-item-title style="color:white; text-align:center;" class="mainText ma-0 ml-8"><v-icon color="white" class="mr-2">mdi-cog</v-icon>환경설정</v-list-item-title>
+              <v-list-item-title style="color:white; text-align:center;" class="subText ma-0 ml-8"><v-icon color="white" class="mr-2">mdi-cog</v-icon>환경설정</v-list-item-title>
             </template>
             <v-list-item-content v-for="(i,idx) in subMenu" :key="idx">
-              <v-list-item-title @click="gotoList(i.to)" style="color:white; text-align:center; cursor:pointer" class="mainText"><v-icon color="white" class="mr-2">{{`mdi-${i.icon}`}}</v-icon>{{i.title}}</v-list-item-title>
+              <v-list-item-title @click="gotoList(i.to)" style="color:white; text-align:center; cursor:pointer" class="subText"><v-icon color="white" class="mr-2">{{`mdi-${i.icon}`}}</v-icon>{{i.title}}</v-list-item-title>
             </v-list-item-content>
           </v-list-group>
       </v-list>

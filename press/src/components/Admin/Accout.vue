@@ -30,7 +30,7 @@
     </v-row>
     <v-row>
         <v-col class="d-flex justify-end" cols="12">
-            <v-btn @click="dialog=true" color="green" class="mr-10">관리자 등록</v-btn>
+            <v-btn @click="dialog=true" color="green" class="mr-10 my-5"><v-icon color="white">mdi-pencil-plus</v-icon><p class="subText" style="color:white;">관리자 등록</p></v-btn>
         </v-col>
     </v-row>
 
@@ -87,8 +87,8 @@
 
         <v-row class="d-flex justify-center">
             <v-col class="d-flex justify-space-around" cols="12">
-                <v-btn @click="register" color="green"><v-icon color="white">mdi-upload</v-icon>등록하기</v-btn>
-                <v-btn @click="closeDialog(0)" color="red"><v-icon color="white">mdi-close</v-icon>취소</v-btn>
+                <v-btn @click="register" color="green"><v-icon color="white">mdi-upload</v-icon><p class="subText" style="color:white;">등록하기</p></v-btn>
+                <v-btn @click="closeDialog(0)" color="red"><v-icon color="white">mdi-close</v-icon><p class="subText" style="color:white;">취소</p></v-btn>
             </v-col>
         </v-row>
         </v-container>
@@ -147,16 +147,16 @@
 
         <v-row v-if="!$vuetify.mdAndDown" class="d-flex justify-center">
             <v-col class="d-flex justify-space-around" cols="12" lg="12">
-                <v-btn @click="edit" color="green"><v-icon color="white">mdi-upload</v-icon>등록하기</v-btn>
-                <v-btn @click="remove" color="pink"><v-icon color="white">mdi-trash-can-outline</v-icon>삭제하기</v-btn>
-                <v-btn @click="closeDialog(1)" color="red"><v-icon color="white">mdi-close</v-icon>취소</v-btn>
+                <v-btn @click="edit" color="green"><v-icon color="white">mdi-upload</v-icon><p class="subText" style="color:white;">등록하기</p></v-btn>
+                <v-btn @click="remove" color="pink"><v-icon color="white">mdi-trash-can-outline</v-icon><p class="subText" style="color:white;">삭제하기</p></v-btn>
+                <v-btn @click="closeDialog(1)" color="red"><v-icon color="white">mdi-close</v-icon><p class="subText" style="color:white;">글쓰기</p></v-btn>
             </v-col>
         </v-row>
         <v-row v-if="$vuetify.mdAndDown" class="d-flex justify-center">
             <v-col class="d-flex justify-space-around" cols="12" lg="12">
-                <v-btn x-small @click="edit" color="green"><v-icon color="white">mdi-upload</v-icon>등록</v-btn>
-                <v-btn x-small @click="remove" color="pink"><v-icon color="white">mdi-trash-can-outline</v-icon>삭제</v-btn>
-                <v-btn x-small @click="closeDialog(1)" color="red"><v-icon color="white">mdi-close</v-icon>취소</v-btn>
+                <v-btn x-small @click="edit" color="green"><v-icon color="white">mdi-upload</v-icon><p class="subText" style="color:white;">등록</p></v-btn>
+                <v-btn x-small @click="remove" color="pink"><v-icon color="white">mdi-trash-can-outline</v-icon><p class="subText" style="color:white;">삭제</p></v-btn>
+                <v-btn x-small @click="closeDialog(1)" color="red"><v-icon color="white">mdi-close</v-icon><p class="subText" style="color:white;">취소</p></v-btn>
             </v-col>
         </v-row>
         </v-container>
