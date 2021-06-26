@@ -21,6 +21,9 @@ const Users = new Schema({
     photo: {
         type: String
     },
+    email: {
+        type: String
+    },
     superAdmin: {
         type: Boolean, 
         default: false,
@@ -38,7 +41,7 @@ const Users = new Schema({
 }
 );
 
-Users.statics.create = function(id, name, photo, password ) {
+Users.statics.create = function(id, name, photo,email, password ) {
     const encrypted = crypto.createHmac('sha1', config.secret)
                       .update(password)
                       .digest('base64')
@@ -47,6 +50,7 @@ Users.statics.create = function(id, name, photo, password ) {
         id,
         name,
         photo,
+        email,
         password: encrypted
     })
 

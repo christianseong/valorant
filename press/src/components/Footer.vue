@@ -12,16 +12,16 @@
       <v-col cols>
       </v-col>
       <v-col class="d-flex justify-center mb-3" cols="12">
-        <p style="color:rgba(255,255,255,.8); text-align:center;" class="articleTinyText pa-2"> 대표전화:<br v-if="this.$vuetify.breakpoint.mdAndDown"> 02-6953-0618</p>
+        <p style="color:rgba(255,255,255,.8); text-align:center;" class="articleTinyText pa-2"> 대표전화: {{this.tel}}</p>
         <v-divider style="border-color:white; height:13px;" class="mx-1 my-auto" inset vertical></v-divider>
-        <p style="color:rgba(255,255,255,.8); text-align:center;" class="articleTinyText pa-2"> 발행인:<br v-if="this.$vuetify.breakpoint.mdAndDown"> 이학진</p>
+        <p style="color:rgba(255,255,255,.8); text-align:center;" class="articleTinyText pa-2"> 발행인: {{this.pub}}</p>
         <v-divider style="border-color:white; height:13px;" class="mx-1 my-auto" inset vertical></v-divider>
-        <p style="color:rgba(255,255,255,.8); text-align:center;" class="articleTinyText pa-2"> 편집인:<br v-if="this.$vuetify.breakpoint.mdAndDown"> 문찬호</p>
+        <p style="color:rgba(255,255,255,.8); text-align:center;" class="articleTinyText pa-2"> 편집인: {{this.edi}}</p>
         <v-divider style="border-color:white; height:13px;" class="mx-1 my-auto" inset vertical></v-divider>
-        <p style="color:rgba(255,255,255,.8); text-align:center;" class="articleTinyText pa-2"> 청소년보호정책책임자:<br v-if="this.$vuetify.breakpoint.mdAndDown"> 홍길동</p>
+        <p style="color:rgba(255,255,255,.8); text-align:center;" class="articleTinyText pa-2"> 청소년보호정책책임자: {{this.pol}}</p>
       </v-col>
       <v-col class="mb-5" cols="12">
-        <p style="color:rgba(255,255,255,.8); text-align:center;" class="articleSubText pa-2">경기도 고양시 덕양구 삼송로 222 현대헤리엇 335호 (주) 올그라운드</p>
+        <p style="color:rgba(255,255,255,.8); text-align:center;" class="articleSubText pa-2">{{this.add}}</p>
         <p style="color:rgba(255,255,255,.8); text-align:center;" class="articleSubText pa-2"> Copyright © 2021 By allground.co.,ltd .All rights reserved.</p>
       </v-col>
     </v-row>
@@ -29,11 +29,38 @@
 </template>
 
 <script>
+import axios from 'axios'
+axios.defaults.headers['Pragma'] = 'no-cache';
 export default {
-
+  data(){
+    return{
+      email:'',
+      tel:'',
+      pub:'',
+      edi:'',
+      pol:'',
+      add:''
+    }
+  },
+  mounted(){
+    this.getConfig();
+  },
   methods:{
     goto(r){
       location.href=r;
+    },
+    getConfig(){
+      axios.post('http://alldayfootball.co.kr/api/config/findone',{
+        id:"60d6b0c44dcc9e16fc936574"
+      })
+      .then((res)=>{
+        this.email = res.data.info.email;
+        this.tel = res.data.info.tel;
+        this.pub = res.data.info.pub;
+        this.edi = res.data.info.edi;
+        this.pol = res.data.info.pol;
+        this.add = res.data.info.add;
+      })
     },
   },
 }

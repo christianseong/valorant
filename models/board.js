@@ -1,9 +1,6 @@
-  
-const { json } = require('express');
 const mongoose  = require('mongoose');
 const Schema = mongoose.Schema;
 const autoIncrement = require('mongoose-auto-increment');
-const config = require('../config');
 const mongoosePaginate = require('mongoose-paginate-v2');
 
 const Boards = new Schema({
@@ -19,6 +16,10 @@ const Boards = new Schema({
         required : true
     },
     author:{
+        type: String,
+        required : true
+    },
+    authorid:{
         type: String,
         required : true
     },
@@ -46,11 +47,12 @@ Boards.plugin(autoIncrement.plugin,{
 })
 Boards.plugin(mongoosePaginate);
 
-Boards.statics.create = function(title, contents, author, bNum) {
+Boards.statics.create = function(title, contents, author,authorid, bNum) {
     const board = new this({
         title,
         contents,
         author,
+        authorid,
         bNum,
     })
     return board.save()

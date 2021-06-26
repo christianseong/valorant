@@ -133,6 +133,7 @@ export default {
 </script>
 
 <style scoped>
+@import url("../../assets/css/unify.css");
 .activeList{
   border-left:2px solid white;
 }

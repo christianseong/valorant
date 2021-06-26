@@ -1,8 +1,5 @@
-  
-const { json } = require('express');
 const mongoose  = require('mongoose');
 const Schema = mongoose.Schema;
-const config = require('../config');
 const mongoosePaginate = require('mongoose-paginate-v2');
 
 const Comments = new Schema({

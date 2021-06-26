@@ -19,8 +19,8 @@
             <div id="editor"></div>
         </v-col>
         <v-col class="d-flex justify-center" cols="12">
-            <v-btn class="ma-3" @click="clickSubmit" color="green"><v-icon color="white">mdi-upload</v-icon><p class="subText" style="color:white;">등록하기</p></v-btn>
-            <v-btn @click="cancle" class="ma-3"  width="100px" color="grey"><v-icon color="white">mdi-close</v-icon><p class="subText" style="color:white;">취소</p></v-btn>
+            <v-btn class="ma-3" @click="clickSubmit" color="#509F3F"><v-icon color="white">mdi-upload</v-icon><p class="subText" style="color:white;">등록하기</p></v-btn>
+            <v-btn @click="cancle" class="ma-3"  width="100px" color="#737373"><v-icon color="white">mdi-close</v-icon><p class="subText" style="color:white;">취소</p></v-btn>
         </v-col>
     </v-row>
 </div>
@@ -66,6 +66,7 @@ export default {
         axios.get('http://alldayfootball.co.kr/api/auth/check')
         .then((res)=>{
             this.author=res.data.info.name
+            this.authorid = res.data.info._id
         })
     },
     data(){
@@ -73,6 +74,7 @@ export default {
             title:null,
             editor:null,
             author:null,
+            authorid:null,
             bNumItems:[
                 'k1','k2','k3','k4','k5','인터뷰','스포츠 칼럼','k리그결과',
             ],
@@ -108,6 +110,7 @@ export default {
                 title: this.title,
                 contents: this.editor.value,
                 author:this.author,
+                authorid:this.authorid,
                 bNum:this.radioGroup
             })
             .then(()=>{
@@ -122,4 +125,8 @@ export default {
 .Write .v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot{
     box-shadow: none;
 }
+</style>
+
+<style scoped>
+@import url("../../assets/css/unify.css");
 </style>

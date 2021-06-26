@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 
 
 exports.write = (req, res) => {
-    const { title, contents, author, bNum } = req.body
+    const { title, contents, author,authorid, bNum } = req.body
     const token = req.session.token;
     if(!token) {
         return res.send('not_logged')
@@ -28,7 +28,7 @@ exports.write = (req, res) => {
     p.then((decoded)=>{
         if(decoded.admin)
         {
-            Board.create(title,contents,author,bNum)
+            Board.create(title,contents,author,authorid,bNum)
             .then(()=>{
                 res.send('uploaded')
             })
@@ -185,7 +185,7 @@ exports.search = (req,res) =>{
         Board.find({},function(err, board){
             const result =
             board.filter (x => {
-                return x.title.toLowerCase().includes(word.toLowerCase()) || x.contents.replace(/(<([^>]+)>|&nbsp;)/ig," ").toLowerCase().includes(word.toLowerCase())
+                return (x.title.toLowerCase().includes(word.toLowerCase()) || x.author.toLowerCase() === word.toLowerCase()) || x.contents.replace(/(<([^>]+)>|&nbsp;)/ig," ").toLowerCase().includes(word.toLowerCase())
             });
             res.send(result);
         })
@@ -194,7 +194,7 @@ exports.search = (req,res) =>{
         Board.find({bNum:bNum},function(err, board){
             const result =
             board.filter (x => {
-                return x.title.toLowerCase().includes(word.toLowerCase()) || x.contents.replace(/(<([^>]+)>|&nbsp;)/ig," ").toLowerCase().includes(word.toLowerCase())
+                return (x.title.toLowerCase().includes(word.toLowerCase()) || x.author.toLowerCase() === word.toLowerCase()) || x.contents.replace(/(<([^>]+)>|&nbsp;)/ig," ").toLowerCase().includes(word.toLowerCase())
             });
             res.send(result);
         })
@@ -203,12 +203,12 @@ exports.search = (req,res) =>{
 
 exports.takeboard = (req,res) =>{
     const {bNum ,limit , page, word} = req.body;
-    if(bNum===null){
+    if(bNum===null||bNum===""){
         if(word!=""){
             Board.find({},function(err, board){
                 const result =
                 board.filter (x => {
-                    return x.title.toLowerCase().includes(word.toLowerCase()) || x.contents.replace(/(<([^>]+)>|&nbsp;)/ig," ").toLowerCase().includes(word.toLowerCase())
+                    return (x.title.toLowerCase().includes(word.toLowerCase()) || x.author.toLowerCase() === word.toLowerCase()) || x.contents.replace(/(<([^>]+)>|&nbsp;)/ig," ").toLowerCase().includes(word.toLowerCase())
                 });
                 const l = result.length
                 const r = result.slice((limit*(page-1)),(limit*page))
@@ -222,7 +222,7 @@ exports.takeboard = (req,res) =>{
                 const docs = result.docs;
                 const s =
                 docs.filter (x => {
-                    return x.title.toLowerCase().includes(word.toLowerCase()) || x.contents.replace(/(<([^>]+)>|&nbsp;)/ig," ").toLowerCase().includes(word.toLowerCase())
+                    return (x.title.toLowerCase().includes(word.toLowerCase()) || x.author.toLowerCase() === word.toLowerCase()) || x.contents.replace(/(<([^>]+)>|&nbsp;)/ig," ").toLowerCase().includes(word.toLowerCase())
                 });
                 const r = {docs:s,totalDocs:length}
                 res.send(r);
@@ -230,18 +230,97 @@ exports.takeboard = (req,res) =>{
         }
     }
     else{
-        Board.paginate({bNum:bNum},{page:page,limit:limit,sort:{_id:-1}},(err , result)=>{
-            const length = result.totalDocs
-            const docs = result.docs;
-            const s =
-            docs.filter (x => {
-                return x.title.toLowerCase().includes(word.toLowerCase()) || x.contents.replace(/(<([^>]+)>|&nbsp;)/ig," ").toLowerCase().includes(word.toLowerCase())
+        if(word!=""){
+            Board.find({bNum:bNum}).sort(srt).exec(function(err, board) {
+                const result =
+                board.filter (x => {
+                    return (x.title.toLowerCase().includes(word.toLowerCase()) || x.author.toLowerCase() === word.toLowerCase()) || x.contents.replace(/(<([^>]+)>|&nbsp;)/ig," ").toLowerCase().includes(word.toLowerCase())
+                });
+                const l = result.length
+                const r = result.slice((limit*(page-1)),(limit*page))
+                const s = {docs:r,totalDocs:l}
+                res.send(s);
             });
-            const r = {docs:s,totalDocs:length}
-            res.send(r);
-        });
+        }
+        else{
+            Board.paginate({bNum:bNum},{page:page,limit:limit,sort:{_id:-1}},(err , result)=>{
+                const length = result.totalDocs
+                const docs = result.docs;
+                const s =
+                docs.filter (x => {
+                    return (x.title.toLowerCase().includes(word.toLowerCase()) || x.author.toLowerCase() === word.toLowerCase()) || x.contents.replace(/(<([^>]+)>|&nbsp;)/ig," ").toLowerCase().includes(word.toLowerCase())
+                });
+                const r = {docs:s,totalDocs:length}
+                res.send(r);
+            });
+        }
     }
 }
+
+exports.takeboardsort = (req,res) =>{
+    const {bNum ,limit , page, word, sort} = req.body;
+    var srt = {_id:-1};
+    switch(sort){
+        case 'views': srt = {views:-1}; break;
+        case 'regTime': srt = {_id:-1}; break;
+        case 'seq': srt = {seq:1}; break;
+        case 'title': srt = {title:-1}; break;
+        default: srt = {_id:-1}; break;
+    }
+    if(bNum===null||bNum===""){
+        if(word!=""){
+            Board.find({sort:srt},function(err, board){
+                const result =
+                board.filter (x => {
+                    return (x.title.toLowerCase().includes(word.toLowerCase()) || x.author.toLowerCase() === word.toLowerCase()) || x.contents.replace(/(<([^>]+)>|&nbsp;)/ig," ").toLowerCase().includes(word.toLowerCase())
+                });
+                const l = result.length
+                const r = result.slice((limit*(page-1)),(limit*page))
+                const s = {docs:r,totalDocs:l}
+                res.send(s);
+            })
+        }
+        else{
+            Board.paginate({},{page:page,limit:limit,sort:srt},(err , result)=>{
+                const length = result.totalDocs
+                const docs = result.docs;
+                const s =
+                docs.filter (x => {
+                    return (x.title.toLowerCase().includes(word.toLowerCase()) || x.author.toLowerCase() === word.toLowerCase()) || x.contents.replace(/(<([^>]+)>|&nbsp;)/ig," ").toLowerCase().includes(word.toLowerCase())
+                });
+                const r = {docs:s,totalDocs:length}
+                res.send(r);
+            });
+        }
+    }
+    else{
+        if(word!=""){
+            Board.find({bNum:bNum}).sort(srt).exec(function(err, board) {
+                const result =
+                board.filter (x => {
+                    return (x.title.toLowerCase().includes(word.toLowerCase()) || x.author.toLowerCase() === word.toLowerCase()) || x.contents.replace(/(<([^>]+)>|&nbsp;)/ig," ").toLowerCase().includes(word.toLowerCase())
+                });
+                const l = result.length
+                const r = result.slice((limit*(page-1)),(limit*page))
+                const s = {docs:r,totalDocs:l}
+                res.send(s);
+            });
+        }
+        else{
+            Board.paginate({bNum:bNum},{page:page,limit:limit,sort:srt},(err , result)=>{
+                const length = result.totalDocs
+                const docs = result.docs;
+                const s =
+                docs.filter (x => {
+                    return (x.title.toLowerCase().includes(word.toLowerCase()) || x.author.toLowerCase() === word.toLowerCase()) || x.contents.replace(/(<([^>]+)>|&nbsp;)/ig," ").toLowerCase().includes(word.toLowerCase())
+                });
+                const r = {docs:s,totalDocs:length}
+                res.send(r);
+            });
+        }
+    }
+}
+
 exports.addviews = (req,res) =>{
     const {seq} = req.body;
     Board.findOneAndUpdate({seq:seq,},{$inc:{views:1}})
@@ -249,6 +328,7 @@ exports.addviews = (req,res) =>{
         res.send('updated');
     })
 }
+
 exports.takeboardviews = (req,res) => {
     const {bNum ,limit , page, word} = req.body;
     if(bNum===null){
@@ -257,7 +337,7 @@ exports.takeboardviews = (req,res) => {
             const docs = result.docs;
             const s =
             docs.filter (x => {
-                return x.title.toLowerCase().includes(word.toLowerCase()) || x.contents.replace(/(<([^>]+)>|&nbsp;)/ig," ").toLowerCase().includes(word.toLowerCase())
+                return (x.title.toLowerCase().includes(word.toLowerCase()) || x.author.toLowerCase() === word.toLowerCase()) || x.contents.replace(/(<([^>]+)>|&nbsp;)/ig," ").toLowerCase().includes(word.toLowerCase())
             });
             const r = {docs:s,totalDocs:length}
             res.send(r);
@@ -269,7 +349,7 @@ exports.takeboardviews = (req,res) => {
             const docs = result.docs;
             const s =
             docs.filter (x => {
-                return x.title.toLowerCase().includes(word.toLowerCase()) || x.contents.replace(/(<([^>]+)>|&nbsp;)/ig," ").toLowerCase().includes(word.toLowerCase())
+                return (x.title.toLowerCase().includes(word.toLowerCase()) || x.author.toLowerCase() === word.toLowerCase()) || x.contents.replace(/(<([^>]+)>|&nbsp;)/ig," ").toLowerCase().includes(word.toLowerCase())
             });
             const r = {docs:s,totalDocs:length}
             res.send(r);

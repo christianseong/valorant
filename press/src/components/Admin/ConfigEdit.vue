@@ -110,3 +110,7 @@ export default {
     box-shadow: none;
 }
 </style>
+
+<style scoped>
+@import url("../../assets/css/unify.css");
+</style>

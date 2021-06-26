@@ -36,6 +36,59 @@
                 </v-col>
                 </v-row>
             </div>
+            <v-row class="mt-5 d-flex align-center" no-gutters>
+                <v-col class="mx-5" lg="2" cols="12">
+                    <p class="sliderTitleText">제안 및 문의 :</p>
+                </v-col>
+                <v-col cols="auto">
+                    <v-text-field solo v-model="email" label="email" hide-details></v-text-field>
+                </v-col>
+            </v-row>
+            <v-row class="mt-5 d-flex align-center" no-gutters>
+                <v-col class="mx-5" lg="2" cols="12">
+                    <p class="sliderTitleText">대표전화 :</p>
+                </v-col>
+                <v-col cols="auto">
+                    <v-text-field solo v-model="tel" label="전화번호" hide-details></v-text-field>
+                </v-col>
+            </v-row>
+            <v-row class="mt-5 d-flex align-center" no-gutters>
+                <v-col class="mx-5" lg="2" cols="12">
+                    <p class="sliderTitleText">발행인 :</p>
+                </v-col>
+                <v-col cols="auto">
+                    <v-text-field solo v-model="pub" label="발행인" hide-details></v-text-field>
+                </v-col>
+            </v-row>
+            <v-row class="mt-5 d-flex align-center" no-gutters>
+                <v-col class="mx-5" lg="2" cols="12">
+                    <p class="sliderTitleText">편집인 :</p>
+                </v-col>
+                <v-col cols="auto">
+                    <v-text-field solo v-model="edi" label="편집인" hide-details></v-text-field>
+                </v-col>
+            </v-row>
+            <v-row class="mt-5 d-flex align-center" no-gutters>
+                <v-col class="mx-5" lg="2" cols="12">
+                    <p class="sliderTitleText">청소년보호정책책임자 :</p>
+                </v-col>
+                <v-col cols="auto">
+                    <v-text-field solo v-model="pol" label="정책책임자" hide-details></v-text-field>
+                </v-col>
+            </v-row>
+            <v-row class="mt-5 d-flex align-center" no-gutters>
+                <v-col class="mx-5" lg="2" cols="12">
+                    <p class="sliderTitleText">주소 :</p>
+                </v-col>
+                <v-col cols="12" lg="8">
+                    <v-text-field solo v-model="add" label="주소" hide-details></v-text-field>
+                </v-col>
+            </v-row>
+            <v-row>
+                <v-col class="d-flex justify-center" cols="12">
+                    <v-btn class="ma-3" @click="clickEdit" color="#509F3F"><v-icon color="white">mdi-upload</v-icon><p class="subText" style="color:white;">수정하기</p></v-btn>
+                </v-col>
+            </v-row>
         </v-expansion-panel-content>
         </v-expansion-panel>
 
@@ -52,6 +105,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+axios.defaults.headers['Pragma'] = 'no-cache';
 import ConfigEdit from '@/components/Admin/ConfigEdit'
 export default {
     components:{
@@ -60,10 +115,50 @@ export default {
     data(){
         return{
             panel: [0,1],
+            email:"",
+            tel:"",
+            pub:"",
+            edi:"",
+            pol:"",
+            add:"",
+            
         }
     },
     mounted() {
-        this.panel = [];
+        this.getConfig();
+        this.panel = [0];
+    },
+    methods:{
+        clickEdit(){
+            axios.post('http://alldayfootball.co.kr/api/config/edit',{
+                id:"60d6b0c44dcc9e16fc936574",
+                info:this.info
+            })
+            .then((res)=>{
+                if(res.data==="updated"){
+                    alert('수정되었습니다.');
+                    location.reload();
+                }
+            })
+        },
+        getConfig(){
+        axios.post('http://alldayfootball.co.kr/api/config/findone',{
+            id:"60d6b0c44dcc9e16fc936574"
+        })
+        .then((res)=>{
+            this.email = res.data.info.email;
+            this.tel = res.data.info.tel;
+            this.pub = res.data.info.pub;
+            this.edi = res.data.info.edi;
+            this.pol = res.data.info.pol;
+            this.add = res.data.info.add;
+        })
+        },
+    },
+    computed:{
+        info(){
+            return {email:this.email,tel:this.tel,pub:this.pub,edi:this.edi,pol:this.pol,add:this.add};
+        },
     },
 }
 </script>

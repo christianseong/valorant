@@ -43,7 +43,17 @@
             </v-combobox>
         </v-col>
     </v-row>
-    <v-row>
+    <v-row no-gutters>
+        <v-col cols="12">
+            <v-radio-group v-model="row" row>
+                <v-radio label="날짜순(최신순)" value="regTime"></v-radio>
+                <v-radio label="번호순(과거순)" value="seq"></v-radio>
+                <v-radio label="가나다순" value="title"></v-radio>
+                <v-radio label="조회수순" value="views"></v-radio>
+            </v-radio-group>
+        </v-col>
+    </v-row>
+    <v-row no-gutters>
         <v-col class="d-flex align-center" cols="12">
         <v-text-field @keypress.enter="clickSearch" hide-details v-model="search" label="검색" solo></v-text-field>
         <v-btn icon style="height:90%;" class="mx-3 px-2" @click="clickSearch" color="#0C9045" ><v-icon>mdi-magnify</v-icon></v-btn>
@@ -121,8 +131,8 @@
     </div>
 
     <v-row>
-        <v-col class="d-flex justify-end mt-6 mr-3" cols="12">
-            <v-btn color="#0C9045" to="/admin/write"><v-icon color="white">mdi-pencil-plus</v-icon><p class="subText" style="color:white;">글쓰기</p></v-btn>
+        <v-col class="d-flex justify-end mt-10" cols="12">
+            <v-btn class="mr-3" color="#509F3F" to="/admin/write"><v-icon color="white">mdi-pencil-plus</v-icon><p class="subText" style="color:white;">글쓰기</p></v-btn>
         </v-col>
     </v-row>
     <v-row>
@@ -154,6 +164,7 @@ axios.defaults.headers['Pragma'] = 'no-cache';
 export default {
     data(){
         return{
+            row:'regTime',
             search:'',
             titleCheck: true,
             contentCheck: true,
@@ -210,11 +221,12 @@ export default {
             this.takeBoard();
         },
         takeBoard(){
-            axios.post('http://alldayfootball.co.kr/api/board/takeboard',{
+            axios.post('http://alldayfootball.co.kr/api/board/takeboardsort',{
                 bNum: this.selectCode,
                 limit: 10,
                 page: this.page,
-                word:this.search
+                word:this.search,
+                sort:this.row
             })
             .then((res=>{
                 this.boardResult = res.data.docs;
@@ -228,7 +240,10 @@ export default {
         },
         select(){
             this.takeBoard();
-        }
+        },
+        row(){
+            this.takeBoard();
+        },
     },
 }
 </script>
@@ -244,6 +259,12 @@ export default {
 }
 .v-application .primary--text{
     color:green !important
+}
+.Article .v-chip{
+    background-color:rgba(0,0,0,.3) !important;
+}
+.Article .v-chip:hover{
+    background-color:rgba(55,211,55,.8) !important;
 }
 </style>
 

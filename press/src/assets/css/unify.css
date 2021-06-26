@@ -18,16 +18,13 @@ br::selection{
 
 .titleText{
     font-size:3rem;
-    font-family: 'Noto Sans KR', sans-serif;
     font-weight: 600;
 }
 .titleSubText{
     font-size:2rem;
-    font-family: 'Noto Sans KR', sans-serif;
 }
 .subText{
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size:1.4rem;
+    font-size:1rem;
 }
 .listTinyText{
     font-size:12px;
@@ -35,7 +32,7 @@ br::selection{
 }
 
 .headerText{
-    font-size:17px;
+    font-size:16px;
     font-weight: 700;
 }
 .mainText{
@@ -104,7 +101,7 @@ br::selection{
 }
 @media (max-width:1270px){
     .subText{
-        font-size:1.2rem;
+        font-size:.8rem;
     }
 }
 @media (max-width:1000px){
@@ -115,7 +112,7 @@ br::selection{
         font-size:1.5rem;
     }
     .subText{
-        font-size:1.1rem;
+        font-size:.7rem;
     }
     .listTinyText{
         font-size:11px;
@@ -132,7 +129,7 @@ br::selection{
         font-size:1.5rem;
     }
     .subText{
-        font-size:1.1rem;
+        font-size:.7rem;
     }
     .listTinyText{
         font-size:11px;
@@ -149,7 +146,7 @@ br::selection{
         font-size:1.1rem;
     }
     .subText{
-        font-size:.8rem;
+        font-size:.7rem;
     }
     .listTinyText{
         font-size:10px;

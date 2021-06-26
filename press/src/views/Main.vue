@@ -48,17 +48,17 @@
       </v-col>
     </v-row>
     <v-card v-if="!this.$vuetify.breakpoint.smAndDown" class="pa-2">
-      <v-row class="mt-5 pa-1" no-gutters>
+      <v-row class="pa-1" no-gutters>
         <v-col cols="12">
           <p class="headerText px-5 py-3" style="color:black;">많이 본 기사</p>
         <v-divider></v-divider>
         </v-col>
-        <v-col class="pa-5" cols="7">
+        <v-col class="pa-5" cols="12">
           <v-carousel cycle interval="3000" hide-delimiters show-arrows-on-hover>
             <v-carousel-item v-for="(i,idx) in boardResultViews" :key="idx">
               <div style="height:100%;" class="d-flex">
                 <v-card rounded="0" class="d-flex justify-center align-center scopeCard" style="position:absolute;" width="100%" height="100%">
-                  <v-img @click="goToView(i.seq)" gradient="to top right, rgba(0,0,0,.5), rgba(0,0,0,.2)" style="position:absolute; cursor:pointer;" :src="i.thumb" width="100%" height="100%"></v-img>
+                  <v-img contain @click="goToView(i.seq)" gradient="to top right, rgba(0,0,0,.5), rgba(0,0,0,.2)" style="position:absolute; cursor:pointer;" :src="i.thumb" width="100%" height="100%"></v-img>
                 </v-card>
                 <v-card width="100%" color="rgba(1,1,1,.6)" class="pa-10 align-self-end">
                   <p @click="goToView(i.seq)" style="color:white; cursor:pointer;" class="sliderTitleText mb-5">{{i.title}}</p>
@@ -67,16 +67,6 @@
               </div>
             </v-carousel-item>
           </v-carousel>
-        </v-col>
-        <v-col cols="5">
-          <v-row class="d-flex align-center fill-height" no-gutters>
-            <v-col class="py-1" v-for="(i,idx) in boardResultViews" :key="idx" no-gutters cols="12">
-              <v-card @click="goToView(i.seq)" class="decoCard" shaped outlined>
-                <p class="sliderTitleText my-3">{{i.title}}</p>
-                <p class="sliderSubText"><v-icon class="ml-2 coInherit" x-small>mdi-account</v-icon>{{i.author}} <v-icon class="ml-2 coInherit" x-small>mdi-clock-time-three-outline</v-icon>{{i.regTime.slice(0,16).replace('T','｜')}}</p>
-              </v-card>
-            </v-col>
-          </v-row>
         </v-col>
       </v-row>
     </v-card>
@@ -88,7 +78,7 @@
         <v-divider></v-divider>
         </v-col>
         <v-col cols="12">
-          <v-carousel cycle interval="3000" hide-delimiters show-arrows-on-hover>
+          <v-carousel cycle interval="100000" hide-delimiters show-arrows-on-hover>
             <v-carousel-item v-for="(i,idx) in boardResultViews" :key="idx">
               <div style="height:100%;" class="d-flex">
                 <v-card rounded="0" class="d-flex justify-center align-center scopeCard" style="position:absolute;" width="100%" height="100%">
@@ -108,7 +98,7 @@
     <v-card class="pa-2 mt-10">
       <v-row no-gutters class="mt-5">
         <v-col cols="12">
-          <p class="headerText px-5 py-3" style="color:black;">최신 뉴스</p>
+          <p class="headerText px-5" style="color:black;">최신 뉴스</p>
         <v-divider></v-divider>
         </v-col>
         <v-col v-for="(i,idx) in boardResult.slice(3,16)" :key="idx" cols="6" lg="4">
@@ -262,7 +252,6 @@ export default {
 .Main .scopeCard:hover p{
   text-decoration: underline;
 }
-
 </style>
 
 <style scoped>

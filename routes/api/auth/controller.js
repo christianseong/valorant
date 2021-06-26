@@ -1,11 +1,10 @@
 const jwt = require('jsonwebtoken')
 const User = require('../../../models/user')
 const crypto = require('crypto')
-const config = require('../../../config')
 
 
 exports.register = (req, res) => {
-    const { id, name, photo, password, superAdmin } = req.body
+    const { id, name, photo, email, password, superAdmin } = req.body
     let newUser = null
     const token = req.session.token;
     if(!token) {
@@ -34,7 +33,7 @@ exports.register = (req, res) => {
                 if(user) {
                     res.send("id_exists");
                 } else {
-                    return User.create(id, name, photo, password, superAdmin)
+                    return User.create(id, name, photo,email, password, superAdmin)
                 }
             }
         
@@ -101,6 +100,7 @@ exports.login = (req, res) => {
                             id: user.id,
                             name: user.name,
                             photo: user.photo,
+                            email: user.email,
                             admin: user.admin,
                             superAdmin: user.superAdmin
                         }, 
@@ -233,7 +233,7 @@ exports.delete = (req ,res) => {
 }
 
 exports.edit = (req, res) => {
-    const {id , name , photo, password, superAdmin} = req.body
+    const {id , name , photo,email, password, superAdmin} = req.body
     const token = req.session.token;
     if(!token) {
         return res.send('not_logged')
@@ -257,32 +257,15 @@ exports.edit = (req, res) => {
     p.then((decoded)=>{
         if(decoded.superAdmin)
         {
-            if(password==='')
-            {
-                if(photo==='')
-                {
-                    User.findOneAndUpdate({id:id,},{$set:{name:name,superAdmin:superAdmin}})
-                    .then(()=>{
-                        res.send('updated');
-                    })
-                    return;
-                }
-                User.findOneAndUpdate({id:id,},{$set:{name:name,photo:photo,superAdmin:superAdmin}})
-                .then(()=>{
-                    res.send('updated');
-                })
-                return;
-            }
-            else{
-                const encrypted = crypto.createHmac('sha1', config.secret)
-                .update(password)
-                .digest('base64')
-
-                User.findOneAndUpdate({id:id,},{$set:{name:name,photo:photo,password:encrypted,superAdmin:superAdmin}})
-                .then(()=>{
-                    res.send('updated');
-                })
-            }
+            var set = {name:name,superAdmin:superAdmin};
+            if(password!='') set.password = password;
+            if(photo!='') set.photo = photo;
+            if(email!='') set.email = email;
+            User.findOneAndUpdate({id:id,},{$set:set})
+            .then(()=>{
+                res.send('updated');
+            })
+            return;
         }
         else res.send('not_admin')
     }).catch(onError)

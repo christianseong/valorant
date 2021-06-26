@@ -100,5 +100,6 @@ export default {
 }
 .screen{
   /* padding-top:30px; */
+  background-color: #FBFBFB;
 }
 </style>

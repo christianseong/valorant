@@ -18,10 +18,10 @@
         <v-col style="border-bottom:1px solid grey;" cols="12">
             <div id="editor1"></div>
         </v-col>
-        <v-col class="d-flex justify-center" cols="12">
-            <v-btn class="ma-3" @click="clickSubmit" color="green"><v-icon color="white">mdi-upload</v-icon><p class="subText" style="color:white;">등록하기</p></v-btn>
-            <v-btn @click="clickdelete" class="ma-3"  width="100px" color="red"><v-icon color="white">mdi-trash-can-outline</v-icon><p class="subText" style="color:white;">삭제</p></v-btn>
-            <v-btn @click="cancle" class="ma-3"  width="100px" color="grey"><v-icon color="white">mdi-close</v-icon><p class="subText" style="color:white;">취소</p></v-btn>
+        <v-col class="d-flex justify-center mt-10" cols="12">
+            <v-btn class="ma-3" @click="clickSubmit" color="#509F3F"><v-icon color="white">mdi-upload</v-icon><p class="subText" style="color:white;">등록하기</p></v-btn>
+            <v-btn @click="clickdelete" class="ma-3"  width="100px" color="#737373"><v-icon color="white">mdi-trash-can-outline</v-icon><p class="subText" style="color:white;">삭제</p></v-btn>
+            <v-btn @click="cancle" class="ma-3"  width="100px" color="#737373"><v-icon color="white">mdi-close</v-icon><p class="subText" style="color:white;">취소</p></v-btn>
         </v-col>
     </v-row>
 </div>
@@ -172,4 +172,7 @@ export default {
 .Write .v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot{
     box-shadow: none;
 }
+</style>
+<style scoped>
+@import url("../../assets/css/unify.css");
 </style>

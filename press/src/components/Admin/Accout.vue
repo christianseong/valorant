@@ -30,15 +30,16 @@
     </v-row>
     <v-row>
         <v-col class="d-flex justify-end" cols="12">
-            <v-btn @click="dialog=true" color="green" class="mr-10 my-5"><v-icon color="white">mdi-pencil-plus</v-icon><p class="subText" style="color:white;">관리자 등록</p></v-btn>
+            <v-btn @click="dialog=true" color="#509F3F" class="mr-10 my-5"><v-icon color="white">mdi-pencil-plus</v-icon><p class="subText" style="color:white;">관리자 등록</p></v-btn>
         </v-col>
     </v-row>
 
     <v-dialog v-model="dialog" :width="dialogWidth">
-        <v-container class="white">
+        <v-container style="background-color: #FBFBFB;" class="white">
         <v-row>
-            <v-col class="black" cols="12" lg="12">
+            <v-col class="black d-flex align-center" cols="12" lg="12">
                 <p class="sliderTitleText" style="color:white;">관리자 등록</p>
+                <v-btn @click="closeDialog(0)" class="ml-auto" icon><v-icon color="white">mdi-close</v-icon></v-btn>
             </v-col>
         </v-row>
         <v-row class="d-flex justify-center">
@@ -62,7 +63,15 @@
                 <p class="sliderTitleText" style="color:black;">이름</p>
             </v-col>
             <v-col cols="12" lg="6">
-                <v-text-field v-model="regName" hide-details label="name" solo></v-text-field>
+                <v-text-field v-model="regName" hide-details label="Name" solo></v-text-field>
+            </v-col>
+        </v-row>
+        <v-row class="d-flex justify-center">
+            <v-col cols="12" lg="2">
+                <p class="sliderTitleText" style="color:black;">E-mail</p>
+            </v-col>
+            <v-col cols="12" lg="6">
+                <v-text-field v-model="regEmail" hide-details label="E-mail" solo></v-text-field>
             </v-col>
         </v-row>
         <v-row class="d-flex justify-center">
@@ -87,18 +96,18 @@
 
         <v-row class="d-flex justify-center">
             <v-col class="d-flex justify-space-around" cols="12">
-                <v-btn @click="register" color="green"><v-icon color="white">mdi-upload</v-icon><p class="subText" style="color:white;">등록하기</p></v-btn>
-                <v-btn @click="closeDialog(0)" color="red"><v-icon color="white">mdi-close</v-icon><p class="subText" style="color:white;">취소</p></v-btn>
+                <v-btn @click="register" color="#509F3F"><v-icon color="white">mdi-upload</v-icon><p class="subText" style="color:white;">등록하기</p></v-btn>
             </v-col>
         </v-row>
         </v-container>
     </v-dialog>
 
     <v-dialog v-model="dialog2" :width="dialogWidth">
-        <v-container class="white">
+        <v-container style="background-color: #FBFBFB;">
         <v-row>
-            <v-col class="black" cols="12" lg="12">
+            <v-col class="black d-flex align-center" cols="12" lg="12">
                 <p class="sliderTitleText" style="color:white;">관리자 정보 수정</p>
+                <v-btn @click="closeDialog(1)" class="ml-auto" icon><v-icon color="white">mdi-close</v-icon></v-btn>
             </v-col>
         </v-row>
         <v-row class="d-flex justify-center">
@@ -126,6 +135,14 @@
             </v-col>
         </v-row>
         <v-row class="d-flex justify-center">
+            <v-col cols="12" lg="2">
+                <p class="sliderTitleText" style="color:black;">E-mail</p>
+            </v-col>
+            <v-col cols="12" lg="6">
+                <v-text-field v-model="editEmail" hide-details label="E-mail" solo></v-text-field>
+            </v-col>
+        </v-row>
+        <v-row class="d-flex justify-center">
             <v-col class="d-flex align-center" lg="2">
                 <p class="sliderTitleText" style="color:black;">구분</p>
             </v-col>
@@ -147,16 +164,16 @@
 
         <v-row v-if="!$vuetify.mdAndDown" class="d-flex justify-center">
             <v-col class="d-flex justify-space-around" cols="12" lg="12">
-                <v-btn @click="edit" color="green"><v-icon color="white">mdi-upload</v-icon><p class="subText" style="color:white;">등록하기</p></v-btn>
-                <v-btn @click="remove" color="pink"><v-icon color="white">mdi-trash-can-outline</v-icon><p class="subText" style="color:white;">삭제하기</p></v-btn>
-                <v-btn @click="closeDialog(1)" color="red"><v-icon color="white">mdi-close</v-icon><p class="subText" style="color:white;">취소</p></v-btn>
+                <v-btn @click="edit" color="#509F3F"><v-icon color="white">mdi-upload</v-icon><p class="subText" style="color:white;">등록하기</p></v-btn>
+                <v-btn @click="remove" color="#737373"><v-icon color="white">mdi-trash-can-outline</v-icon><p class="subText" style="color:white;">삭제하기</p></v-btn>
+                <!-- <v-btn @click="closeDialog(1)" color="red"><v-icon color="white">mdi-close</v-icon><p class="subText" style="color:white;">취소</p></v-btn> -->
             </v-col>
         </v-row>
         <v-row v-if="$vuetify.mdAndDown" class="d-flex justify-center">
             <v-col class="d-flex justify-space-around" cols="12" lg="12">
-                <v-btn x-small @click="edit" color="green"><v-icon color="white">mdi-upload</v-icon><p class="subText" style="color:white;">등록</p></v-btn>
-                <v-btn x-small @click="remove" color="pink"><v-icon color="white">mdi-trash-can-outline</v-icon><p class="subText" style="color:white;">삭제</p></v-btn>
-                <v-btn x-small @click="closeDialog(1)" color="red"><v-icon color="white">mdi-close</v-icon><p class="subText" style="color:white;">취소</p></v-btn>
+                <v-btn x-small @click="edit" color="#509F3F"><v-icon color="white">mdi-upload</v-icon><p class="subText" style="color:white;">등록</p></v-btn>
+                <v-btn x-small @click="remove" color="#737373"><v-icon color="white">mdi-trash-can-outline</v-icon><p class="subText" style="color:white;">삭제</p></v-btn>
+                <!-- <v-btn x-small @click="closeDialog(1)" color="red"><v-icon color="white">mdi-close</v-icon><p class="subText" style="color:white;">취소</p></v-btn> -->
             </v-col>
         </v-row>
         </v-container>
@@ -180,12 +197,14 @@ export default {
             regPassword:'',
             regRadio:0,
             regFile:"",
+            regEmail:'',
 
             editId:'',
             editName:'',
             editPassword:'',
             editRadio:0,
             editFile:"",
+            editEmail:'',
         }
     },
     computed:{
@@ -225,6 +244,10 @@ export default {
                 alert('이름을 입력하세요');
                 return
             }
+            if(this.regEmail==='') {
+                alert('이메일을 입력하세요');
+                return
+            }
             var photoURL = "";
             if(this.regFile!="")
             {
@@ -241,6 +264,7 @@ export default {
             await axios.post('http://alldayfootball.co.kr/api/auth/register',{
                 id:this.regId,
                 name:this.regName,
+                email:this.regEmail,
                 photo:photoURL,
                 password:this.regPassword,
                 superAdmin:this.regRadio===0
@@ -252,6 +276,7 @@ export default {
                         this.getUserList();
                         this.regId='';
                         this.regName='';
+                        this.regEmail='';
                         this.regPassword='';
                         this.regRadio=0;
                         this.regFile="",
@@ -275,6 +300,7 @@ export default {
         openEdit(data){
             this.editId = data.id;
             this.editName = data.name;
+            this.editEmail = data.email;
             this.editPassword = '';
             this.editFile = '';
             this.editRadio = (data.superAdmin ? 0 : 1);
@@ -297,6 +323,7 @@ export default {
             await axios.put('http://alldayfootball.co.kr/api/auth/edit',{
                 id:this.editId,
                 name:this.editName,
+                email:this.editEmail,
                 photo:photoURL,
                 password:this.editPassword,
                 superAdmin:this.editRadio===0
@@ -311,6 +338,7 @@ export default {
                     this.getUserList();
                     this.editId='';
                     this.editName='';
+                    this.editEmail='';
                     this.editPassword='';
                     this.editFile = "";
                     this.editRadio=0;
