@@ -130,7 +130,7 @@ export default {
     },
     methods:{
         clickEdit(){
-            axios.post('http://alldayfootball.co.kr/api/config/edit',{
+            axios.put('http://alldayfootball.co.kr/api/config/edit',{
                 id:"60d6b0c44dcc9e16fc936574",
                 info:this.info
             })
