@@ -2,7 +2,7 @@
   <div class="Footer mt-10" style="width:100%; background-color:#0C9045;">
     <v-row no-gutters>
       <v-col class="d-flex justify-center mt-16 mb-5" cols="12">
-        <p style="color:white;" class="articleSubText mr-6">제안 및 문의 : contact@allground.co.kr</p>
+        <p style="color:white;" class="articleSubText mr-6">제안 및 문의 : {{email}}</p>
       </v-col>
       <v-col class="d-flex justify-center my-5" cols="12">
         <p @click="goto('/introduce')" style="color:white; cursor:pointer;" class="articleSubText mx-3">매체소개</p>
@@ -12,16 +12,16 @@
       <v-col cols>
       </v-col>
       <v-col class="d-flex justify-center mb-3" cols="12">
-        <p style="color:rgba(255,255,255,.8); text-align:center;" class="articleTinyText pa-2"> 대표전화: {{this.tel}}</p>
+        <p style="color:rgba(255,255,255,.8); text-align:center;" class="articleTinyText pa-2"> 대표전화: {{tel}}</p>
         <v-divider style="border-color:white; height:13px;" class="mx-1 my-auto" inset vertical></v-divider>
-        <p style="color:rgba(255,255,255,.8); text-align:center;" class="articleTinyText pa-2"> 발행인: {{this.pub}}</p>
+        <p style="color:rgba(255,255,255,.8); text-align:center;" class="articleTinyText pa-2"> 발행인: {{pub}}</p>
         <v-divider style="border-color:white; height:13px;" class="mx-1 my-auto" inset vertical></v-divider>
-        <p style="color:rgba(255,255,255,.8); text-align:center;" class="articleTinyText pa-2"> 편집인: {{this.edi}}</p>
+        <p style="color:rgba(255,255,255,.8); text-align:center;" class="articleTinyText pa-2"> 편집인: {{edi}}</p>
         <v-divider style="border-color:white; height:13px;" class="mx-1 my-auto" inset vertical></v-divider>
-        <p style="color:rgba(255,255,255,.8); text-align:center;" class="articleTinyText pa-2"> 청소년보호정책책임자: {{this.pol}}</p>
+        <p style="color:rgba(255,255,255,.8); text-align:center;" class="articleTinyText pa-2"> 청소년보호정책책임자: {{pol}}</p>
       </v-col>
       <v-col class="mb-5" cols="12">
-        <p style="color:rgba(255,255,255,.8); text-align:center;" class="articleSubText pa-2">{{this.add}}</p>
+        <p style="color:rgba(255,255,255,.8); text-align:center;" class="articleSubText pa-2">{{add}}</p>
         <p style="color:rgba(255,255,255,.8); text-align:center;" class="articleSubText pa-2"> Copyright © 2021 By allground.co.,ltd .All rights reserved.</p>
       </v-col>
     </v-row>
