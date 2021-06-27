@@ -169,7 +169,6 @@ export default {
     },
     mounted(){
         this.getBoard();
-        this.getAuthor();
         // this.getComment();
     },
     methods:{
@@ -259,6 +258,7 @@ export default {
                 this.bNum = res.data.bNum;
                 this.contents = res.data.contents;
                 this.regTime = res.data.regTime;
+                this.getAuthor();
                 this.addViews();
             })
         },
