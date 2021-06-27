@@ -9,7 +9,7 @@
                 <p style="color:white;" class="mainText pr-16">{{boardResultMain[0].title}}</p>
               </v-col>
             </v-row>
-            <v-img gradient="to bottom, rgba(0,0,0,.33), rgba(0,0,0,1)" style="position:absolute;" :src="boardResult[0].thumb" width="100%" height="100%">
+            <v-img gradient="to bottom, rgba(0,0,0,.33), rgba(0,0,0,1)" style="position:absolute;" :src="boardResultMain[0].thumb" width="100%" height="100%">
             </v-img>
           </v-card>
         </v-card>
@@ -24,7 +24,7 @@
                     <p style="color:white;" class="mainSubText px-5">{{boardResultMain[1].title}}</p>
                   </v-col>
               </v-row>
-              <v-img gradient="to bottom, rgba(0,0,0,.33),rgba(0,0,0,.33), rgba(0,0,0,1)" style="position:absolute;" :src="boardResult[1].thumb" width="100%" height="100%">
+              <v-img gradient="to bottom, rgba(0,0,0,.33),rgba(0,0,0,.33), rgba(0,0,0,1)" style="position:absolute;" :src="boardResultMain[1].thumb" width="100%" height="100%">
               </v-img>
             </v-card>
           </div>
@@ -37,7 +37,7 @@
                     <p style="color:white;" class="mainSubText px-5">{{boardResultMain[2].title}}</p>
                   </v-col>
                 </v-row>
-              <v-img gradient="to bottom, rgba(0,0,0,.33),rgba(0,0,0,.33), rgba(0,0,0,1)" style="position:absolute;" :src="boardResult[2].thumb" width="100%" height="100%">
+              <v-img gradient="to bottom, rgba(0,0,0,.33),rgba(0,0,0,.33), rgba(0,0,0,1)" style="position:absolute;" :src="boardResultMain[2].thumb" width="100%" height="100%">
               </v-img>
             </v-card>
           </div>
@@ -175,6 +175,9 @@ export default {
         default : return "250px";
       }
     },
+    mainArt(){
+      return [this.mainArt0,this.mainArt1,this.mainArt2];
+    },
   },
   created(){
     this.takeConfig();
@@ -210,7 +213,15 @@ export default {
         mainArt: [this.mainArt0,this.mainArt1,this.mainArt2]
         })
         .then((res=>{
-          this.boardResultMain = res.data;
+          // this.boardResultMain = res.data;
+          for(var i = 0; i<3; i++){
+            for(var o = 0; o<3; o++){
+              if(res.data[i].seq==this.mainArt[o]){
+                this.boardResultMain[o] = res.data[i];
+                console.log(res.data[i].seq,this.mainArt[o]);
+              }
+            }
+          }
           this.findThumbMain();
           }))
     },
