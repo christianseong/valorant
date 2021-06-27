@@ -132,6 +132,15 @@ exports.find = (req, res) => {
         res.json(board);
     })
 }
+
+exports.findmain = (req, res) => {
+    const { mainArt } = req.body;
+    Board.find( {$or : [ { seq : mainArt[0] } , { seq : mainArt[1] } , { seq : mainArt[2] } ] } ,function(err, board){
+        if(err) return res.send(err);
+        res.json(board);
+    })
+}
+
 exports.findone = (req, res) => {
     const { seq } = req.body;
     // console.log(req.body);
@@ -140,6 +149,7 @@ exports.findone = (req, res) => {
         res.json(board);
     })
 }
+
 exports.findcate = (req, res) => {
     const { bNum } = req.body
     Board.find({bNum:bNum},function(err, board){

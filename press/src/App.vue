@@ -13,7 +13,7 @@
           <div :style="{top:adTop}" style="position:absolute; width:inherit; height:600px; transition:" class="ad purple">광고2</div>
         </div>
       </div> -->
-      <Footer v-if="!isAdmin"/>
+      <Footer/>
     </v-main>
   </v-app>
 </div>

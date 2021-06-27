@@ -3,10 +3,10 @@
     <v-row no-gutters class="my-8">
       <v-col cols="12" lg="8">
         <v-card elevation="0" class="d-flex align-end pa-2" :height="mobileHeight" style="width:100%;">
-          <v-card class="scopeCard" @click="goToView(boardResult[0].seq)" width="100%" height="100%">
+          <v-card class="scopeCard" @click="goToView(boardResultMain[0].seq)" width="100%" height="100%">
             <v-row class="d-flex align-end" style="position:absolute; z-index:2; width:100%; height:100%;" no-gutters>
               <v-col class="mb-5 pa-5 pr-16" cols="12">
-                <p style="color:white;" class="mainText pr-16">{{boardResult[0].title}}</p>
+                <p style="color:white;" class="mainText pr-16">{{boardResultMain[0].title}}</p>
               </v-col>
             </v-row>
             <v-img gradient="to bottom, rgba(0,0,0,.33), rgba(0,0,0,1)" style="position:absolute;" :src="boardResult[0].thumb" width="100%" height="100%">
@@ -18,10 +18,10 @@
         <v-row no-gutters>
           <v-col cols="6" lg="12">
           <div class="d-flex align-end pa-2" style="width:100%; height:250px;">
-            <v-card class="scopeCard" @click="goToView(boardResult[1].seq)" width="100%" height="100%">
+            <v-card class="scopeCard" @click="goToView(boardResultMain[1].seq)" width="100%" height="100%">
               <v-row class="d-flex align-end" style="position:absolute; z-index:2; width:100%; height:100%;" no-gutters>
                   <v-col class="mb-5" cols="12">
-                    <p style="color:white;" class="mainSubText px-5">{{boardResult[1].title}}</p>
+                    <p style="color:white;" class="mainSubText px-5">{{boardResultMain[1].title}}</p>
                   </v-col>
               </v-row>
               <v-img gradient="to bottom, rgba(0,0,0,.33),rgba(0,0,0,.33), rgba(0,0,0,1)" style="position:absolute;" :src="boardResult[1].thumb" width="100%" height="100%">
@@ -31,10 +31,10 @@
           </v-col>
           <v-col cols="6" lg="12">
             <div class="d-flex align-end pa-2" style=" width:100%; height:250px;">
-            <v-card class="scopeCard" @click="goToView(boardResult[2].seq)" width="100%" height="100%">
+            <v-card class="scopeCard" @click="goToView(boardResultMain[2].seq)" width="100%" height="100%">
                 <v-row class="d-flex align-end" style="position:absolute; z-index:2; width:100%; height:100%;" no-gutters>
                   <v-col class="mb-5" cols="12">
-                    <p style="color:white;" class="mainSubText px-5">{{boardResult[2].title}}</p>
+                    <p style="color:white;" class="mainSubText px-5">{{boardResultMain[2].title}}</p>
                   </v-col>
                 </v-row>
               <v-img gradient="to bottom, rgba(0,0,0,.33),rgba(0,0,0,.33), rgba(0,0,0,1)" style="position:absolute;" :src="boardResult[2].thumb" width="100%" height="100%">
@@ -107,8 +107,8 @@
               <v-img gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.33)" style="position:absolute;" :src="i.thumb" width="100%" height="100%"></v-img>
               <v-card height="100%" width="100%" color="rgba(0,0,0,.2)"></v-card>
             </v-card>
-            <v-card elevation="0" class="px-5 py-1 d-flex align-end">
-              <p @click="goToView(i.seq)" class="headerText" style="color:black; font-weight:600; cursor:pointer;">{{i.title}}</p>
+            <v-card elevation="0" :class="{ 'px-5': !$vuetify.breakpoint.smAndDown, 'px-0': $vuetify.breakpoint.smAndDown }" class="py-1 d-flex align-end">
+              <p @click="goToView(i.seq)" class="mainSubText" style="color:black; cursor:pointer;">{{i.title}}</p>
             </v-card>
           </div>
         </v-col>
@@ -123,13 +123,10 @@ axios.defaults.headers['Pragma'] = 'no-cache';
 export default {
   data(){
     return{
+      mainArt0:0,
+      mainArt1:1,
+      mainArt2:2,
         boardResult:[
-          {title:'',seq:0,},
-          {title:'',seq:0,},
-          {title:'',seq:0,},
-          {title:'',seq:0,},
-          {title:'',seq:0,},
-          {title:'',seq:0,},
           {title:'',seq:0,},
           {title:'',seq:0,},
           {title:'',seq:0,},
@@ -149,6 +146,11 @@ export default {
           {title:'',seq:3,thumb:''},
           {title:'',seq:4,thumb:''},
           {title:'',seq:5,thumb:''},
+        ],
+        boardResultMain:[
+          {title:'',seq:1,thumb:''},
+          {title:'',seq:2,thumb:''},
+          {title:'',seq:3,thumb:''},
         ],
     }
   },
@@ -175,10 +177,22 @@ export default {
     },
   },
   created(){
-    this.takeBoardViews();
-    this.takeBoard();
+    this.takeConfig();
   },
   methods:{
+    takeConfig(){
+      axios.post('http://alldayfootball.co.kr/api/config/findone',{
+        id:"60d8f5569d4b9d6bafe4205e"
+      })
+      .then((res)=>{
+        this.mainArt0 = res.data.info[0];
+        this.mainArt1 = res.data.info[1];
+        this.mainArt2 = res.data.info[2];
+        this.takeBoard();
+        this.takeBoardViews();
+        this.takeMainBoard();
+      })
+    },
     takeBoard(){
       axios.post('http://alldayfootball.co.kr/api/board/takeboard',{
         bNum: null,
@@ -191,7 +205,15 @@ export default {
           this.findThumb();
           }))
     },
-
+    takeMainBoard(){
+      axios.post('http://alldayfootball.co.kr/api/board/findmain',{
+        mainArt: [this.mainArt0,this.mainArt1,this.mainArt2]
+        })
+        .then((res=>{
+          this.boardResultMain = res.data;
+          this.findThumbMain();
+          }))
+    },
     takeBoardViews(){
       axios.post('http://alldayfootball.co.kr/api/board/takeboardviews',{
         bNum: null,
@@ -214,6 +236,16 @@ export default {
           var tagSrcIndex = this.boardResult[i].contents.indexOf('src="',tagIndex+4);
           var tagEndIndex = this.boardResult[i].contents.indexOf('"',tagSrcIndex+5);
           this.boardResult[i].thumb = this.boardResult[i].contents.slice(tagSrcIndex+5,tagEndIndex);
+          }
+      }
+    },
+    findThumbMain(){
+      for(var i = 0; i<this.boardResultMain.length; i++){
+          if(this.boardResultMain[i].contents.includes('<img')){
+          var tagIndex = this.boardResultMain[i].contents.indexOf('<img');
+          var tagSrcIndex = this.boardResultMain[i].contents.indexOf('src="',tagIndex+4);
+          var tagEndIndex = this.boardResultMain[i].contents.indexOf('"',tagSrcIndex+5);
+          this.boardResultMain[i].thumb = this.boardResultMain[i].contents.slice(tagSrcIndex+5,tagEndIndex);
           }
       }
     },

@@ -63,7 +63,7 @@ export default {
           // {title:"환경설정",to:"/admin/etc"},
       ],
       subMenu:[
-        {title:'문구관리',to:"/admin/configtext",icon:"text"},
+        {title:'기타관리',to:"/admin/configtext",icon:"text"},
       ],
     }
   },

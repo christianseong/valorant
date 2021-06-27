@@ -17,6 +17,7 @@ router.post('/findpage',controller.findpage)
 router.put('/edit',controller.edit)
 router.put('/addviews',controller.addviews)
 router.get('/find',controller.find)
+router.post('/findmain',controller.findmain)
 
 router.post('/cmtwrite',controller.cmtwrite)
 router.post('/cmtfind',controller.cmtfind)
