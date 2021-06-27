@@ -154,7 +154,7 @@
 
             <v-row>
                 <v-col class="d-flex justify-center" cols="12">
-                    <v-btn class="ma-3" @click="clickEdit" color="#509F3F"><v-icon color="white">mdi-upload</v-icon><p class="subText" style="color:white;">수정하기</p></v-btn>
+                    <v-btn class="ma-3" @click="clickEdit2" color="#509F3F"><v-icon color="white">mdi-upload</v-icon><p class="subText" style="color:white;">수정하기</p></v-btn>
                 </v-col>
             </v-row>
             </v-row>
@@ -208,6 +208,33 @@ export default {
             })
         },
         clickEdit2(){
+            if(this.mainArt0===""){
+                alert('첫번째 기사를 지정해주세요.')
+                return;
+            }
+            if(this.mainArt1===""){
+                alert('두번째 기사를 지정해주세요.')
+                return;
+            }
+            if(this.mainArt2===""){
+                alert('세번째 기사를 지정해주세요.')
+                return;
+            }
+            var suc = true;
+            for(var i =0; i<3; i++){
+                const cur = this.info2[i];
+                for(var o=0; o<3; o++){
+                    if(cur===this.info2[o]){
+                        suc = false;
+                        break;
+                    }
+                }
+                if(suc===false) break;
+            }
+            if(suc===false){
+                alert('중복으로 지정할 수 없습니다.')
+                return;
+            }
             axios.put('http://alldayfootball.co.kr/api/config/edit',{
                 id:"60d8f5569d4b9d6bafe4205e",
                 info:this.info2
