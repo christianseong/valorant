@@ -36,6 +36,22 @@
                 </template>
                 <span>인쇄하기</span>
             </v-tooltip>
+            <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn elevation="0" color="grey" outlined min-width="25" width="36" height="32" @click="facebookShare" v-bind="attrs" v-on="on">
+                        <v-img height="26" width="26" src="@/assets/sns/sharefacebook.png"></v-img>
+                        </v-btn>
+                </template>
+                <span>페이스북 공유하기</span>
+            </v-tooltip>
+            <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn elevation="0" color="grey" outlined min-width="25" width="36" height="32" @click="twitterShare" v-bind="attrs" v-on="on">
+                        <v-img height="26" width="26" src="@/assets/sns/sharetwitter.png"></v-img>
+                        </v-btn>
+                </template>
+                <span>트위터 공유하기</span>
+            </v-tooltip>
         </v-col>
     </v-row>
     <v-divider class="mt-4"></v-divider>
@@ -280,6 +296,15 @@ export default {
                     seq:this.$route.query.num
                 })
             }
+        },
+        facebookShare(){
+            var sendUrl = `http://alldayfootball.co.kr/articleView?num=${this.$route.query.num}`; // 전달할 URL
+            window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
+        },
+        twitterShare(){
+            var sendUrl = `http://alldayfootball.co.kr/articleView?num=${this.$route.query.num}`; // 전달할 URL
+            var sendText = `올데이풋볼 ${this.title}`;
+            window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
         },
         urlShare(){
             var link = `http://alldayfootball.co.kr/articleView?num=${this.$route.query.num}`;

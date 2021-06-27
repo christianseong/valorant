@@ -223,7 +223,7 @@ export default {
             var suc = true;
             for(var i =0; i<3; i++){
                 const cur = this.info2[i];
-                for(var o=0; o<3; o++){
+                for(var o=i+1; o<3; o++){
                     if(cur===this.info2[o]){
                         suc = false;
                         break;
