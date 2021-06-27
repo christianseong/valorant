@@ -16,7 +16,7 @@
             <v-text-field solo v-model="title" label="제목" hide-details></v-text-field>
         </v-col>
         <v-col style="border-bottom:1px solid grey;" cols="12">
-            <div id="editor"></div>
+            <textarea id="editor"></textarea>
         </v-col>
         <v-col class="d-flex justify-center" cols="12">
             <v-btn class="ma-3" @click="clickSubmit" color="#509F3F"><v-icon color="white">mdi-upload</v-icon><p class="subText" style="color:white;">등록하기</p></v-btn>
@@ -63,7 +63,7 @@ export default {
 
 
         this.editor = new Jodit('#editor',uploadOptions)
-        // this.editor.value = "";
+        this.editor.value = "<p></p>";
         axios.get('http://alldayfootball.co.kr/api/auth/check')
         .then((res)=>{
             this.author=res.data.info.name

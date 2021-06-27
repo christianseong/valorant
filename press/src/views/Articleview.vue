@@ -48,9 +48,10 @@
                 <v-col class="mt-10" cols="12">
                     <v-card shaped class="d-flex align-center pa-2">
                         <v-card outlined height="75" width="75" color="rgba(88,211,88,.2)" rounded="circle">
-                            <v-img width="100%" height="100%" src="@/assets/logo/defalut.png"></v-img>
+                            <v-img width="100%" height="100%" :src="photo"></v-img>
                         </v-card>
-                        <p class="mx-5 articleTitleText">홍길동 기자</p>
+                        <p class="mx-5 articleTitleText">{{name}} 기자</p>
+                        <p class="mx-5 sliderSubText">제보: {{email}}</p>
                     </v-card>
                 </v-col>
             </v-row>
@@ -143,6 +144,10 @@ export default {
             toggle_exclusive:0,
             title:null,
             author:null,
+            authorid:null,
+            name:'',
+            email:'',
+            photo:'https://kr.object.ncloudstorage.com/alldayfootball/defalut/defalut.png',
             bNum:null,
             contents:null,
             parent:null,
@@ -164,6 +169,7 @@ export default {
     },
     mounted(){
         this.getBoard();
+        this.getAuthor();
         // this.getComment();
     },
     methods:{
@@ -249,10 +255,21 @@ export default {
             .then((res)=>{
                 this.title = res.data.title;
                 this.author = res.data.author;
+                this.authorid = res.data.authorid;
                 this.bNum = res.data.bNum;
                 this.contents = res.data.contents;
                 this.regTime = res.data.regTime;
                 this.addViews();
+            })
+        },
+        getAuthor(){
+            axios.post('http://alldayfootball.co.kr/api/auth/findone',{
+                id:this.authorid
+            })
+            .then((res)=>{
+                this.name = res.data.name;
+                this.email = res.data.email;
+                this.photo = res.data.photo;
             })
         },
         addViews(){
