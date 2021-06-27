@@ -281,6 +281,6 @@ exports.findone = (req, res) => {
     const { id } = req.body;
     User.findOne({_id:id},function(err, user){
         if(err) return res.send(err);
-        res.send({name:user.name,email:user.email});
+        res.send({name:user.name,email:user.email,photo:user.photo});
     })
 }
