@@ -228,7 +228,7 @@ export default {
             axios.get('http://alldayfootball.co.kr/api/auth/find')
             .then((res)=>{
                 this.userList = res.data;
-                console.log(this.userList);
+                // console.log(this.userList);
             })
         },
         async register(){
@@ -259,7 +259,7 @@ export default {
                     }
                 })
                 photoURL = res.data.slice(0);
-                console.log(photoURL);
+                // console.log(photoURL);
             }
             await axios.post('http://alldayfootball.co.kr/api/auth/register',{
                 id:this.regId,
@@ -270,7 +270,7 @@ export default {
                 superAdmin:this.regRadio===0
                 })
                 .then((res)=>{
-                    console.log(photoURL);
+                    // console.log(photoURL);
                     if(res.data==='registered'){
                         alert('등록되었습니다.');
                         this.getUserList();
@@ -318,7 +318,7 @@ export default {
                     }
                 })
                 photoURL = res.data.slice(0);
-                console.log(photoURL);
+                // console.log(photoURL);
             }
             await axios.put('http://alldayfootball.co.kr/api/auth/edit',{
                 id:this.editId,

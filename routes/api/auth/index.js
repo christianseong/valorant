@@ -11,6 +11,7 @@ router.post('/delete',controller.delete)
 router.put('/edit',controller.edit)
 router.get('/logout',controller.logout)
 router.get('/find',controller.find)
+router.post('/findone',controller.findone)
 
 router.use('/check', authMiddleware)
 router.get('/check', controller.check)

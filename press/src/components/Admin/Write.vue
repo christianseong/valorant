@@ -35,6 +35,7 @@ export default {
     mounted() {
          var uploadOptions = {
              height:'70vh',
+             language: 'ko',
                 enableDragAndDropFileToEditor: true,
                 uploader: {
                     url: 'http://alldayfootball.co.kr/api/storage/test',
@@ -62,7 +63,7 @@ export default {
 
 
         this.editor = new Jodit('#editor',uploadOptions)
-        this.editor.value = "";
+        // this.editor.value = "";
         axios.get('http://alldayfootball.co.kr/api/auth/check')
         .then((res)=>{
             this.author=res.data.info.name

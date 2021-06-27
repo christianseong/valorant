@@ -42,7 +42,7 @@ mongoose.connect(config.mongodbUri,{
   useCreateIndex : true,
   useUnifiedTopology:true,
   }).then(()=>{
-    console.log('몽고디비 연결성공')
+    // console.log('몽고디비 연결성공')
   })
   .catch((err)=>{
     console.log(err);

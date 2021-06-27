@@ -2,7 +2,7 @@
 <div class="articlelist mx-auto">
     <v-row no-gutters>
         <v-col cols="12" lg="9">
-            <v-row no-gutters>
+            <v-row style="height:88px;" no-gutters>
                 <v-col class="my-5" cols="auto">
                     <p class="topicText">{{queryTitle}} <span class="topicSubText">({{this.bLength}}건)</span></p>
                 </v-col>

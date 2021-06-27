@@ -54,7 +54,7 @@ const routes = [
     beforeEnter: (to,from,next) => {
       axios.get('http://alldayfootball.co.kr/api/auth/check')
       .then((res)=>{
-        console.log(res.data);
+        // console.log(res.data);
         if(res.data==='not_logged'||res.data==='not_admin')
         {
           router.push('/login');

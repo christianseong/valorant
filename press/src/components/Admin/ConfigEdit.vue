@@ -23,6 +23,7 @@ export default {
     mounted() {
          var uploadOptions = {
              height:'70vh',
+             language: 'ko',
                 enableDragAndDropFileToEditor: true,
                 uploader: {
                     url: 'http://alldayfootball.co.kr/api/storage/test',
@@ -47,7 +48,6 @@ export default {
                 }
          }
         this.editor = new Jodit('#editor2',uploadOptions)
-        this.editor.value = "";
             // console.log(n);
             axios.post('http://alldayfootball.co.kr/api/settingboard/findone',{
                 id:this.selectId

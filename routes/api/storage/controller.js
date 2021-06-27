@@ -67,7 +67,7 @@ exports.upload = (req, res) => {
             
             })();
             var resp = {path:'https://kr.object.ncloudstorage.com/alldayfootball/'+object_name};
-            console.log(resp);
+            // console.log(resp);
             res.send('hi');
         }
         else res.send('not_admin')
@@ -75,7 +75,7 @@ exports.upload = (req, res) => {
 }
 
 exports.uploadtest =  (req, res) => {
-    console.log(req);
+    // console.log(req);
     
     const S3 = new AWS.S3({
         endpoint: endpoint,

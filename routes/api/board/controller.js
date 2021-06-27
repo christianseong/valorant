@@ -134,7 +134,7 @@ exports.find = (req, res) => {
 }
 exports.findone = (req, res) => {
     const { seq } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     Board.findOne({seq:seq},function(err, board){
         if(err) return res.send(err);
         res.json(board);
@@ -143,7 +143,7 @@ exports.findone = (req, res) => {
 exports.findcate = (req, res) => {
     const { bNum } = req.body
     Board.find({bNum:bNum},function(err, board){
-        console.log(bNum);
+        // console.log(bNum);
         if(err) return res.send(err);
         res.json(board);
     })
@@ -158,7 +158,7 @@ exports.findpage = (req, res) => {
     }
     else{
         Board.paginate({bNum:bNum},{page:page,limit:limit},(err , result)=>{
-            console.log(result);
+            // console.log(result);
             res.send(result);
         });
     }
@@ -378,7 +378,7 @@ exports.cmtdelete = (req ,res) => {
     if(!token) {
         Comment.findOne({_id:id},function(err, comment){
             if(err) return res.send(err);
-            console.log(comment);
+            // console.log(comment);
             if(password === comment.password){
                 Comment.deleteOne({_id:id})
                 .then(()=>{

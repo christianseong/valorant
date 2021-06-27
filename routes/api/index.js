@@ -15,7 +15,7 @@ router.use('/settingboard',settingboard);
 router.use('/storage',storage);
 
 router.all('*', (req,res)=>{
-  console.log(req.session);
+  // console.log(req.session);
   res.sendStatus(404);
 });
 

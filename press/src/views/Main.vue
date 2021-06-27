@@ -50,7 +50,7 @@
     <v-card v-if="!this.$vuetify.breakpoint.smAndDown" class="pa-2">
       <v-row class="pa-1" no-gutters>
         <v-col cols="12">
-          <p class="headerText px-5 py-3" style="color:black;">많이 본 기사</p>
+          <p class="mainSubText px-5 py-3" style="color:black;">많이 본 기사</p>
         <v-divider></v-divider>
         </v-col>
         <v-col class="pa-5" cols="12">
@@ -74,7 +74,7 @@
     <v-card v-if="this.$vuetify.breakpoint.smAndDown" class="pa-2">
       <v-row class="pa-1" no-gutters>
         <v-col cols="12">
-          <p class="headerText px-5 py-3" style="color:black;">많이 본 기사</p>
+          <p class="mainSubText px-5 py-3" style="color:black;">많이 본 기사</p>
         <v-divider></v-divider>
         </v-col>
         <v-col cols="12">
@@ -95,13 +95,13 @@
       </v-row>
     </v-card>
 
-    <v-card class="pa-2 mt-10">
-      <v-row no-gutters class="mt-5">
+    <v-card class="pa-2 my-10">
+      <v-row class="pa-1" no-gutters>
         <v-col cols="12">
-          <p class="headerText px-5" style="color:black;">최신 뉴스</p>
+          <p class="mainSubText px-5 py-3" style="color:black;">최신 뉴스</p>
         <v-divider></v-divider>
         </v-col>
-        <v-col v-for="(i,idx) in boardResult.slice(3,16)" :key="idx" cols="6" lg="4">
+        <v-col v-for="(i,idx) in boardResult.slice(0,12)" :key="idx" cols="6" lg="4">
           <div class="pa-2 decoCard2" style="width:100%;">
             <v-card class="scopeCard" @click="goToView(i.seq)" width="100%" :height="mobileHeight2">
               <v-img gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.33)" style="position:absolute;" :src="i.thumb" width="100%" height="100%"></v-img>
@@ -182,7 +182,7 @@ export default {
     takeBoard(){
       axios.post('http://alldayfootball.co.kr/api/board/takeboard',{
         bNum: null,
-        limit: 15,
+        limit: 12,
         page: 1,
         word:""
         })

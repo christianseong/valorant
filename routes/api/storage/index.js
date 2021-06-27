@@ -26,7 +26,7 @@ const upload = multer({
         contentType: multerS3.AUTO_CONTENT_TYPE, // 자동을 콘텐츠 타입 세팅
         acl: 'public-read', // 클라이언트에서 자유롭게 가용하기 위함
         key: (req, file, cb) => {
-            console.log(file);
+            // console.log(file);
             cb(null,"img/"+new Date().valueOf() +file.originalname)
         },
     }),
@@ -94,7 +94,7 @@ router.post('/test', upload.single('files'), (req, res) => {
         if(decoded.admin)
         {
             try {
-                console.log("req.file: ", req.file); // 테스트 => req.file.location에 이미지 링크(s3-server)가 담겨있음
+                // console.log("req.file: ", req.file); // 테스트 => req.file.location에 이미지 링크(s3-server)가 담겨있음
                 let payLoad = { path: req.file.location };
                 res.send(payLoad);
             } catch (err) {
@@ -130,7 +130,7 @@ router.post('/profileupload', upload2.single('image'), (req, res) => {
         if(decoded.admin)
         {
             try {
-                console.log(req.file.location);
+                // console.log(req.file.location);
                 // let payLoad = { path: req.file.location };
                 // console.log(payload);
                 res.send(req.file.location);

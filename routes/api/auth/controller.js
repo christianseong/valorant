@@ -123,7 +123,7 @@ exports.login = (req, res) => {
 
     const respond = (token) => {
         req.session.token = token;
-        console.log(req.session);
+        // console.log(req.session);
         res.send('logged_in')
     }
 
@@ -151,7 +151,7 @@ exports.logout = (req, res) => {
     if(req.session){
         req.session.destroy((err)=>{
             if(err){
-                console.log(err);
+                // console.log(err);
             }
             else{
                 res.send('logged_out');
@@ -275,4 +275,12 @@ exports.edit = (req, res) => {
     // .then(()=>{
     //     res.send('updated');
     // })
+}
+
+exports.findone = (req, res) => {
+    const { id } = req.body;
+    User.findOne({_id:id},function(err, user){
+        if(err) return res.send(err);
+        res.send({name:user.name,email:user.email});
+    })
 }

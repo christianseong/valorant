@@ -36,6 +36,7 @@ export default {
     mounted() {
          var uploadOptions = {
              height:'70vh',
+             language: 'ko',
                 enableDragAndDropFileToEditor: true,
                 uploader: {
                     url: 'http://alldayfootball.co.kr/api/storage/test',
@@ -60,7 +61,6 @@ export default {
                 }
          }
         this.editor = new Jodit('#editor1',uploadOptions)
-        this.editor.value = "";
         axios.get('http://alldayfootball.co.kr/api/auth/check')
         .then((res)=>{
         this.author=res.data.info.id
@@ -134,7 +134,7 @@ export default {
                 case 7 :  this.select ='k리그결과'; break;
                 default:  this.select ='k1'; break;
             }
-            console.log(this.select);
+            // console.log(this.select);
         },
         cancle(){
             if(this.title===null&&this.editor.value==="") this.$router.push('/admin/article');

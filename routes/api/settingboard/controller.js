@@ -25,7 +25,7 @@ exports.write = (req, res) => {
     }
 
     p.then((decoded)=>{
-        if(decoded.admin)
+        if(decoded.superAdmin)
         {
             settingBoard.create(contents)
             .then(()=>{
@@ -67,7 +67,7 @@ exports.edit = (req, res) => {
     }
 
     p.then((decoded)=>{
-        if(decoded.admin)
+        if(decoded.superAdmin)
         {
             settingBoard.findOneAndUpdate({_id:id,},{$set:{contents:contents}})
             .then(()=>{
