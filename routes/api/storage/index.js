@@ -96,7 +96,7 @@ router.post('/test', upload.single('files'), (req, res) => {
             try {
                 // console.log("req.file: ", req.file); // 테스트 => req.file.location에 이미지 링크(s3-server)가 담겨있음
                 console.log(req.file);
-                let payLoad = { path: req.file.location , message: req.file};
+                let payLoad = { path: req.file.location , message: req.file.contentType};
                 res.send(payLoad);
             } catch (err) {
                 console.log(err);
