@@ -58,7 +58,7 @@ export default {
                 },
                 defaultHandlerSuccess: function (data) {
                     if(data.message.includes('image')) this.selection.insertImage(data.path);
-                    if(data.message.includes('video')) this.selection.insertHtml(`<video controls src=${data.path}></video>`);
+                    if(data.message.includes('video')) this.selection.insertHTML(`<video controls src=${data.path}></video>`);
                 },
             },
             buttons: [
