@@ -33,35 +33,76 @@ import { Jodit } from 'jodit'
 import 'jodit/build/jodit.min.css'
 export default {
     mounted() {
+        
          var uploadOptions = {
-             height:'70vh',
-             language: 'ko',
-                enableDragAndDropFileToEditor: true,
-                uploader: {
-                    url: 'http://alldayfootball.co.kr/api/storage/test',
-                    filesVariableName: function () {
-                        return "files";
-                    },
-                    isSuccess: function (resp) {
-                        return resp;
-                    },
-                    process: function (resp) {
-                        return {
-                            // files: resp.data.files,
-                            path: resp.path,
-                            // baseurl: resp.data.baseurl,
-                            // error: resp.data.error,
-                            // message: resp.message
-                        }
-                    },
-                    defaultHandlerSuccess: function (data) {
-                        this.selection.insertImage(data.path);
-                    },
-                }
-         }
-
-
-
+            height:'70vh',
+            language: 'ko',
+            enableDragAndDropFileToEditor: true,
+            uploader: {
+                url: 'http://alldayfootball.co.kr/api/storage/test',
+                filesVariableName: function () {
+                    return "files";
+                },
+                isSuccess: function (resp) {
+                    return resp;
+                },
+                process: function (resp) {
+                    return {
+                        // files: resp.data.files,
+                        path: resp.path,
+                        // type: resp.type,
+                        // baseurl: resp.data.baseurl,
+                        // error: resp.data.error,
+                        message: resp.message
+                    }
+                },
+                defaultHandlerSuccess: function (data) {
+                    this.selection.insertImage(data.path);
+                    console.log(data.message);
+                },
+            },
+            buttons: [
+                'source', '|',
+                'bold',
+                'strikethrough',
+                'underline',
+                'italic', '|',
+                'ul',
+                'ol', '|',
+                'outdent', 'indent',  '|',
+                'font',
+                'fontsize',
+                'brush',
+                'paragraph', '|',
+                'image',
+                'file',
+                'table',
+                'link', '|',
+                'align', 'undo', 'redo', '|',
+                'hr',
+                'eraser',
+                'copyformat', '|',
+                'fullsize',
+                'print',
+                // {
+                //     name: 'insertDate',
+                //     tooltip: 'Insert current Date',
+                //     exec: (editor) => {
+                //         editor.s.insertHTML(new Date().toDateString());
+                //     }
+                // },
+            ],
+            buttonsXS: [
+                'bold',
+                'image', '|',
+                'brush',
+                'paragraph', '|',
+                'align', '|',
+                'undo', 'redo', '|',
+                'eraser',
+                'dots',
+            ],
+        }
         this.editor = new Jodit('#editor',uploadOptions)
         this.editor.value = "<p></p>";
         axios.get('http://alldayfootball.co.kr/api/auth/check')

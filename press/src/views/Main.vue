@@ -121,6 +121,8 @@
 import axios from 'axios'
 axios.defaults.headers['Pragma'] = 'no-cache';
 export default {
+  components:{
+  },
   data(){
     return{
       mainArt0:0,

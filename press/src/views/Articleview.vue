@@ -155,6 +155,25 @@ export default {
     components:{
         Timeline,
     },
+    head:{
+        title: function () {
+            return {
+            inner: this.title,
+            separator: '|',
+            complement: '올데이풋볼'
+            }
+        },
+        meta: function () {
+            return [
+            { property: 'og:title', content: this.title + ' | 올데이풋볼' },
+            { property: 'og:description', content: this.pretext },
+            { property: 'og:image', content: this.thumb },
+            { name: 'description', content: this.pretext },
+            // { name: 'keywords', content: this.keywords },
+            // ... 
+            ]
+        },
+    },
     data(){
         return{
             toggle_exclusive:0,
@@ -166,6 +185,8 @@ export default {
             photo:'https://kr.object.ncloudstorage.com/alldayfootball/defalut/defalut.png',
             bNum:null,
             contents:null,
+            pretext:null,
+            thumb:null,
             parent:null,
             regTime:'',
             // comments:[{parent:-1,author:"",contents:"",password:"",regTime:""}],
@@ -262,6 +283,17 @@ export default {
         //         this.pLength = res.data.totalPages;
         //     })
         // },
+        findThumb(){
+            if(this.contents.includes('<img')){
+            var tagIndex = this.contents.indexOf('<img');
+            var tagSrcIndex = this.contents.indexOf('src="',tagIndex+4);
+            var tagEndIndex = this.contents.indexOf('"',tagSrcIndex+5);
+            this.thumb = this.contents.slice(tagSrcIndex+5,tagEndIndex);
+            }
+        },
+        findPretext(){
+            this.pretext = this.contents.replace(/(<([^>]+)>|&nbsp;)/ig," ").slice(0,100)+('...');
+        },
         getBoard(){
             var n = parseInt(this.$route.query.num);
             axios.post('http://alldayfootball.co.kr/api/board/findone',{
@@ -276,6 +308,8 @@ export default {
                 this.regTime = res.data.regTime;
                 this.getAuthor();
                 this.addViews();
+                this.findThumb();
+                this.findPretext();
             })
         },
         getAuthor(){
