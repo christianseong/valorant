@@ -35,13 +35,6 @@ app.get("/robots.txt", (req, res) => {
     "User-agent: *\nDisallow: /admin/\nDisallow: /login/\n"
   );
 });
-app.get("/", (req, res,next) => {
-  const pathToIndex = path.join(__dirname,'press','dist/index.html')
-  const raw = fs.readFileSync(pathToIndex)
-  const pageTitle = "올데이풋볼";
-  const updated = raw.toString().replace("__PAGE_META__", '')
-  res.send(updated);
-});
 app.get("/articleView", (req, res,next) => {
   // console.log(req.query.num);
   const Board = require('./models/board')
@@ -65,6 +58,14 @@ app.get("/articleView", (req, res,next) => {
     res.send(updated);
   })
 });
+app.get("/", (req, res,next) => {
+  const pathToIndex = path.join(__dirname,'press','dist/index.html')
+  const raw = fs.readFileSync(pathToIndex)
+  const updated = raw.toString().replace("__PAGE_META__", `<meta property="og:image" content="http://alldayfootball.co.kr/img/ogimg.png">
+  <meta property="og:title" content="올데이풋볼">`)
+  res.send(updated);
+});
+
 app.use('/api', require('./routes/api'))
 app.use(history());
 app.set('jwt-secret', config.secret)
