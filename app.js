@@ -55,7 +55,7 @@ app.get("/articleView", (req, res,next) => {
     const pageTitle = board.title;
     const updated = raw.toString()
     .replace("http://alldayfootball.co.kr/img/ogimg.png",thumb)
-    .replace("스포츠, 그 이상의 가치 올데이풋볼이 함께합니다. AllDayFootBall",pageTitle)
+    .replace("test, 그 이상의 가치 올데이풋볼이 함께합니다. AllDayFootBall",pageTitle)
     res.send(updated);
   })
 });
