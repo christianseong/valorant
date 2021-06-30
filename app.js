@@ -49,19 +49,19 @@ app.get("/articleView", (req, res,next) => {
     var tagEndIndex = board.contents.indexOf('"',tagSrcIndex+5);
     thumb = board.contents.slice(tagSrcIndex+5,tagEndIndex);
     }
-    pretext = board.contents.replace(/(<([^>]+)>|&nbsp;)/ig," ").slice(0,100)+('...');
+    // pretext = board.contents.replace(/(<([^>]+)>|&nbsp;)/ig," ").slice(0,100)+('...');
     const raw = fs.readFileSync(pathToIndex)
     // console.log(raw.toString());
     const pageTitle = board.title.replace("\"","");
     const updated = raw.toString()
-    .replace('<meta property="og:type" content="website">',`
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="http://alldayfootball.co.kr/articleView?num=${req.query.num}"/>
-    <meta property="og:title" content="${pageTitle}"/>
-    <meta property="og:image" content="${thumb}"/>
-    <meta property="og:description" content="${pageTitle}"/>
-    <meta property="og:site_name" content="${pageTitle}"/>
-    `)
+    .replace(
+    '<meta property="og:url" content="http://alldayfootball.co.kr/">',`<meta property="og:url" content="http://alldayfootball.co.kr/articleView?num=${req.query.num}">`)
+    .replace(
+      '<meta property="og:image" content="http://alldayfootball.co.kr/img/ogimg.png">',`<meta property="og:image" content="${thumb}">`
+    )
+    .replace(
+      '<meta property="og:description" content="스포츠, 그 이상의 가치 올데이풋볼이 함께합니다. AllDayFootBall">',`<meta property="og:description" content="${pageTitle}">`
+    )
     res.send(updated);
   })
 });
