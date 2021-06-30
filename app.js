@@ -39,8 +39,7 @@ app.get("/", (req, res,next) => {
   const pathToIndex = path.join(__dirname,'press','dist/index.html')
   const raw = fs.readFileSync(pathToIndex)
   const pageTitle = "올데이풋볼";
-  const updated = raw.toString().replace("__PAGE_META__", `<meta property="og:image" content="http://alldayfootball.co.kr/img/ogimg.png">
-  <meta property="og:title" content="${pageTitle}">`)
+  const updated = raw.toString().replace("__PAGE_META__", '')
   res.send(updated);
 });
 app.get("/articleView", (req, res,next) => {
