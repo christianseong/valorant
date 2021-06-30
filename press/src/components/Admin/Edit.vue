@@ -52,11 +52,12 @@ export default {
                             path: resp.path,
                             // baseurl: resp.data.baseurl,
                             // error: resp.data.error,
-                            // message: resp.message
+                            message: resp.message
                         }
                     },
                     defaultHandlerSuccess: function (data) {
-                        this.selection.insertImage(data.path);
+                        if(data.message.includes('image')) this.selection.insertImage(data.path);
+                        if(data.message.includes('video')) this.selection.insertHTML(`<video controls src=${data.path}></video>`);
                     },
                 },
             buttons: [

@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 //★★★★★★★★★★★★★★★★★★★★★★★★★★★★//
+var fs = require('fs');
 var history = require('connect-history-api-fallback');
 var session = require('express-session');
 var mongoose = require('mongoose');
@@ -33,6 +34,37 @@ app.get("/robots.txt", (req, res) => {
   res.send(
     "User-agent: *\nDisallow: /admin/\nDisallow: /login/\n"
   );
+});
+app.get("/", (req, res,next) => {
+  const pathToIndex = path.join(__dirname,'press','dist/index.html')
+  const raw = fs.readFileSync(pathToIndex)
+  const pageTitle = "올데이풋볼";
+  const updated = raw.toString().replace("__PAGE_META__", `<meta property="og:image" content="http://alldayfootball.co.kr/img/ogimg.png">
+  <meta property="og:title" content="${pageTitle}">`)
+  res.send(updated);
+});
+app.get("/articleView", (req, res,next) => {
+  // console.log(req.query.num);
+  const Board = require('./models/board')
+  var thumb = "";
+  var pretext = "";
+  const pathToIndex = path.join(__dirname,'press','dist/index.html')
+  Board.findOne({seq:req.query.num},function(err, board){
+    if(err) return console.log(err);
+    if(board.contents.includes('<img')){
+    var tagIndex = board.contents.indexOf('<img');
+    var tagSrcIndex = board.contents.indexOf('src="',tagIndex+4);
+    var tagEndIndex = board.contents.indexOf('"',tagSrcIndex+5);
+    thumb = board.contents.slice(tagSrcIndex+5,tagEndIndex);
+    }
+    pretext = board.contents.replace(/(<([^>]+)>|&nbsp;)/ig," ").slice(0,100)+('...');
+    const raw = fs.readFileSync(pathToIndex)
+    // console.log(raw.toString());
+    const pageTitle = board.title;
+    const updated = raw.toString().replace("__PAGE_META__", `<meta property="og:image" content="${thumb}">
+    <meta property="og:title" content="${pageTitle}">`)
+    res.send(updated);
+  })
 });
 app.use('/api', require('./routes/api'))
 app.use(history());
