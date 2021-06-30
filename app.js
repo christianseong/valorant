@@ -55,8 +55,8 @@ app.get("/articleView", (req, res,next) => {
     const pageTitle = board.title;
     const updated = raw.toString()
     .replace(`<meta property="og:type" content="website">`,`
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="http://alldayfootball.co.kr/"/>
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="http://alldayfootball.co.kr/articleView?num=${req.query.num}"/>
     <meta property="og:title" content="${pageTitle}"/>
     <meta property="og:image" content="${thumb}"/>
     <meta property="og:description" content="${pageTitle}"/>
