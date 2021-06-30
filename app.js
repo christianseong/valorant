@@ -52,7 +52,7 @@ app.get("/articleView", (req, res,next) => {
     pretext = board.contents.replace(/(<([^>]+)>|&nbsp;)/ig," ").slice(0,100)+('...');
     const raw = fs.readFileSync(pathToIndex)
     // console.log(raw.toString());
-    const pageTitle = board.title.replace(`"`,"\"");
+    const pageTitle = board.title.replace("\"","");
     const updated = raw.toString()
     .replace('<meta property="og:type" content="website">',`
     <meta property="og:type" content="article">
