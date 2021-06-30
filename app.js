@@ -53,8 +53,9 @@ app.get("/articleView", (req, res,next) => {
     const raw = fs.readFileSync(pathToIndex)
     // console.log(raw.toString());
     const pageTitle = board.title;
-    const updated = raw.toString().replace("__PAGE_META__", `<meta property="og:image" content="${thumb}">
-    <meta property="og:title" content="${pageTitle}">`)
+    const updated = raw.toString()
+    .replace("http://alldayfootball.co.kr/img/ogimg.png",thumb)
+    .replace("스포츠, 그 이상의 가치 올데이풋볼이 함께합니다. AllDayFootBall",pageTitle)
     res.send(updated);
   })
 });
