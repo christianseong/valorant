@@ -12,17 +12,17 @@
             <p class="articleTitleText">{{title}}</p>
         </v-col>
         <v-col cols="auto my-3">
-            <p class="articleTinyText"><v-icon class="mx-2" x-small>mdi-account</v-icon>{{author}}</p>
+            <p class="articleTinyText"><v-icon class="mx-1" x-small>mdi-account</v-icon>{{author}}</p>
         </v-col>
-        <v-divider style="height:12px;" class="mx-5 my-auto" vertical></v-divider>
+        <v-divider style="height:10px;" class="mx-2 my-auto" vertical></v-divider>
         <v-col cols="auto my-3">
-            <p class="articleTinyText"><v-icon class="mx-2" x-small>mdi-clock-time-three-outline</v-icon>{{regTime.slice(0,16).replace('T','｜')}}</p>
+            <p class="articleTinyText"><v-icon class="mr-1" x-small>mdi-clock-time-three-outline</v-icon>{{regTime.slice(0,16).replace('T','｜')}}</p>
         </v-col>
         <v-spacer></v-spacer>
-        <v-col cols="auto">
+        <v-col class="d-flex justify-end" cols="auto">
             <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
-                    <v-btn elevation="0" color="grey" outlined min-width="25" width="36" height="32" @click="urlShare" v-bind="attrs" v-on="on">
+                    <v-btn elevation="0" icon width="32" height="32" @click="urlShare" v-bind="attrs" v-on="on">
                         <v-icon color="black" small>mdi-link-variant</v-icon>
                         </v-btn>
                 </template>
@@ -30,7 +30,7 @@
             </v-tooltip>
             <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
-                    <v-btn elevation="0" color="grey" outlined min-width="25" width="36" height="32" @click="print" v-bind="attrs" v-on="on">
+                    <v-btn elevation="0" icon color="grey" width="32" height="32" @click="print" v-bind="attrs" v-on="on">
                         <v-icon color="black" small>mdi-printer</v-icon>
                         </v-btn>
                 </template>
@@ -38,16 +38,16 @@
             </v-tooltip>
             <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
-                    <v-btn elevation="0" color="grey" outlined min-width="25" width="36" height="32" @click="facebookShare" v-bind="attrs" v-on="on">
-                        <v-img height="26" width="26" src="@/assets/sns/sharefacebook.png"></v-img>
+                    <v-btn class="mx-1" elevation="0"  icon width="32" height="32" @click="facebookShare" v-bind="attrs" v-on="on">
+                        <v-img height="32" width="32" src="@/assets/sns/sharefacebook.png"></v-img>
                         </v-btn>
                 </template>
                 <span>페이스북 공유하기</span>
             </v-tooltip>
             <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
-                    <v-btn elevation="0" color="grey" outlined min-width="25" width="36" height="32" @click="twitterShare" v-bind="attrs" v-on="on">
-                        <v-img height="26" width="26" src="@/assets/sns/sharetwitter.png"></v-img>
+                    <v-btn class="mx-1" elevation="0" icon width="32" height="32" @click="twitterShare" v-bind="attrs" v-on="on">
+                        <v-img height="32" width="32" src="@/assets/sns/sharetwitter.png"></v-img>
                         </v-btn>
                 </template>
                 <span>트위터 공유하기</span>
