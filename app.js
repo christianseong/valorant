@@ -54,9 +54,14 @@ app.get("/articleView", (req, res,next) => {
     // console.log(raw.toString());
     const pageTitle = board.title;
     const updated = raw.toString()
-    .replace("http://alldayfootball.co.kr/img/ogimg.png",thumb)
-    .replace("스포츠, 그 이상의 가치 올데이풋볼이 함께합니다. AllDayFootBall",pageTitle)
-    .replace("스포츠, 그 이상의 가치 올데이풋볼이 함께합니다.",pageTitle)
+    .replace(`<meta property="og:type" content="website">`,`
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://alldayfootball.co.kr/"/>
+    <meta property="og:title" content="${pageTitle}"/>
+    <meta property="og:image" content="${thumb}"/>
+    <meta property="og:description" content="${pageTitle}"/>
+    <meta property="og:site_name" content="${pageTitle}"/>
+    `)
     res.send(updated);
   })
 });
