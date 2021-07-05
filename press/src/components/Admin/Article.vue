@@ -185,6 +185,7 @@ export default {
         }
     },
     created(){
+        this.getConfig()
         this.takeBoard();
     },
     computed:{
@@ -193,14 +194,14 @@ export default {
             if(this.category===this.select) return null;
             for(var i =0; i<this.select.length; i++){
                 switch(this.select[i]){
-                    case 'k1': sc[i] = 0; break;
-                    case 'k2': sc[i] = 1; break;
-                    case 'k3': sc[i] = 2; break;
-                    case 'k4': sc[i] = 3; break;
-                    case 'k5': sc[i] = 4; break;
-                    case '인터뷰': sc[i] = 5; break;
-                    case '스포츠칼럼': sc[i] = 6; break;
-                    case 'K리그결과': sc[i] = 7; break;
+                    case this.category[0]: sc[i] = 0; break;
+                    case this.category[1]: sc[i] = 1; break;
+                    case this.category[2]: sc[i] = 2; break;
+                    case this.category[3]: sc[i] = 3; break;
+                    case this.category[4]: sc[i] = 4; break;
+                    case this.category[5]: sc[i] = 5; break;
+                    case this.category[6]: sc[i] = 6; break;
+                    case this.category[7]: sc[i] = 7; break;
                 }
             }
             return sc;
@@ -214,6 +215,26 @@ export default {
         },
     },
     methods:{
+        getConfig(){
+            axios.post('http://alldayfootball.co.kr/api/config/findone',{
+                id:"60e246fb2145564307fa6265"
+            })
+            .then((res)=>{
+                var menuList = [];
+                for(var i =0; i<res.data.info.length; i++){
+                    if(res.data.info[i].to==='subMenu'){
+                        for(var o = 0; o<res.data.info[i].subMenu.length; o++){
+                            menuList.push(res.data.res.data.info[i].subMenu[o].title);
+                        }
+                    }
+                    else{
+                         menuList.push(res.data.res.data.info[i].title);
+                    }
+                }
+                this.category = menuList;
+                this.select = menuList;
+            })
+        },
         clickTitle(num){
             location.href=`/admin/edit?num=${num}`;
         },

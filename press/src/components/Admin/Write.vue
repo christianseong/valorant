@@ -33,7 +33,7 @@ import { Jodit } from 'jodit'
 import 'jodit/build/jodit.min.css'
 export default {
     mounted() {
-        
+        this.getConfig();
          var uploadOptions = {
             height:'70vh',
             language: 'ko',
@@ -126,19 +126,39 @@ export default {
     computed:{
         radioGroup(){
             switch(this.select){
-                case 'k1' : return 0;
-                case 'k2' : return 1;
-                case 'k3' : return 2;
-                case 'k4' : return 3;
-                case 'k5' : return 4;
-                case '인터뷰' : return 5;
-                case '스포츠 칼럼' : return 6;
-                case 'k리그결과' : return 7;
+                case this.bNumItems[0] : return 0;
+                case this.bNumItems[1] : return 1;
+                case this.bNumItems[2] : return 2;
+                case this.bNumItems[3] : return 3;
+                case this.bNumItems[4] : return 4;
+                case this.bNumItems[5] : return 5;
+                case this.bNumItems[6] : return 6;
+                case this.bNumItems[7] : return 7;
                 default: return 0;
             }
         },
     },
     methods:{
+        getConfig(){
+            axios.post('http://alldayfootball.co.kr/api/config/findone',{
+                id:"60e246fb2145564307fa6265"
+            })
+            .then((res)=>{
+                var menuList = [];
+                for(var i =0; i<res.data.info.length; i++){
+                    if(res.data.info[i].to==='subMenu'){
+                        for(var o = 0; o<res.data.info[i].subMenu.length; o++){
+                            menuList.push(res.data.res.data.info[i].subMenu[o].title);
+                        }
+                    }
+                    else{
+                         menuList.push(res.data.res.data.info[i].title);
+                    }
+                }
+                this.bNumItems = menuList;
+                this.select = menuList[0];
+            })
+        },
         cancle(){
             if(this.title===null&&this.editor.value==="") this.$router.push('/admin/article');
             else{

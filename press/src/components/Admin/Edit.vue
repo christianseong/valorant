@@ -34,6 +34,7 @@ import { Jodit } from 'jodit'
 import 'jodit/build/jodit.min.css'
 export default {
     mounted() {
+        this.getConfig();
          var uploadOptions = {
              height:'70vh',
              language: 'ko',
@@ -103,23 +104,6 @@ export default {
             ],
          }
         this.editor = new Jodit('#editor1',uploadOptions)
-        axios.get('http://alldayfootball.co.kr/api/auth/check')
-        .then((res)=>{
-        this.author=res.data.info.id
-        })
-            var n = parseInt(this.$route.query.num);
-            // console.log(n);
-            axios.post('http://alldayfootball.co.kr/api/board/findone',{
-                seq:n
-            })
-            .then((res)=>{
-                this.id = res.data._id;
-                this.title = res.data.title;
-                // this.author = res.data.author;
-                this.findSelect(res.data.bNum);
-                this.editor.value = res.data.contents;
-            })
-
     },
     data(){
         return{
@@ -151,30 +135,65 @@ export default {
     computed:{
         radioGroup(){
             switch(this.select){
-                case 'k1' : return 0;
-                case 'k2' : return 1;
-                case 'k3' : return 2;
-                case 'k4' : return 3;
-                case 'k5' : return 4;
-                case '인터뷰' : return 5;
-                case '스포츠 칼럼' : return 6;
-                case 'k리그결과' : return 7;
+                case this.bNumItems[0] : return 0;
+                case this.bNumItems[1] : return 1;
+                case this.bNumItems[2] : return 2;
+                case this.bNumItems[3] : return 3;
+                case this.bNumItems[4] : return 4;
+                case this.bNumItems[5] : return 5;
+                case this.bNumItems[6] : return 6;
+                case this.bNumItems[7] : return 7;
                 default: return 0;
             }
         },
     },
     methods:{
+        getConfig(){
+            axios.post('http://alldayfootball.co.kr/api/config/findone',{
+                id:"60e246fb2145564307fa6265"
+            })
+            .then((res)=>{
+                var menuList = [];
+                for(var i =0; i<res.data.info.length; i++){
+                    if(res.data.info[i].to==='subMenu'){
+                        for(var o = 0; o<res.data.info[i].subMenu.length; o++){
+                            menuList.push(res.data.res.data.info[i].subMenu[o].title);
+                        }
+                    }
+                    else{
+                         menuList.push(res.data.res.data.info[i].title);
+                    }
+                }
+                this.bNumItems = menuList;
+                axios.get('http://alldayfootball.co.kr/api/auth/check')
+                .then((res)=>{
+                this.author=res.data.info.id
+                })
+                    var n = parseInt(this.$route.query.num);
+                    // console.log(n);
+                    axios.post('http://alldayfootball.co.kr/api/board/findone',{
+                        seq:n
+                    })
+                    .then((res)=>{
+                        this.id = res.data._id;
+                        this.title = res.data.title;
+                        // this.author = res.data.author;
+                        this.findSelect(res.data.bNum);
+                        this.editor.value = res.data.contents;
+                    })
+            })
+        },
         findSelect(n){
             switch(n){
-                case 0 :  this.select ='k1'; break;
-                case 1 :  this.select ='k2'; break;
-                case 2 :  this.select ='k3'; break;
-                case 3 :  this.select ='k4'; break;
-                case 4 :  this.select ='k5'; break;
-                case 5 :  this.select ='인터뷰'; break;
-                case 6 :  this.select ='스포츠 칼럼'; break;
-                case 7 :  this.select ='k리그결과'; break;
-                default:  this.select ='k1'; break;
+                case 0 :  this.select =this.bNumItems[0]; break;
+                case 1 :  this.select =this.bNumItems[1]; break;
+                case 2 :  this.select =this.bNumItems[2]; break;
+                case 3 :  this.select =this.bNumItems[3]; break;
+                case 4 :  this.select =this.bNumItems[4]; break;
+                case 5 :  this.select =this.bNumItems[5]; break;
+                case 6 :  this.select =this.bNumItems[6]; break;
+                case 7 :  this.select =this.bNumItems[7]; break;
+                default:  this.select =this.bNumItems[0]; break;
             }
             // console.log(this.select);
         },
