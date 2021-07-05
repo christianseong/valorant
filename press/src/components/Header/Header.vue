@@ -41,28 +41,28 @@
             </v-col>
             <v-col cols="12">
                 <v-card v-if="!this.$vuetify.breakpoint.mdAndDown" class="d-flex justify-center" height="55" width="100%" color="#0C9045">
-                    <div style="width:100%;" class="d-flex">
-                        <v-menu open-on-hover offset-y>
+                    <div class="d-flex mx-auto" v-for="(i,idx) in menuList" :key="idx">
+                        <v-menu v-if="i.to==='subMenu'" open-on-hover offset-y>
                             <template v-slot:activator="{ on, attrs }">
-                                <v-tab :ripple="false" style="text-decoration: none;" to="/Articlelist?name=k1" class="d-flex align-center justify-center pl-10" v-bind="attrs" v-on="on">
-                                    <p style="color:white;" class="headerText">집중 취재 <v-icon small color="white">mdi-chevron-down</v-icon></p>
+                                <v-tab :ripple="false" style="text-decoration: none;" to="/Articlelist?name=k1" class="d-flex align-center justify-center" v-bind="attrs" v-on="on">
+                                    <p style="color:white;" class="headerText">{{i.title}}<v-icon small color="white">mdi-chevron-down</v-icon></p>
                                 </v-tab>
                             </template>
                             <v-list :rounded="false" color="#0C9045">
-                                <v-list-item v-for="(i, index) in subMenu" :key="index" class="d-flex pa-0">
-                                    <v-card :rounded="false" elevation="0" color="#0C9045" height="100%" width="100%" class="py-2" :to="i.to">
+                                <v-list-item v-for="(i, index) in i.subMenu" :key="index">
+                                    <v-card class="px-3" :rounded="false" elevation="0" color="#0C9045" height="100%" width="100%" :to="i.to">
                                         <p style="text-align:center; color:white;" class="headerText">{{ i.title }}</p>
                                     </v-card>
                                 </v-list-item>
                             </v-list>
                         </v-menu>
-                    <v-tab style="text-decoration: none;" :ripple="false" :to="i.to" class="d-flex align-center pa-0 mx-auto" v-for="i in menuList" :key="i.title">
-                        <p style="color:white;" class="headerText">{{i.title}}</p>
-                    </v-tab>
+                        <v-tab v-else style="text-decoration: none;" :ripple="false" :to="i.to" class="d-flex align-center pa-0 mx-auto">
+                            <p style="color:white;" class="headerText">{{i.title}}</p>
+                        </v-tab>
+                    </div>
                     <v-tab style="text-decoration: none;" :ripple="false" @click="toShop" class="d-flex align-center pa-0 mx-auto">
                         <p style="color:white;" class="headerText">스포츠 용품</p>
                     </v-tab>
-                    </div>
                     <div class="d-flex align-center pt-1 px-3">
                         <v-text-field @keypress.enter="clickSearch" v-model="search" label="검색" height="35" background-color="white" solo hide-details>
                             <template v-slot:append-outer>
@@ -88,23 +88,22 @@
 </template>
 
 <script>
+import axios from 'axios'
+axios.defaults.headers['Pragma'] = 'no-cache';
 export default {
     data(){
         return{
             search:'',
             menuList:[
+                {title:'집중취재', to:'subMenu'},
                 {title:'인터뷰', to:'/Articlelist?name=interview'},
                 {title:'스포츠 칼럼', to:'/Articlelist?name=column'},
-                {title:'K리그 경기결과', to:'/Articlelist?name=kresult'},
-            ],
-            subMenu:[
-                {title:'K1 리그',to:"/Articlelist?name=k1"},
-                {title:'K2 리그',to:"/Articlelist?name=k2"},
-                {title:'K3 리그',to:"/Articlelist?name=k3"},
-                {title:'K4 리그',to:"/Articlelist?name=k4"},
-                {title:'K5 리그',to:"/Articlelist?name=k5"},
+                {title:'K리그 경기결과', to:'/Articlelist?name=kresult'}
             ]
         }
+    },
+    created(){
+        this.getConfig();
     },
     computed:{
         HeaderWidth(){  
@@ -119,6 +118,14 @@ export default {
         },
     },
     methods:{
+        getConfig(){
+            axios.post('http://alldayfootball.co.kr/api/config/findone',{
+                id:"60e246fb2145564307fa6265"
+            })
+            .then((res)=>{
+                this.menuList = res.data.info.menuList;
+            })
+        },
         clickSearch(){
             if(this.$route.query.name!=`/Articlelist?name=search&word=${this.search}`) this.$router.push(`/Articlelist?name=search&word=${this.search}`)
         },

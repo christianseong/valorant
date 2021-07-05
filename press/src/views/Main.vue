@@ -220,7 +220,7 @@ export default {
             for(var o = 0; o<3; o++){
               if(res.data[i].seq==this.mainArt[o]){
                 this.boardResultMain[o] = res.data[i];
-                console.log(res.data[i].seq,this.mainArt[o]);
+                // console.log(res.data[i].seq,this.mainArt[o]);
               }
             }
           }

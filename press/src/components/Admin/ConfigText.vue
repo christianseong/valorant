@@ -151,12 +151,83 @@
                 <v-col cols="auto">
                     <v-text-field solo v-model="mainArt2" label="세번째 기사" hide-details></v-text-field>
                 </v-col>
-
+            </v-row>
             <v-row>
                 <v-col class="d-flex justify-center" cols="12">
                     <v-btn class="ma-3" @click="clickEdit2" color="#509F3F"><v-icon color="white">mdi-upload</v-icon><p class="subText" style="color:white;">수정하기</p></v-btn>
                 </v-col>
             </v-row>
+        </v-expansion-panel-content>
+        </v-expansion-panel>
+
+        <v-expansion-panel class="my-5">
+        <v-expansion-panel-header><p class="mainSubText">메뉴문구 수정</p></v-expansion-panel-header>
+        <v-expansion-panel-content>
+            <div :style="{width:HeaderWidth}" class="Header mx-auto">
+                <v-row no-gutters>
+                    <v-col cols="12">
+                        <v-card v-if="!this.$vuetify.breakpoint.mdAndDown" class="d-flex justify-center" height="55" width="100%" color="#0C9045">
+                            <div class="d-flex mx-auto" v-for="(i,idx) in menuList" :key="idx">
+                                <v-menu v-if="i.to==='subMenu'" open-on-hover offset-y>
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-tab :ripple="false" style="text-decoration: none;" to="/Articlelist?name=k1" class="d-flex align-center justify-center" v-bind="attrs" v-on="on">
+                                            <p style="color:white;" class="headerText">{{i.title}}<v-icon small color="white">mdi-chevron-down</v-icon></p>
+                                        </v-tab>
+                                    </template>
+                                    <v-list :rounded="false" color="#0C9045">
+                                        <v-list-item v-for="(i, index) in i.subMenu" :key="index">
+                                            <v-card class="px-3" :rounded="false" elevation="0" color="#0C9045" height="100%" width="100%" :to="i.to">
+                                                <p style="text-align:center; color:white;" class="headerText">{{ i.title }}</p>
+                                            </v-card>
+                                        </v-list-item>
+                                    </v-list>
+                                </v-menu>
+                                <v-tab v-else style="text-decoration: none;" :ripple="false" :to="i.to" class="d-flex align-center pa-0 mx-auto">
+                                    <p style="color:white;" class="headerText">{{i.title}}</p>
+                                </v-tab>
+                            </div>
+                            <v-tab style="text-decoration: none;" :ripple="false" @click="toShop" class="d-flex align-center pa-0 mx-auto">
+                                <p style="color:white;" class="headerText">스포츠 용품</p>
+                            </v-tab>
+                            <div class="d-flex align-center pt-1 px-3">
+                                <v-text-field @keypress.enter="clickSearch" v-model="search" label="검색" height="35" background-color="white" solo hide-details>
+                                    <template v-slot:append-outer>
+                                        <v-btn color="white" @click="clickSearch" class="pb-2" icon><v-icon>mdi-magnify</v-icon></v-btn>
+                                    </template>
+                                </v-text-field>
+                            </div>
+                        </v-card>
+                        <v-card v-if="this.$vuetify.breakpoint.mdAndDown" class="d-flex justify-space-around" height="55" color="#0C9045">
+                            <v-app-bar-nav-icon class="my-auto ml-2" color="white" @click="OpenDrawer"></v-app-bar-nav-icon>
+                            <v-spacer></v-spacer>
+                            <div class="d-flex align-center pt-1">
+                                <v-text-field @keypress.enter="clickSearch" v-model="search" label="검색" height="35" background-color="white" solo hide-details>
+                                    <template v-slot:append-outer>
+                                        <v-btn small color="white" @click="clickSearch" class="mr-2 pb-2" icon><v-icon>mdi-magnify</v-icon></v-btn>
+                                    </template>
+                                </v-text-field>
+                            </div>
+                        </v-card>
+                    </v-col>
+                </v-row>
+            </div>
+            <v-row v-for ="(i,idx) in menuList" :key="idx" class="mt-15 d-flex align-center" no-gutters>
+                <v-col class="mx-5" lg="2" cols="12">
+                    <p class="sliderTitleText">메뉴{{idx}}:</p>
+                </v-col>
+                <v-col cols="auto">
+                    <v-text-field solo v-model="i.title" label="menu1" hide-details></v-text-field>
+                    <div class="mt-2 mb-10" v-if="i.to==='subMenu'">
+                        <p class="sliderTitleText my-2">하단 드랍메뉴▼</p>
+                        <v-text-field class="my-1" v-for="(i,idx) in i.subMenu" :key="idx" solo v-model="i.title" label="menu1" hide-details></v-text-field>
+                    </div>
+                </v-col>
+            </v-row>
+
+            <v-row>
+                <v-col class="d-flex justify-center" cols="12">
+                    <v-btn class="ma-3" @click="clickEdit3" color="#509F3F"><v-icon color="white">mdi-upload</v-icon><p class="subText" style="color:white;">수정하기</p></v-btn>
+                </v-col>
             </v-row>
         </v-expansion-panel-content>
         </v-expansion-panel>
@@ -177,7 +248,7 @@ export default {
     },
     data(){
         return{
-            panel: [0,1],
+            panel: [0,1,2,3],
             email:"",
             tel:"",
             pub:"",
@@ -187,7 +258,12 @@ export default {
             mainArt0:0,
             mainArt1:1,
             mainArt2:2,
-            
+            menuList:[
+                {title:'집중취재', to:'subMenu'},
+                {title:'인터뷰', to:'/Articlelist?name=interview'},
+                {title:'스포츠 칼럼', to:'/Articlelist?name=column'},
+                {title:'K리그 경기결과', to:'/Articlelist?name=kresult'}
+            ]
         }
     },
     mounted() {
@@ -246,6 +322,18 @@ export default {
                 }
             })
         },
+        clickEdit3(){
+            axios.put('http://alldayfootball.co.kr/api/config/edit',{
+                id:"60e246fb2145564307fa6265",
+                info:this.info3
+            })
+            .then((res)=>{
+                if(res.data==="updated"){
+                    alert('수정되었습니다.');
+                    location.reload();
+                }
+            })
+        },
         getConfig(){
         axios.get('http://alldayfootball.co.kr/api/config/find')
         .then((res)=>{
@@ -258,6 +346,7 @@ export default {
             this.mainArt0 = res.data[1].info[0];
             this.mainArt1 = res.data[1].info[1];
             this.mainArt2 = res.data[1].info[2];
+            this.menuList = res.data[2].info.menuList;
         })
         },
     },
@@ -268,6 +357,9 @@ export default {
         info2(){
             return [this.mainArt0,this.mainArt1,this.mainArt2];
         },
+        info3(){
+            return this.menuList;
+        }
     },
 }
 </script>

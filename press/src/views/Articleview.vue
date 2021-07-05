@@ -11,11 +11,9 @@
         <v-col class="my-3" cols="12">
             <p class="articleTitleText">{{title}}</p>
         </v-col>
-        <v-col cols="auto my-3">
+        <v-col class="d-flex" lg="auto" cols="12 my-3">
             <p class="articleTinyText"><v-icon class="mx-1" x-small>mdi-account</v-icon>{{author}}</p>
-        </v-col>
         <v-divider style="height:10px;" class="mx-2 my-auto" vertical></v-divider>
-        <v-col cols="auto my-3">
             <p class="articleTinyText"><v-icon class="mr-1" x-small>mdi-clock-time-three-outline</v-icon>{{regTime.slice(0,16).replace('T','｜')}}</p>
         </v-col>
         <v-spacer></v-spacer>
@@ -28,7 +26,7 @@
                 </template>
                 <span>URL 공유하기</span>
             </v-tooltip>
-            <v-tooltip top>
+            <v-tooltip v-if="!this.$vuetify.breakpoint.mdAndDown" top>
                 <template v-slot:activator="{ on, attrs }">
                     <v-btn elevation="0" icon color="grey" width="32" height="32" @click="print" v-bind="attrs" v-on="on">
                         <v-icon color="black" small>mdi-printer</v-icon>
@@ -66,8 +64,8 @@
                         <v-card outlined height="75" width="75" color="rgba(88,211,88,.2)" rounded="circle">
                             <v-img width="100%" height="100%" :src="photo"></v-img>
                         </v-card>
-                        <p class="mx-5 articleTitleText">{{name}} 기자</p>
-                        <p class="mx-5 sliderSubText">제보: {{email}}</p>
+                        <p class="mx-3 articleTitleText">{{name}}<span v-if="!this.$vuetify.breakpoint.mdAndDown"> 기자</span></p>
+                        <p class="mx-3 sliderSubText">제보: {{email}}</p>
                     </v-card>
                 </v-col>
             </v-row>
