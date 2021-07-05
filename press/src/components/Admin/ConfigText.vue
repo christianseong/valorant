@@ -259,14 +259,14 @@ export default {
             mainArt1:1,
             mainArt2:2,
             menuList:[
-                {title:'집중취재', to:'subMenu'},
+                {title:'집중취재', to:'subMenu', subMenu:{title:'k1',to:'/Articlelist?name=k1'} },
                 {title:'인터뷰', to:'/Articlelist?name=interview'},
                 {title:'스포츠 칼럼', to:'/Articlelist?name=column'},
                 {title:'K리그 경기결과', to:'/Articlelist?name=kresult'}
             ]
         }
     },
-    mounted() {
+    created() {
         this.getConfig();
         this.panel = [];
     },
@@ -325,7 +325,7 @@ export default {
         clickEdit3(){
             axios.put('http://alldayfootball.co.kr/api/config/edit',{
                 id:"60e246fb2145564307fa6265",
-                info:this.info3
+                info:this.menuList
             })
             .then((res)=>{
                 if(res.data==="updated"){
@@ -356,9 +356,6 @@ export default {
         },
         info2(){
             return [this.mainArt0,this.mainArt1,this.mainArt2];
-        },
-        info3(){
-            return this.menuList;
         }
     },
 }

@@ -154,6 +154,7 @@ export default {
         Timeline,
     },
     created(){
+        this.getConfig();
         this.getBoard();
     },
     data(){
@@ -169,6 +170,7 @@ export default {
             contents:null,
             parent:null,
             regTime:'',
+            menuList:[],
             // comments:[{parent:-1,author:"",contents:"",password:"",regTime:""}],
             // cmtName:'',
             // cmtPassword:'',
@@ -263,6 +265,14 @@ export default {
         //         this.pLength = res.data.totalPages;
         //     })
         // },
+        getConfig(){
+            axios.post('http://alldayfootball.co.kr/api/config/findone',{
+                id:"60e246fb2145564307fa6265"
+            })
+            .then((res)=>{
+                this.menuList = res.data.info.menuList;
+            })
+        },
         getBoard(){
             var n = parseInt(this.$route.query.num);
             axios.post('http://alldayfootball.co.kr/api/board/findone',{
@@ -347,14 +357,14 @@ export default {
     computed:{
         queryTitle(){
             switch(this.bNum){
-                case 0 :return 'K1 리그';
-                case 1 :return 'K2 리그';
-                case 2 :return 'K3 리그';
-                case 3 :return 'K4 리그';
-                case 4 :return 'K5 리그';
-                case 5 :return '인터뷰';
-                case 6 :return '스포츠 칼럼';
-                case 7 :return 'K리그 경기 결과';
+                case 0 :return this.menuList[0].subMenu[0].title;
+                case 1 :return this.menuList[0].subMenu[1].title;
+                case 2 :return this.menuList[0].subMenu[2].title;
+                case 3 :return this.menuList[0].subMenu[3].title;
+                case 4 :return this.menuList[0].subMenu[4].title;
+                case 5 :return this.menuList[1].title;
+                case 6 :return this.menuList[2].title;
+                case 7 :return this.menuList[3].title;
                 default : return 'title'
             }
         },
@@ -362,10 +372,10 @@ export default {
     watch:{
         $route(){
             this.getBoard();
-            this.getComment();
+            // this.getComment();
         },
         page(){
-            this.getComment();
+            // this.getComment();
         },
     },
 

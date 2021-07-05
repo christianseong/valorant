@@ -134,9 +134,11 @@ export default {
             toggle:0,
             page:1,
             bLength:10,
+            menuList:[],
         }
     },
-    mounted(){
+    created(){
+        this.getConfig();
         switch(this.$route.query.name){
         case 'k1' : this.takeBoard(0); break;
         case 'k2' : this.takeBoard(1); break;
@@ -151,6 +153,14 @@ export default {
         }
     },
     methods:{
+        getConfig(){
+            axios.post('http://alldayfootball.co.kr/api/config/findone',{
+                id:"60e246fb2145564307fa6265"
+            })
+            .then((res)=>{
+                this.menuList = res.data.info.menuList;
+            })
+        },
         takeBoard(Num){
             if(Num===8)
             {
@@ -211,14 +221,14 @@ export default {
         },
         queryTitle(){
             switch(this.$route.query.name){
-                case 'k1' :return 'K1 리그';
-                case 'k2' :return 'K2 리그';
-                case 'k3' :return 'K3 리그';
-                case 'k4' :return 'K4 리그';
-                case 'k5' :return 'K5 리그';
-                case 'interview' :return '인터뷰';
-                case 'column' :return '스포츠 칼럼';
-                case 'kresult' :return 'K리그 경기 결과';
+                case 'k1' :return this.menuList[0].subMenu[0].title;
+                case 'k2' :return this.menuList[0].subMenu[1].title;
+                case 'k3' :return this.menuList[0].subMenu[2].title;
+                case 'k4' :return this.menuList[0].subMenu[3].title;
+                case 'k5' :return this.menuList[0].subMenu[4].title;
+                case 'interview' :return this.menuList[1].title;
+                case 'column' :return this.menuList[2].title;
+                case 'kresult' :return this.menuList[3].title;
                 case 'search' :return '검색 결과';
                 default : return 'title'
             }
