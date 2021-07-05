@@ -145,6 +145,7 @@
 </template>
 
 <script>
+import bus from '@/utils/bus.js'
 import axios from 'axios'
 axios.defaults.headers['Pragma'] = 'no-cache';
 import Timeline from '@/components/Timeline.vue'
@@ -170,7 +171,12 @@ export default {
             contents:null,
             parent:null,
             regTime:'',
-            menuList:[],
+            menuList:[
+                {title:'집중취재', to:'subMenu', subMenu:[{title:'k1',to:'/Articlelist?name=k1'}]},
+                {title:'인터뷰', to:'/Articlelist?name=interview'},
+                {title:'스포츠 칼럼', to:'/Articlelist?name=column'},
+                {title:'K리그 경기결과', to:'/Articlelist?name=kresult'}
+            ],
             // comments:[{parent:-1,author:"",contents:"",password:"",regTime:""}],
             // cmtName:'',
             // cmtPassword:'',
@@ -287,6 +293,7 @@ export default {
                 this.regTime = res.data.regTime;
                 this.getAuthor();
                 this.addViews();
+                bus.$emit('end:loading');
             })
         },
         getAuthor(){

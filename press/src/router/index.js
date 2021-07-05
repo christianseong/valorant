@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import axios from 'axios'
+axios.defaults.headers['Pragma'] = 'no-cache';
+import bus from '../utils/bus'
 
 Vue.use(VueRouter)
 
@@ -8,12 +10,20 @@ const routes = [
   {
     path: '/',
     name: 'Main',
-    component: () => import('../views/Main.vue')
+    component: () => import('../views/Main.vue'),
+    beforeEnter: (to,from,next) => {
+      bus.$emit('start:loading');
+      setTimeout( ()=>{next()},0 );
+    },
   },
   {
     path: '/introduce',
     name: 'Introduce',
     component: () => import('../views/Introduce.vue'),
+    beforeEnter: (to,from,next) => {
+      bus.$emit('start:loading');
+      setTimeout( ()=>{next()},0 );
+    },
     children: [
       {
         path: '/',
@@ -35,12 +45,20 @@ const routes = [
   {
     path: '/articleList',
     name: 'Articlelist',
-    component: () => import('../views/Articlelist.vue')
+    component: () => import('../views/Articlelist.vue'),
+    beforeEnter: (to,from,next) => {
+      bus.$emit('start:loading');
+      setTimeout( ()=>{next()},0 );
+    },
   },
   {
     path: '/articleView',
     name: 'Articleview',
-    component: () => import('../views/Articleview.vue')
+    component: () => import('../views/Articleview.vue'),
+    beforeEnter: (to,from,next) => {
+      bus.$emit('start:loading');
+      setTimeout( ()=>{next()},0 );
+    },
   },
   {
     path: '/login',

@@ -15,20 +15,24 @@
       </div> -->
       <Footer v-if="!isAdmin"/>
     </v-main>
+    <Loading/>
   </v-app>
 </div>
 </template>
 
 <script>
+import bus from '@/utils/bus.js'
 import Header from '@/components/Header/Header.vue'
 import Footer from '@/components/Footer.vue'
 import Drawer from '@/components/Drawer.vue'
+import Loading from '@/components/Loading.vue'
 export default {
   name: 'App',
   components:{
     Drawer,
     Header,
-    Footer
+    Footer,
+    Loading,
   },
   data(){
     return{
@@ -36,9 +40,25 @@ export default {
       adTop:0,
     }
   },
+  created(){
+    bus.$on('start:loading',()=>{this.loading=true; });
+    bus.$on('end:loading',()=>{this.loading=false});
+  },
+  beforeDestroy(){ 
+    bus.$off('start:loading');
+    bus.$off('end:loading');
+  },
   mounted(){
   },
   computed:{
+    loading:{ // 로딩 스토어에서 불러오는거 ㅇㅅㅇ //
+      get(){
+        return this.$store.state.loading;
+      },
+      set(bool){
+        this.$store.commit('set_loading',bool);
+      },
+    },
     ContentWidth(){  
       if(window.location.href.includes('admin')){
           switch(this.$vuetify.breakpoint.name){

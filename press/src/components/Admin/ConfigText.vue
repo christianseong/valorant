@@ -259,15 +259,17 @@ export default {
             mainArt1:1,
             mainArt2:2,
             menuList:[
-                {title:'집중취재', to:'subMenu', subMenu:{title:'k1',to:'/Articlelist?name=k1'} },
+                {title:'집중취재', to:'subMenu', subMenu:[{title:'k1',to:'/Articlelist?name=k1'}]},
                 {title:'인터뷰', to:'/Articlelist?name=interview'},
                 {title:'스포츠 칼럼', to:'/Articlelist?name=column'},
                 {title:'K리그 경기결과', to:'/Articlelist?name=kresult'}
-            ]
+            ],
         }
     },
-    mounted() {
+    created() {
         this.getConfig();
+    },
+    mounted() {
         this.panel = [];
     },
     methods:{
