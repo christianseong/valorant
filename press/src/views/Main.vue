@@ -118,7 +118,6 @@
 </template>
 
 <script>
-import bus from '@/utils/bus.js'
 import axios from 'axios'
 axios.defaults.headers['Pragma'] = 'no-cache';
 export default {
@@ -197,7 +196,6 @@ export default {
         this.takeBoard();
         this.takeBoardViews();
         this.takeMainBoard();
-        bus.$emit('end:loading')
       })
     },
     takeBoard(){

@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import bus from '@/utils/bus.js'
 import IntroduceHeader from '@/components/Introduce/IntroduceHeader'
 import IntroduceFooter from '@/components/Introduce/IntroduceFooter'
 export default {
@@ -16,7 +15,6 @@ export default {
         IntroduceFooter,
     },
     mounted(){
-        bus.$emit('end:loading');
     }
 }
 </script>

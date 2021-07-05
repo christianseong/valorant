@@ -21,25 +21,29 @@
     
     <!-- 메뉴 부분 ㅇㅅㅇ -->
       <v-list nav>
-        <v-list-item class="custom justify-center">
-          <v-list-group color="transparent" :value="true">
-              <template slot="appendIcon">
-                <v-icon color="white">mdi-chevron-down</v-icon>
-            </template>
-            <template v-slot:activator>
-              <v-list-item-title style="color:white; text-align:center;" class="subText ma-0 ml-8">집중 취재</v-list-item-title>
-            </template>
-            <v-list-item-content v-for="(i,idx) in subMenu" :key="idx">
-              <v-list-item-title @click="gotoList(i.to)" style="color:white; text-align:center;" class="subText">{{i.title}}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-group>
-        </v-list-item>
-        
-        <v-list-item v-for="item in menuList" :key="item.title" link :to="item.to">
-        <v-list-item-content>
-          <v-list-item-title style="color:white; text-align:center;" class="subText"><p>{{ item.title }}</p></v-list-item-title>
-        </v-list-item-content>
-        </v-list-item>
+        <div v-for="(i,idx) in menuList" :key="idx">
+          <v-list-item v-if="i.to==='subMenu'" class="custom justify-center">
+            <v-list-group color="transparent" :value="true">
+                <template slot="appendIcon">
+                  <v-icon color="white">mdi-chevron-down</v-icon>
+              </template>
+              <template v-slot:activator>
+                <v-list-item-title style="color:white; text-align:center;" class="subText ma-0 ml-8">집중 취재</v-list-item-title>
+              </template>
+              <v-list-item-content v-for="(i,idx) in i.subMenu" :key="idx">
+                <v-list-item-title @click="gotoList(i.to)" style="color:white; text-align:center; cursor:pointer;" class="subText">{{i.title}}</v-list-item-title>
+              </v-list-item-content>
+            </v-list-group>
+          </v-list-item>
+
+          <v-list-item v-else :to="i.to">
+          <v-list-item-content>
+            <v-list-item-title style="color:white; text-align:center;" class="subText"><p>{{ i.title }}</p></v-list-item-title>
+          </v-list-item-content>
+          </v-list-item>
+        </div>
+
+
         <v-list-item link>
         <v-list-item-content>
           <v-list-item-title @click="toShop" style="color:white; text-align:center;" class="subText"><p>스포츠 용품 쇼핑물</p></v-list-item-title>
@@ -85,25 +89,33 @@
 </template>
 
 <script>
+import axios from 'axios'
+axios.defaults.headers['Pragma'] = 'no-cache';
 export default {
   data(){
     return{
       menuList:[
+        {title:'집중취재', to:'subMenu', subMenu:[{title:'k1',to:'/Articlelist?name=k1'}]},
         {title:'인터뷰', to:'/Articlelist?name=interview'},
         {title:'스포츠 칼럼', to:'/Articlelist?name=column'},
-        {title:'K리그 경기결과', to:'/Articlelist?name=kresult'},
-      ],
-      subMenu:[
-        {title:'K1 리그',to:"/Articlelist?name=k1"},
-        {title:'K2 리그',to:"/Articlelist?name=k2"},
-        {title:'K3 리그',to:"/Articlelist?name=k3"},
-        {title:'K4 리그',to:"/Articlelist?name=k4"},
-        {title:'K5 리그',to:"/Articlelist?name=k5"},
+        {title:'K리그 경기결과', to:'/Articlelist?name=kresult'}
       ],
       // drawerBood
     }
   },
+  created(){
+    this.getConfig();
+  },
   methods:{
+    getConfig(){
+        axios.post('http://alldayfootball.co.kr/api/config/findone',{
+            id:"60e246fb2145564307fa6265"
+        })
+        .then((res)=>{
+            console.log(res.data.info);
+            this.menuList = res.data.info;
+        })
+    },
     gotoList(to){
       location.href=to;
     },

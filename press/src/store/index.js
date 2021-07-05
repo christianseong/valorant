@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     drawerBool:false,
     adminDrawerBool:true,
-    loading:true,
+    // loading:true,
   },
   mutations: {
     set_drawerBool(state,bool){
@@ -16,9 +16,9 @@ export default new Vuex.Store({
     set_adminDrawerBool(state,bool){
       state.adminDrawerBool = bool;
     },
-    set_loading(state,bool){
-      state.loading = bool;
-    },
+    // set_loading(state,bool){
+    //   state.loading = bool;
+    // },
   },
   actions: {
   },
