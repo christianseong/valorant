@@ -123,7 +123,8 @@ export default {
                 id:"60e246fb2145564307fa6265"
             })
             .then((res)=>{
-                this.menuList = res.data.info.menuList;
+                console.log(res.data.info);
+                this.menuList = res.data.info;
             })
         },
         clickSearch(){

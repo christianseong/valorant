@@ -266,7 +266,7 @@ export default {
             ]
         }
     },
-    created() {
+    mounted() {
         this.getConfig();
         this.panel = [];
     },
@@ -346,7 +346,7 @@ export default {
             this.mainArt0 = res.data[1].info[0];
             this.mainArt1 = res.data[1].info[1];
             this.mainArt2 = res.data[1].info[2];
-            this.menuList = res.data[2].info.menuList;
+            this.menuList = res.data[2].info;
         })
         },
     },
