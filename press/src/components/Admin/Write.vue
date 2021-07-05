@@ -148,11 +148,11 @@ export default {
                 for(var i =0; i<res.data.info.length; i++){
                     if(res.data.info[i].to==='subMenu'){
                         for(var o = 0; o<res.data.info[i].subMenu.length; o++){
-                            menuList.push(res.data.res.data.info[i].subMenu[o].title);
+                            menuList.push(res.data.info[i].subMenu[o].title);
                         }
                     }
                     else{
-                         menuList.push(res.data.res.data.info[i].title);
+                         menuList.push(res.data.info[i].title);
                     }
                 }
                 this.bNumItems = menuList;
