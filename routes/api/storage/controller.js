@@ -2,8 +2,8 @@ const AWS = require('aws-sdk');
 const fs = require('fs');
 const endpoint = new AWS.Endpoint('https://kr.object.ncloudstorage.com');
 const region = 'kr-standard';
-const access_key = 'gTz18PMf0zACljtTdg7Z';
-const secret_key = 'jGe4vBybbOKaMOBBsW0MgCsmz8W1IDaPtK3r8zdm';
+const access_key = 'WMlX7wutfG9jioViuOG3';
+const secret_key = 'WhLLLt4SPgZztLYEHJ5wNEnAHvKRvFxSriIpLACZ';
 const jwt = require('jsonwebtoken')
 
 
