@@ -37,7 +37,7 @@
                         </template>
                         <span>스포츠 용품</span>
                     </v-tooltip>
-              </v-card>
+            </v-card>
             </v-col>
             <v-col cols="12">
                 <v-card v-if="!this.$vuetify.breakpoint.mdAndDown" class="d-flex justify-center" height="55" width="100%" color="#0C9045">

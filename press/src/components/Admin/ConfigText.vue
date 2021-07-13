@@ -341,19 +341,19 @@ export default {
             })
         },
         getConfig(){
-        axios.get('http://alldayfootball.co.kr/api/config/find')
-        .then((res)=>{
-            this.email = res.data[0].info.email;
-            this.tel = res.data[0].info.tel;
-            this.pub = res.data[0].info.pub;
-            this.edi = res.data[0].info.edi;
-            this.pol = res.data[0].info.pol;
-            this.add = res.data[0].info.add;
-            this.mainArt0 = res.data[1].info[0];
-            this.mainArt1 = res.data[1].info[1];
-            this.mainArt2 = res.data[1].info[2];
-            this.menuList = res.data[2].info;
-        })
+            axios.get('http://alldayfootball.co.kr/api/config/find')
+            .then((res)=>{
+                this.email = res.data[0].info.email;
+                this.tel = res.data[0].info.tel;
+                this.pub = res.data[0].info.pub;
+                this.edi = res.data[0].info.edi;
+                this.pol = res.data[0].info.pol;
+                this.add = res.data[0].info.add;
+                this.mainArt0 = res.data[1].info[0];
+                this.mainArt1 = res.data[1].info[1];
+                this.mainArt2 = res.data[1].info[2];
+                this.menuList = res.data[2].info;
+            })
         },
     },
     computed:{
