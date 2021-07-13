@@ -1,0 +1,394 @@
+<template>
+  <div id="Main">
+    
+    <v-row class="mx-auto my-10" style="max-width:1264px;" no-gutters>
+      <v-col cols="12">
+        <v-carousel cycle interval="5000" :height="mobileHeight2" hide-delimiter-background delimiter-icon="mdi-soccer black rounded-xl" class="mt-8 custumCarousel">
+
+          <template v-slot:prev="{ on, attrs }">
+            <v-btn icon v-bind="attrs" v-on="on"><v-icon >mdi-chevron-left</v-icon></v-btn>
+          </template>
+          <template v-slot:next="{ on, attrs }">
+            <v-btn icon v-bind="attrs" v-on="on"><v-icon>mdi-chevron-right</v-icon></v-btn>
+          </template>
+
+          <!-- <div style="position:absolute; width:100%; height:100%;">
+            <v-card style="z-index:2;" color="rgba(0,0,0,.2)" width="100%">
+              <p class="ml-1">someText</p>
+            </v-card>
+          </div> -->
+
+          <v-carousel-item>
+            <v-card width="100%" height="100%" color="#eff2f5"><v-img contain height="100%" src="http://v2.alldayfootball.net/img/banner/f1bd01416d4a3b24e549258a49bbbb97.jpg"></v-img></v-card>
+          </v-carousel-item>
+
+          <v-carousel-item>
+            <v-card width="100%" height="100%" color="#eff2f5"><v-img contain height="100%" src="http://v2.alldayfootball.net/img/banner/048bfa847374327b2b3147235b26a061.jpg"></v-img></v-card>
+          </v-carousel-item>
+
+        </v-carousel>
+      </v-col>
+    </v-row>
+
+    <v-row class="ad mx-auto my-5" style="max-width:1264px; background-color:#eff2f5; border-top:1px solid #dce4ec; border-bottom:1px solid #dce4ec;" no-gutters>
+      <v-col cols="12">
+        <div style="width:100%; height:100px; opacity:.7">
+          ad
+        </div>
+      </v-col>
+    </v-row>
+
+    <v-row class="mx-auto my-10" style="max-width:1264px;" no-gutters>
+      <v-col cols="12">
+          <p class="mainText" style="color:rgba(55,55,55,.85);"><v-icon large color="green darken-1" class="mx-1">mdi-newspaper-variant-multiple</v-icon>추천 기사</p>
+        <v-divider class="my-2" inset></v-divider>
+        </v-col>
+      <v-col cols="12" lg="8">
+        <v-card outlined elevation="0" class="d-flex align-end" :height="mobileHeight" style="width:100%;">
+          <v-card class="scopeCard" @click="goToView(boardResultMain[0].seq)" width="100%" height="100%">
+            <v-row class="d-flex align-end" style="position:absolute; z-index:2; width:100%; height:100%;" no-gutters>
+              <v-col class="mb-5 pa-5 pr-16" cols="12">
+                <p style="color:white;" class="mainText pr-16">{{boardResultMain[0].title}}</p>
+              </v-col>
+            </v-row>
+            <v-img gradient="to bottom, rgba(0,0,0,.33), rgba(0,0,0,1)" style="position:absolute;" :src="boardResultMain[0].thumb" width="100%" height="100%">
+            </v-img>
+          </v-card>
+        </v-card>
+      </v-col>
+      <v-col cols="12" lg="4">
+        <v-row no-gutters>
+          <v-col cols="6" lg="12">
+          <div class="d-flex align-end" style="width:100%; height:250px;">
+            <v-card outlined class="scopeCard" @click="goToView(boardResultMain[1].seq)" width="100%" height="100%">
+              <v-row class="d-flex align-end" style="position:absolute; z-index:2; width:100%; height:100%;" no-gutters>
+                  <v-col class="mb-5" cols="12">
+                    <p style="color:white;" class="mainSubText px-5">{{boardResultMain[1].title}}</p>
+                  </v-col>
+              </v-row>
+              <v-img gradient="to bottom, rgba(0,0,0,.33),rgba(0,0,0,.33), rgba(0,0,0,1)" style="position:absolute;" :src="boardResultMain[1].thumb" width="100%" height="100%">
+              </v-img>
+            </v-card>
+          </div>
+          </v-col>
+          <v-col cols="6" lg="12">
+            <div class="d-flex align-end" style=" width:100%; height:250px;">
+            <v-card outlined class="scopeCard" @click="goToView(boardResultMain[2].seq)" width="100%" height="100%">
+                <v-row class="d-flex align-end" style="position:absolute; z-index:2; width:100%; height:100%;" no-gutters>
+                  <v-col class="mb-5" cols="12">
+                    <p style="color:white;" class="mainSubText px-5">{{boardResultMain[2].title}}</p>
+                  </v-col>
+                </v-row>
+              <v-img gradient="to bottom, rgba(0,0,0,.33),rgba(0,0,0,.33), rgba(0,0,0,1)" style="position:absolute;" :src="boardResultMain[2].thumb" width="100%" height="100%">
+              </v-img>
+            </v-card>
+          </div>
+          </v-col>
+        </v-row>
+      </v-col>
+    </v-row>
+
+    <div class="my-10">
+        <div class="mx-auto" style="max-width:1264px;">
+          <p class="mainText" style="color:rgba(55,55,55,.85);"><v-icon large color="red" class="mx-1">mdi-newspaper-variant-multiple</v-icon>많이 본 기사</p>
+        <v-divider class="my-2" inset></v-divider>
+        </div>
+        <v-row style="background-color:#eff2f5; border-top:1px solid #dce4ec; border-bottom:1px solid #dce4ec;" no-gutters>
+          <v-col class="my-7" cols="12">
+            <v-row no-gutters class="mx-auto" style="max-width:1264px;">
+              <v-col cols="12" lg="6">
+                <v-card @click="goToView(i.seq)" class="d-flex my-2 mx-auto scopeCard2" v-for="(i,idx) in boardResultViews.slice(0,5)" :key="idx" width="95%" height="75px">
+                  <div class="d-flex align-center justify-center" style="height:100%; width:30px;">
+                   <p class="headerText red--text">{{idx+1}}</p>
+                  </div>
+                  <p class="headerText scopedText mx-5 my-auto">{{i.title}}<br><span class="sliderSubText"><v-icon color="rgba(0,0,0,.3)" class="mx-1" x-small>mdi-eye</v-icon>{{i.views}}</span></p>
+                  <v-card color="transparent" class="ml-auto mr-2 d-flex align-center" elevation="0" width="75px" height="100%"><v-img width="75px" height="50px" :src="i.thumb"></v-img></v-card>
+                </v-card>
+              </v-col>
+
+              <v-col cols="12" lg="6">
+                <v-card @click="goToView(i.seq)" class="d-flex my-2 mx-auto scopeCard2" v-for="(i,idx) in boardResultViews.slice(5,10)" :key="idx" width="95%" height="75px">
+                  <div class="d-flex align-center justify-center" style="height:100%; width:30px;">
+                   <p class="headerText red--text">{{idx+6}}</p>
+                  </div>
+                  <p class="headerText scopedText mx-5 my-auto">{{i.title}}<br><span class="sliderSubText"><v-icon color="rgba(0,0,0,.3)" class="mx-1" x-small>mdi-eye</v-icon>{{i.views}}</span></p>
+                  <v-card color="transparent" class="ml-auto mr-2 d-flex align-center" elevation="0" width="75px" height="100%"><v-img width="75px" height="50px" :src="i.thumb"></v-img></v-card>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+    </div>
+
+    <v-row class="ad mx-auto my-5" style="max-width:1264px; background-color:#eff2f5; border-top:1px solid #dce4ec; border-bottom:1px solid #dce4ec;" no-gutters>
+      <v-col cols="12">
+        <div style="width:100%; height:200px; opacity:.7">
+          ad
+        </div>
+      </v-col>
+    </v-row>
+
+    <v-row class="mx-auto my-10" style="max-width:1264px;" no-gutters>
+        <v-col cols="12">
+          <p class="mainText" style="color:rgba(55,55,55,.85);"><v-icon large color="blue" class="mx-1">mdi-update</v-icon>최신 기사</p>
+        <v-divider class="my-2" inset></v-divider>
+        </v-col>
+        <v-col v-for="(i,idx) in boardResult" :key="idx" cols="6" lg="4">
+          <div class="pa-1" style="width:100%;">
+            <v-card class="scopeCard" @click="goToView(i.seq)" width="100%" :height="mobileHeight2">
+              <v-img gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.33)" style="position:absolute;" :src="i.thumb" width="100%" height="100%"></v-img>
+              <v-card height="100%" width="100%" color="rgba(0,0,0,.2)"></v-card>
+            </v-card>
+            <v-card elevation="0" :class="{ 'px-5': !$vuetify.breakpoint.smAndDown, 'px-0': $vuetify.breakpoint.smAndDown }" class="py-1 d-flex align-end">
+              <p @click="goToView(i.seq)" class="mainSubText" style="color:black; cursor:pointer;">{{i.title}}</p>
+            </v-card>
+          </div>
+        </v-col>
+    </v-row>
+
+    <v-row class="ad mx-auto my-5" style="max-width:1264px; background-color:#eff2f5; border-top:1px solid #dce4ec; border-bottom:1px solid #dce4ec;" no-gutters>
+      <v-col cols="12">
+        <div style="width:100%; height:200px;">
+          ad
+        </div>
+      </v-col>
+    </v-row>
+
+  </div>
+</template>
+
+<script>
+export default {
+  components:{
+  },
+  data(){
+    return{
+      mainArt0:0,
+      mainArt1:1,
+      mainArt2:2,
+        boardResult:[
+          {title:'',seq:0,},
+          {title:'',seq:0,},
+          {title:'',seq:0,},
+          {title:'',seq:0,},
+          {title:'',seq:0,},
+          {title:'',seq:0,},
+          {title:'',seq:0,},
+          {title:'',seq:0,},
+          {title:'',seq:0,},
+          {title:'',seq:0,},
+          {title:'',seq:0,},
+          {title:'',seq:0,},
+        ],
+        boardResultViews:[
+          {title:'',seq:1,thumb:''},
+          {title:'',seq:2,thumb:''},
+          {title:'',seq:3,thumb:''},
+          {title:'',seq:4,thumb:''},
+          {title:'',seq:5,thumb:''},
+          {title:'',seq:6,thumb:''},
+          {title:'',seq:7,thumb:''},
+          {title:'',seq:8,thumb:''},
+          {title:'',seq:9,thumb:''},
+          {title:'',seq:10,thumb:''},
+        ],
+        boardResultMain:[
+          {title:'',seq:1,thumb:''},
+          {title:'',seq:2,thumb:''},
+          {title:'',seq:3,thumb:''},
+        ],
+    }
+  },
+  computed:{
+    mobileHeight(){
+          switch(this.$vuetify.breakpoint.name){
+            case 'xs' : return "300px";
+            case 'sm' : return "300px";
+            case 'md' : return "400px";
+            case 'lg' : return "500px";
+            case 'xl' : return "500px";
+            default : return "500px";
+        }
+    },
+    mobileHeight2(){
+      switch(this.$vuetify.breakpoint.name){
+        case 'xs' : return "125px";
+        case 'sm' : return "200px";
+        case 'md' : return "250px";
+        case 'lg' : return "250px";
+        case 'xl' : return "250px";
+        default : return "250px";
+      }
+    },
+    mainArt(){
+      return [this.mainArt0,this.mainArt1,this.mainArt2];
+    },
+  },
+  created(){
+    this.takeConfig();
+  },
+  methods:{
+    takeConfig(){
+      this.$axios.post('http://alldayfootball.co.kr/api/config/findone',{
+        id:"60d8f5569d4b9d6bafe4205e"
+      })
+      .then((res)=>{
+        this.mainArt0 = res.data.info[0];
+        this.mainArt1 = res.data.info[1];
+        this.mainArt2 = res.data.info[2];
+        this.takeBoard();
+        this.takeBoardViews();
+        this.takeMainBoard();
+      })
+    },
+    takeBoard(){
+      this.$axios.post('http://alldayfootball.co.kr/api/board/takeboard',{
+        bNum: null,
+        limit: 12,
+        page: 1,
+        word:""
+        })
+        .then((res=>{
+          this.boardResult = res.data.docs;
+          this.findThumb();
+          }))
+    },
+    takeMainBoard(){
+      this.$axios.post('http://alldayfootball.co.kr/api/board/findmain',{
+        mainArt: [this.mainArt0,this.mainArt1,this.mainArt2]
+        })
+        .then((res=>{
+          this.boardResultMain = res.data;
+          for(var i = 0; i<3; i++){
+            for(var o = 0; o<3; o++){
+              if(res.data[i].seq==this.mainArt[o]){
+                this.boardResultMain[o] = res.data[i];
+                // console.log(res.data[i].seq,this.mainArt[o]);
+              }
+            }
+          }
+          this.findThumbMain();
+          }))
+    },
+    takeBoardViews(){
+      this.$axios.post('http://alldayfootball.co.kr/api/board/takeboardviews',{
+        bNum: null,
+        limit: 10,
+        page: 1,
+        word:""
+        })
+        .then((res=>{
+          this.boardResultViews = res.data.docs;
+          this.findThumbViews();
+          this.findPretextViews();
+          }))
+    },
+
+
+    findThumb(){
+      for(var i = 0; i<this.boardResult.length; i++){
+          if(this.boardResult[i].contents.includes('<img')){
+          var tagIndex = this.boardResult[i].contents.indexOf('<img');
+          var tagSrcIndex = this.boardResult[i].contents.indexOf('src="',tagIndex+4);
+          var tagEndIndex = this.boardResult[i].contents.indexOf('"',tagSrcIndex+5);
+          this.boardResult[i].thumb = this.boardResult[i].contents.slice(tagSrcIndex+5,tagEndIndex);
+          }
+      }
+    },
+    findThumbMain(){
+      for(var i = 0; i<this.boardResultMain.length; i++){
+          if(this.boardResultMain[i].contents.includes('<img')){
+          var tagIndex = this.boardResultMain[i].contents.indexOf('<img');
+          var tagSrcIndex = this.boardResultMain[i].contents.indexOf('src="',tagIndex+4);
+          var tagEndIndex = this.boardResultMain[i].contents.indexOf('"',tagSrcIndex+5);
+          this.boardResultMain[i].thumb = this.boardResultMain[i].contents.slice(tagSrcIndex+5,tagEndIndex);
+          }
+      }
+    },
+    findThumbViews(){
+      for(var i = 0; i<this.boardResultViews.length; i++){
+          if(this.boardResultViews[i].contents.includes('<img')){
+          var tagIndex = this.boardResultViews[i].contents.indexOf('<img');
+          var tagSrcIndex = this.boardResultViews[i].contents.indexOf('src="',tagIndex+4);
+          var tagEndIndex = this.boardResultViews[i].contents.indexOf('"',tagSrcIndex+5);
+          this.boardResultViews[i].thumb = this.boardResultViews[i].contents.slice(tagSrcIndex+5,tagEndIndex);
+          }
+      }
+    },
+    findPretextViews(){
+      for(var i = 0; i<this.boardResultViews.length; i++){
+          this.boardResultViews[i].pretext = this.boardResultViews[i].contents.replace(/(<([^>]+)>|&nbsp;)/ig," ").slice(0,200)+('...');
+      }
+    },
+    goToView(num){
+      // location.href=`/articleView?num=${num}`;
+      this.$router.push(`/articleView?num=${num}`);
+    },
+  },
+
+}
+</script>
+
+<style>
+.custumCarousel .v-window__prev, .v-window__next{
+  background-color:transparent !important;
+}
+.custumCarousel .v-item--active{
+    color:rgba(55,200,55,1) !important;
+}
+.custumCarousel .v-carousel__controls__item{
+    margin:0 !important;
+}
+.custumCarousel .mdi-soccer::before {
+  font-size: 28px;
+}
+@media (max-width:960px){
+    .custumCarousel .v-carousel__controls {
+        opacity:.5;
+    }
+    .custumCarousel .v-btn--icon.v-size--small .v-icon, .v-btn--fab.v-size--small .v-icon {
+        height: 13px !important;
+        width: 13px !important;
+    }
+    .custumCarousel .v-btn--icon.v-size--small {
+        height: 13px;
+        width: 13px;
+    }
+    .custumCarousel .mdi-soccer::before {
+      font-size: 10px;
+    }
+}
+#Main .scopeCard{
+  overflow: hidden;
+}
+#Main .scopeCard:hover{
+  border: 5px solid transparent;
+  transition-duration: .3s;
+}
+#Main .scopeCard:hover .v-image__image{
+  transition-duration: .9s;
+  width:104%;
+  height: 104%;
+}
+#Main .scopeCard:hover p{
+  text-decoration: underline;
+}
+
+#Main .scopeCard2{
+  cursor: pointer;
+}
+.scopedText{
+  color:rgb(83, 83, 83);
+}
+#Main .scopeCard2:hover .scopedText{
+  color:rgb(9, 141, 57);
+  transition-duration: .3s;
+}
+#Main .scopeCard2:hover{
+  border: 1px solid rgba(100,222,100,.5);
+  transition-duration: .3s;
+}
+</style>
+
+<style scoped>
+</style>
